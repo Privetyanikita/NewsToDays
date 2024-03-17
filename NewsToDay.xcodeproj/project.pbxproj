@@ -31,6 +31,11 @@
 		847F27352BA742CB0057F627 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F27342BA742CB0057F627 /* DetailModel.swift */; };
 		847F27382BA747500057F627 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 847F27372BA747500057F627 /* SnapKit */; };
 		847F273B2BA747750057F627 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 847F273A2BA747750057F627 /* Kingfisher */; };
+		847F27412BA749FD0057F627 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 847F273C2BA749FD0057F627 /* Inter-Bold.ttf */; };
+		847F27422BA749FD0057F627 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 847F273D2BA749FD0057F627 /* Inter-Medium.ttf */; };
+		847F27432BA749FD0057F627 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 847F273E2BA749FD0057F627 /* Inter-Regular.ttf */; };
+		847F27442BA749FD0057F627 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 847F273F2BA749FD0057F627 /* Inter-SemiBold.ttf */; };
+		847F27462BA74A1A0057F627 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F27452BA74A1A0057F627 /* Font.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +63,11 @@
 		847F27302BA742B20057F627 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		847F27322BA742BE0057F627 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		847F27342BA742CB0057F627 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
+		847F273C2BA749FD0057F627 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
+		847F273D2BA749FD0057F627 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
+		847F273E2BA749FD0057F627 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
+		847F273F2BA749FD0057F627 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
+		847F27452BA74A1A0057F627 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +121,7 @@
 		847F26F92BA734D00057F627 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				847F27402BA749FD0057F627 /* Inter font */,
 				847F26ED2BA731860057F627 /* Assets.xcassets */,
 				847F26EF2BA731860057F627 /* LaunchScreen.storyboard */,
 				847F26F22BA731860057F627 /* Info.plist */,
@@ -335,6 +346,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		847F27402BA749FD0057F627 /* Inter font */ = {
+			isa = PBXGroup;
+			children = (
+				847F273C2BA749FD0057F627 /* Inter-Bold.ttf */,
+				847F273D2BA749FD0057F627 /* Inter-Medium.ttf */,
+				847F273E2BA749FD0057F627 /* Inter-Regular.ttf */,
+				847F273F2BA749FD0057F627 /* Inter-SemiBold.ttf */,
+				847F27452BA74A1A0057F627 /* Font.swift */,
+			);
+			path = "Inter font";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -401,6 +424,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847F27442BA749FD0057F627 /* Inter-SemiBold.ttf in Resources */,
+				847F27422BA749FD0057F627 /* Inter-Medium.ttf in Resources */,
+				847F27432BA749FD0057F627 /* Inter-Regular.ttf in Resources */,
+				847F27412BA749FD0057F627 /* Inter-Bold.ttf in Resources */,
 				847F26EE2BA731860057F627 /* Assets.xcassets in Resources */,
 				847F26F12BA731860057F627 /* Base in Resources */,
 			);
@@ -415,6 +442,7 @@
 			files = (
 				847F27242BA742060057F627 /* BookmarksViewController.swift in Sources */,
 				847F26E92BA731840057F627 /* HomeViewController.swift in Sources */,
+				847F27462BA74A1A0057F627 /* Font.swift in Sources */,
 				847F27142BA740210057F627 /* HomeView.swift in Sources */,
 				847F27282BA7421F0057F627 /* BookmarksModel.swift in Sources */,
 				847F271E2BA741D10057F627 /* CategoriesViewController.swift in Sources */,
