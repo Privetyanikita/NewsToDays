@@ -61,7 +61,7 @@ final class ProfileMainTableViewCell: UITableViewCell {
         profileImage.snp.makeConstraints {
             $0.width.height.equalTo(72)
             $0.top.equalToSuperview()
-            $0.left.equalToSuperview().offset(20)
+            $0.left.equalToSuperview()
         }
         profileImage.layer.cornerRadius = 36
         
@@ -69,13 +69,13 @@ final class ProfileMainTableViewCell: UITableViewCell {
             $0.width.equalTo(100)
             $0.height.equalTo(24)
             $0.top.equalToSuperview().offset(15)
-            $0.left.equalToSuperview().offset(116)
+            $0.left.equalToSuperview().offset(96)
         }
         emailLabel.snp.makeConstraints {
             $0.width.equalTo(140)
             $0.height.equalTo(24)
             $0.top.equalTo(nameLabel.snp.bottom).inset(5)
-            $0.left.equalToSuperview().offset(116)
+            $0.left.equalToSuperview().offset(96)
         }
     }
 }
