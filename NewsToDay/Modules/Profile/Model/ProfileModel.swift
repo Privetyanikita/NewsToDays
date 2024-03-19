@@ -5,4 +5,9 @@
 //  Created by NikitaKorniuk   on 17.03.2024.
 //
 
-import Foundation
+import UIKit.UIImage
+
+struct ProfileCellModel {
+    let title: String
+    let image: UIImage?
+}
