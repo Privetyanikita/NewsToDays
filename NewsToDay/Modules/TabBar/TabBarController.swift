@@ -59,10 +59,10 @@ final class TabBarController: UITabBarController {
         let bookmarksNavigation = UINavigationController(rootViewController: BookmarksViewController())
         let profileNavigation = UINavigationController(rootViewController: ProfilelViewController())
         
-        homeNavigation.tabBarItem = UITabBarItem(title: nil, image: .home.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.home.rawValue)
-        categoriesNavigation.tabBarItem = UITabBarItem(title: nil, image: .categories.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.categories.rawValue)
-        bookmarksNavigation.tabBarItem = UITabBarItem(title: nil, image: .bookmark.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.bookmarks.rawValue)
-        profileNavigation.tabBarItem = UITabBarItem(title: nil, image: .profile.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.profile.rawValue)
+        homeNavigation.tabBarItem = UITabBarItem(title: nil, image: .homeIcon.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.home.rawValue)
+        categoriesNavigation.tabBarItem = UITabBarItem(title: nil, image: .categoriesIcon.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.categories.rawValue)
+        bookmarksNavigation.tabBarItem = UITabBarItem(title: nil, image: .bookmarkIcon.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.bookmarks.rawValue)
+        profileNavigation.tabBarItem = UITabBarItem(title: nil, image: .profileIcon.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.profile.rawValue)
         
         setViewControllers([homeNavigation,
                            categoriesNavigation,
