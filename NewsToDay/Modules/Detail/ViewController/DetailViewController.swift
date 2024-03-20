@@ -138,7 +138,7 @@ class DetailViewController: UIViewController {
     
 }
 
-extension ViewController {
+extension DetailViewController {
     private func setupConstraints() {
         backgroundImageView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
