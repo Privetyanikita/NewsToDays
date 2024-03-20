@@ -5,4 +5,16 @@
 //  Created by NikitaKorniuk   on 17.03.2024.
 //
 
-import Foundation
+import UIKit
+
+class HomeView {
+    
+    lazy var collectionView: UICollectionView = {
+        let collectViewLayout = UICollectionViewLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectViewLayout)
+        collectionView.backgroundColor = .none
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
+    }()
+}
