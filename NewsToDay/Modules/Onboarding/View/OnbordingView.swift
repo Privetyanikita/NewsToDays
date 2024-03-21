@@ -8,6 +8,7 @@
 import UIKit
 
 //MARK: - OnboardingVC Delegate
+
 protocol OnboardingViewProtocol: AnyObject {
     func actionButtonPressed()
 }
@@ -41,33 +42,13 @@ final class OnboardingView: UIView {
     }()
     
     
-    private let mainLabel: UILabel = {
-        let label = UILabel()
-        label.font = Font.getFont(.bold, size: 24)
-        label.text = "First to know"
-        label.textAlignment = .center
-        label.numberOfLines = 1
-        label.adjustsFontSizeToFitWidth = true
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let mainLabel = CustomLabel(text: OnboardingMockData.firstMainLabel,
+                                        textColor: .black,
+                                        font: Font.getFont(.bold, size: 24))
     
+    private let descriptionLabel = CustomLabel(text: OnboardingMockData.firstDescriptionlabel)
     
-    private let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "All news in one place, be first to know last news"
-        label.font = Font.getFont(.medium, size: 16)
-        label.textColor = .greyPrimary
-        label.textAlignment = .center
-        label.numberOfLines = 2
-        label.adjustsFontSizeToFitWidth = true
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    
-    private lazy var actionButton = BlueButton(text: "Next")
+    private lazy var actionButton = BlueButton(text: OnboardingMockData.nextButton)
     
     
     //MARK: - Properties
@@ -108,7 +89,7 @@ extension OnboardingView: UICollectionViewDelegateFlowLayout {
 extension OnboardingView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        onboardingArray.count
     }
     
     
@@ -132,10 +113,13 @@ extension OnboardingView {
         switch collectionItem {
         case 0:
             nextPage()
-            mainLabel.text = "sadasdasd"
+            mainLabel.text = OnboardingMockData.secondMainLabel
+            descriptionLabel.text = OnboardingMockData.secondDescriptionlabel
         case 1:
             nextPage()
-            actionButton.setTitle("Get Started", for: .normal)
+            mainLabel.text = OnboardingMockData.thirdMainLabel
+            descriptionLabel.text = OnboardingMockData.thirdDescriptionlabel
+            actionButton.setTitle(OnboardingMockData.getStartedButton, for: .normal)
         case 2:
             delegate?.actionButtonPressed()
         default: break
@@ -158,19 +142,16 @@ private extension OnboardingView {
         setConstraints()
     }
     
+    
     func configureCollectionView() {
         
-        guard let imageFirst = UIImage(named: "firstScreen"),
-              let imageSecond = UIImage(named: "secondScreen") else {
-            return
-        }
-        
-        let firstScreen = OnboardingModel(mainImage: imageFirst)
-        let secondScreen = OnboardingModel(mainImage: imageSecond)
-        let thirdScreen = OnboardingModel(mainImage: imageFirst)
+        let firstScreen = OnboardingModel(mainImage: .firstScreen)
+        let secondScreen = OnboardingModel(mainImage: .secondScreen)
+        let thirdScreen = OnboardingModel(mainImage: .firstScreen)
         
         onboardingArray = [firstScreen, secondScreen, thirdScreen]
     }
+    
     
     func setDelegates() {
         collectionView.dataSource = self
@@ -180,7 +161,6 @@ private extension OnboardingView {
     
     func setupViews() {
         let views = [collectionView, pageControl, mainLabel, descriptionLabel, actionButton]
-        
         views.forEach { addSubview($0) }
         
         actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
@@ -198,12 +178,12 @@ private extension OnboardingView {
     func configurePageControl() {
         pageControl.numberOfPages = 3
         pageControl.currentPage = 0
-        if #available(iOS 14.0, *) {
-            pageControl.preferredIndicatorImage = UIImage(named: "largeIndicator")
-        }
-        
         pageControl.pageIndicatorTintColor = .greyLighter
         pageControl.currentPageIndicatorTintColor = .purplePrimary
+        
+        if #available(iOS 14.0, *) {
+            pageControl.preferredIndicatorImage = .largeIndicator
+        }
     }
     
     

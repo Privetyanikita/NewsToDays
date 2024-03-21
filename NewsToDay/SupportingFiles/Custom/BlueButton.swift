@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 final class BlueButton: UIButton {
     
     
@@ -25,7 +24,6 @@ final class BlueButton: UIButton {
         setTitle(text, for: .normal)
         
         configure()
-        
     }
     
     
@@ -34,8 +32,11 @@ final class BlueButton: UIButton {
     }
 }
 
-//MARK: - private Methods
+
+//MARK: - Private Methods
+
 private extension BlueButton {
+    
     func configure() {
         backgroundColor = .purplePrimary
         titleLabel?.font = Font.getFont(.medium, size: 16)
