@@ -7,9 +7,6 @@
 
 import UIKit
 
-
-
-
 final class OnboardingViewController: UIViewController {
     
     
@@ -35,7 +32,6 @@ private extension OnboardingViewController {
     
     func setupViews() {
         view.addSubview(onboardingView)
-        
     }
     
     
@@ -50,12 +46,19 @@ private extension OnboardingViewController {
 }
 
 
-//MARK: - protocol button
+//MARK: - OnboardingViewController Delegate
 
 extension OnboardingViewController: OnboardingViewProtocol {
     func actionButtonPressed() {
-        let resultVC = TabBarController()
-        resultVC.modalPresentationStyle = .fullScreen
-        present(resultVC, animated: true)
+        if UserDefaults.standard.bool(forKey: Constants.UserDefaults.onboarding) {
+            let rootVC = TabBarController()
+            rootVC.modalPresentationStyle = .fullScreen
+            present(rootVC, animated: true)
+        } else {
+            let onboardingVC = OnboardingViewController()
+            onboardingVC.modalPresentationStyle = .fullScreen
+            onboardingVC.modalTransitionStyle = .crossDissolve
+            present(onboardingVC, animated: true)
+        }
     }
 }
