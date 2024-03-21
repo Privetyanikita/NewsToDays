@@ -69,7 +69,7 @@ class HomeViewController: UIViewController {
     }
     
     private func createTextFieldSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), 
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalHeight(1)))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1.0),
                                                                          heightDimension: .absolute(112)),
@@ -84,7 +84,7 @@ class HomeViewController: UIViewController {
     }
     
     private func createTopicSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), 
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalHeight(1)))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(80),
                                                                          heightDimension: .absolute(32)),
@@ -99,7 +99,7 @@ class HomeViewController: UIViewController {
     }
     
     private func createNewsSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), 
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalHeight(1)))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(256),
                                                                          heightDimension: .absolute(256)),
@@ -114,7 +114,7 @@ class HomeViewController: UIViewController {
     }
     
     private func createRecommendedNewsSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), 
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalHeight(1)))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.9),
                                                                          heightDimension: .absolute(96)),
@@ -128,7 +128,7 @@ class HomeViewController: UIViewController {
     }
     
     private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
-        .init(layoutSize: .init(widthDimension: .fractionalWidth(1.0), 
+        .init(layoutSize: .init(widthDimension: .fractionalWidth(1.0),
                                 heightDimension: .estimated(30)),
               elementKind: UICollectionView.elementKindSectionHeader,
               alignment: .top)
@@ -137,6 +137,27 @@ class HomeViewController: UIViewController {
 //MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let section = sections[indexPath.section]
+        switch section {
+        case .textField(_):
+            
+            print("Поиск")
+        case .topics(_):
+
+            print("Категории")
+        case .news(_):
+            //TODO:
+            let detailVC = DetailViewController()
+            navigationController?.pushViewController(detailVC, animated: true)
+        case .recommended(_):
+            //TODO: 
+            let detailVC = DetailViewController()
+            navigationController?.pushViewController(detailVC, animated: true)
+            
+        }
+    }
 }
 //MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
@@ -206,12 +227,14 @@ struct ContentViewController_Previews: PreviewProvider {
     }
 }
 struct ContentViewController: UIViewControllerRepresentable {
-
+    
     typealias UIViewControllerType = HomeViewController
-
+    
     func makeUIViewController(context: Context) -> UIViewControllerType {
         return HomeViewController()
     }
-
+    
     func updateUIViewController(_ uiViewController: HomeViewController, context: Context) {}
 }
+
+
