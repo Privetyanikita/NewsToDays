@@ -10,6 +10,8 @@ import SnapKit
 
 class DetailViewController: UIViewController {
     
+    // MARK: - UI
+    
     private lazy var backgroundImageView: UIImageView = {
         let element = UIImageView()
         element.image = UIImage(named: "Rectangle6")
@@ -37,26 +39,9 @@ class DetailViewController: UIViewController {
         return element
     }()
    
-    private lazy var backButton: UIButton = {
-        let element = UIButton()
-        element.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        element.tintColor = .white
-        return element
-    }()
-
-    private lazy var favoriteButton: UIButton = {
-        let element = UIButton()
-        element.setImage(UIImage(systemName: "bookmark"), for: .normal)
-        element.tintColor = .white
-        return element
-    }()
-    
-    private lazy var shareButton: UIButton = {
-        let element = UIButton()
-        element.setImage(UIImage(systemName: "arrowshape.turn.up.right"), for: .normal)
-        element.tintColor = .white
-        return element
-    }()
+    private let backButton = UIButton(systemImageName: "arrow.left")
+    private let favoriteButton = UIButton(systemImageName: "bookmark")
+    private let shareButton = UIButton(systemImageName: "arrowshape.turn.up.right")
 
     
     private lazy var categoryButton: UIButton = {
@@ -111,11 +96,40 @@ class DetailViewController: UIViewController {
         return element
     }()
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setViews()
         setupConstraints()
+    }
+    
+    func addAction() {
+        backButton.addTarget(self, action: #selector(backButtonTappet), for: .touchUpInside)
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTappet), for: .touchUpInside)
+        shareButton.addTarget(self, action: #selector(shareButtonTappet), for: .touchUpInside)
+        categoryButton.addTarget(self, action: #selector(categoryButtonTappet), for: .touchUpInside)
+    }
+    
+    @objc private func backButtonTappet() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func favoriteButtonTappet() {
+        let bookmarksVC = BookmarksViewController()
+        self.navigationController?.pushViewController(bookmarksVC, animated: true)
+        self.navigationItem.hidesBackButton = true
+    }
+    
+    @objc private func shareButtonTappet() {
+print("You can share news")
+    }
+    
+    @objc private func categoryButtonTappet() {
+        let categoriesVC = CategoriesViewController()
+        self.navigationController?.pushViewController(categoriesVC, animated: true)
+        self.navigationItem.hidesBackButton = true
     }
     
     private func setViews() {
@@ -137,6 +151,8 @@ class DetailViewController: UIViewController {
     }
     
 }
+
+// MARK: - Extension
 
 extension DetailViewController {
     private func setupConstraints() {
