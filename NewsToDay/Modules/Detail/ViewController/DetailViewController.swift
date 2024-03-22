@@ -54,34 +54,17 @@ class DetailViewController: UIViewController {
         return element
     }()
     
-    private lazy var titlelabel: UILabel = {
-        let element = UILabel()
-        element.text = "The latest situation in the presidential election"   //изменится согласно API
-        element.textAlignment = .left
-        element.font = UIFont(name: "Inter-SemiBold", size: 20)
-        element.textColor = .white
-        element.numberOfLines = 0
-        element.lineBreakMode = .byWordWrapping
-        return element
-    }()
+    private let titlelabel = UILabel(text: "Name of title will be here",
+                                     font: UIFont(name: "Inter-SemiBold", size: 20),
+                                     color: .white)
 
-    private lazy var authorlabel: UILabel = {
-        let element = UILabel()
-        element.text = "John Doe"                                 //изменится согласно API
-        element.textAlignment = .left
-        element.font = UIFont(name: "Inter-Medium", size: 16)
-        element.textColor = .white
-        return element
-    }()
+    private let authorlabel = UILabel(text: "Name of author here",
+                                     font: UIFont(name: "Inter-Medium", size: 16),
+                                     color: .white)
     
-    private lazy var articleLabel: UILabel = {
-        let element = UILabel()
-        element.text = "Result"                                    //изменится согласно API
-        element.font = UIFont(name: "Inter-Medium", size: 16)
-        element.textColor = .black
-        element.textAlignment = .left
-        return element
-    }()
+    private let articleLabel = UILabel(text: "Result here",
+                                     font: UIFont(name: "Inter-Medium", size: 16),
+                                     color: .black)
     
     //изменится согласно API
     private lazy var article: UITextView = {
