@@ -19,6 +19,13 @@ final class TermsConditionsViewController: UIViewController {
         termsConditionsView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
+        setupNavigationBar()
     }
+    
+    private func setupNavigationBar(){
+        title = "Terms & Conditions"
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.tintColor = .purplePrimary
+    }
+    
 }
