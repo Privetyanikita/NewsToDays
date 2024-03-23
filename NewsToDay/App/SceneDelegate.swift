@@ -15,10 +15,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let vc = TabBarController()
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = OnboardingViewController()
         window?.makeKeyAndVisible()
+        
+        
+        if UserDefaults.standard.bool(forKey: Constants.UserDefaults.onboarding) {
+            let tabBarVC = TabBarController()
+            tabBarVC.modalPresentationStyle = .fullScreen
+            window?.rootViewController = tabBarVC
+        } else {
+            let onboardingVC = OnboardingViewController()
+            onboardingVC.modalPresentationStyle = .fullScreen
+            onboardingVC.modalTransitionStyle = .crossDissolve
+            window?.rootViewController = onboardingVC
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

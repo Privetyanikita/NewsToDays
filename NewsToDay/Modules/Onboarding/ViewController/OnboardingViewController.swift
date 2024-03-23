@@ -23,6 +23,12 @@ final class OnboardingViewController: UIViewController {
         setConstraints()
         onboardingView.delegate = self
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        UserDefaults.standard.set(true, forKey: Constants.UserDefaults.onboarding)
+    }
 }
 
 
@@ -50,15 +56,8 @@ private extension OnboardingViewController {
 
 extension OnboardingViewController: OnboardingViewProtocol {
     func actionButtonPressed() {
-        if UserDefaults.standard.bool(forKey: Constants.UserDefaults.onboarding) {
             let rootVC = TabBarController()
             rootVC.modalPresentationStyle = .fullScreen
             present(rootVC, animated: true)
-        } else {
-            let onboardingVC = OnboardingViewController()
-            onboardingVC.modalPresentationStyle = .fullScreen
-            onboardingVC.modalTransitionStyle = .crossDissolve
-            present(onboardingVC, animated: true)
-        }
     }
 }
