@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 
 final class LatestNewsCollectionViewCell: UICollectionViewCell {
+    
+    var bookMarkChangeColor: Bool = false
+    
     //MARK: - Private Properties
     private let latestNewsImage: UIImageView = {
         let element = UIImageView()
@@ -45,9 +48,23 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         return element
     }()
     // MARK: - Action
+    
     @objc private func addToBookmarks() {
-        print("bookmark")
+        if bookMarkChangeColor == false {
+            bookMarkButton.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+            bookMarkButton.tintColor = .systemYellow
+            bookMarkChangeColor = true
+            //TODO: -
+            
+        } else {
+            bookMarkButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+            bookMarkButton.tintColor = .white
+            bookMarkChangeColor = false
+            //TODO: -
+            
+        }
     }
+    
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,7 +81,7 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         topicNewsLabel.text = newTopic
         newsLabel.text = news
     }
-
+    
     private func setupView() {
         addSubview(latestNewsImage)
         addSubview(bookMarkButton)
@@ -98,10 +115,3 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
     
 }
 
-//extension LatestNewsCollectionViewCell {
-//    override func prepareForReuse() {
-//        bookMarkButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
-//        topicNewsLabel.text = ""
-//        newsLabel.text = ""
-//    }
-//}

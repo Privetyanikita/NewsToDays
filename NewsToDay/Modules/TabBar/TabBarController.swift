@@ -7,17 +7,6 @@
 
 import UIKit
 
-
-//MARK: - Tabs
-
-enum Tabs: Int {
-    case home
-    case categories
-    case bookmarks
-    case profile
-}
-
-
 final class TabBarController: UITabBarController {
     
     
@@ -31,42 +20,62 @@ final class TabBarController: UITabBarController {
     }
     
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         configure()
+        setupTabBar()
     }
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    //MARK: - Private Methods
-    
-    private func configure() {
+}
+
+
+//MARK: - Private Methods
+
+private extension TabBarController {
+    func configure() {
         tabBar.tintColor = .purplePrimary
-        tabBar.barTintColor = .greyLight
-        tabBar.backgroundColor = .white
+        tabBar.unselectedItemTintColor = .greyLight
         tabBar.layer.borderColor = UIColor.greyLight.cgColor
         tabBar.layer.borderWidth = 0.5
         tabBar.layer.masksToBounds = true
         
-        let homeNavigation = UINavigationController(rootViewController: HomeViewController())
-        let categoriesNavigation = UINavigationController(rootViewController: CategoriesViewController())
-        let bookmarksNavigation = UINavigationController(rootViewController: BookmarksViewController())
-        let profileNavigation = UINavigationController(rootViewController: ProfileViewController())
+        if #available(iOS 15.0, *) {
+                let appearance = UITabBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = .white
+                UITabBar.appearance().standardAppearance = appearance
+                UITabBar.appearance().scrollEdgeAppearance = UITabBar.appearance().standardAppearance
+            }
+    }
+
+    
+    func createNavController(vc: UIViewController, titleVC: String, itemImage: UIImage, tag: Int) -> UINavigationController {
         
-        homeNavigation.tabBarItem = UITabBarItem(title: nil, image: .homeIcon.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.home.rawValue)
-        categoriesNavigation.tabBarItem = UITabBarItem(title: nil, image: .categoriesIcon.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.categories.rawValue)
-        bookmarksNavigation.tabBarItem = UITabBarItem(title: nil, image: .bookmarkIcon.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.bookmarks.rawValue)
-        profileNavigation.tabBarItem = UITabBarItem(title: nil, image: .profileIcon.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.profile.rawValue)
+        vc.title = titleVC
         
-        setViewControllers([homeNavigation,
-                           categoriesNavigation,
-                           bookmarksNavigation,
-                           profileNavigation], animated: true)
+        let item = UITabBarItem(title: nil,
+                                image: itemImage,
+                                tag: tag)
+        item.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
+        
+        let navController = UINavigationController(rootViewController: vc)
+        navController.tabBarItem = item
+        navController.navigationBar.prefersLargeTitles = true
+        
+        return navController
+    }
+    
+    
+    func setupTabBar() {
+        let homeVC = createNavController(vc: HomeViewController(), titleVC: "Browse", itemImage: .homeIcon, tag: 0)
+        let categoriesVC = createNavController(vc: CategoriesViewController(), titleVC: "Categories", itemImage: .categoriesIcon, tag: 1)
+        let bookmarksVC = createNavController(vc: BookmarksViewController(), titleVC: "Bookmarks", itemImage: .bookmarkIcon, tag: 2)
+        let profileVC = createNavController(vc: ProfileViewController(), titleVC: "Profile", itemImage: .profileIcon, tag: 3)
+        
+        setViewControllers([homeVC,
+                            categoriesVC,
+                            bookmarksVC,
+                            profileVC], animated: true)
+        
     }
 }
