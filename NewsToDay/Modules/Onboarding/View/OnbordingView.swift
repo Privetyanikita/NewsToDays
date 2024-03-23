@@ -140,8 +140,6 @@ private extension OnboardingView {
         configurePageControl()
         setDelegates()
         setConstraints()
-        
-        UserDefaults.standard.set(true, forKey: Constants.UserDefaults.onboarding)
     }
     
     
