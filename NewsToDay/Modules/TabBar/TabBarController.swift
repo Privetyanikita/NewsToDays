@@ -57,7 +57,7 @@ final class TabBarController: UITabBarController {
         let homeNavigation = UINavigationController(rootViewController: HomeViewController())
         let categoriesNavigation = UINavigationController(rootViewController: CategoriesViewController())
         let bookmarksNavigation = UINavigationController(rootViewController: BookmarksViewController())
-        let profileNavigation = UINavigationController(rootViewController: ProfilelViewController())
+        let profileNavigation = UINavigationController(rootViewController: ProfileViewController())
         
         homeNavigation.tabBarItem = UITabBarItem(title: nil, image: .homeIcon.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.home.rawValue)
         categoriesNavigation.tabBarItem = UITabBarItem(title: nil, image: .categoriesIcon.withBaselineOffset(fromBottom: UIFont.systemFontSize / 2), tag: Tabs.categories.rawValue)

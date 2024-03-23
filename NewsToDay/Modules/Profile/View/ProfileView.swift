@@ -11,6 +11,7 @@ import SnapKit
 
 final class ProfileView: UIView {
     
+    private var navigationController: UINavigationController?
     private var dataSource: [ProfileCellModel] = []
     
     // MARK: - Views
@@ -22,7 +23,7 @@ final class ProfileView: UIView {
     
     private let profileLabel: UILabel = {
         let label = UILabel()
-        label.text = "Profile"
+        label.text=NSLocalizedString("profileLabel", comment: "")
         label.textAlignment = .left
         label.font = UIFont(name: "Inter-SemiBold", size: 24)
         label.textColor = UIColor(named: "BlackPrimary")
@@ -38,7 +39,7 @@ final class ProfileView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-     
+        
         return tableView
     }()
     
@@ -48,13 +49,13 @@ final class ProfileView: UIView {
         layoutViews()
     }
     
-    init(frame: CGRect, dataSource: [ProfileCellModel]) {
+    init(frame: CGRect, dataSource: [ProfileCellModel], navigationController: UINavigationController?) {
+        self.navigationController = navigationController
         super.init(frame: frame)
         self.dataSource = dataSource
         setViews()
         layoutViews()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -76,7 +77,7 @@ final class ProfileView: UIView {
             $0.left.equalToSuperview().offset(20)
         }
         profileMainTableView.snp.makeConstraints {
-            $0.top.equalTo(profileLabel.snp.bottom).offset(20) // Расположение таблицы относительно profileLabel
+            $0.top.equalTo(profileLabel.snp.bottom).offset(20)
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().inset(20)
             $0.bottom.equalTo(safeAreaInsets.bottom)
@@ -90,12 +91,12 @@ final class ProfileView: UIView {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension ProfileView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
+        
         return dataSource.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         switch indexPath.row {
         case 0:
             
@@ -109,7 +110,7 @@ extension ProfileView: UITableViewDelegate, UITableViewDataSource {
             cell.setTitlesAndImage(title: dataSource[indexPath.row - 1].title , image:dataSource[indexPath.row - 1].image ?? UIImage())
             cell.selectionStyle = .none
             return cell
-    
+            
         default:
             return UITableViewCell()
         }
@@ -131,18 +132,25 @@ extension ProfileView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("cell tapped #\(indexPath.row)")
         
-//        switch indexPath.row {
-//        case 0:
-//            
-//        case 1:
-//            
-//        case 2,3:
-//           
-//        default:
-//
-//        }
+        switch indexPath.row {
+            //        case 0:
+        case 1:
+            let languageViewController = LanguageViewController()
+            navigationController?.pushViewController(languageViewController, animated: true)
+            
+        case 2:
+            let termsConditionsViewController = TermsConditionsViewController()
+            navigationController?.pushViewController(termsConditionsViewController, animated: true)
+            
+        //case 3:
+            
+        default:
+            break
+        }
     }
     
+    
 }
+
 
 

@@ -11,6 +11,9 @@
 		09007D202BAB775A00C72B16 /* TermsConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09007D1F2BAB775A00C72B16 /* TermsConditionsView.swift */; };
 		09007D212BAB7E8100C72B16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09007D232BAB7E8100C72B16 /* Localizable.strings */; };
 		09007D242BAB7E8900C72B16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09007D262BAB7E8900C72B16 /* Localizable.strings */; };
+		09007D2E2BACC4E500C72B16 /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09007D2D2BACC4E500C72B16 /* LanguageViewController.swift */; };
+		09007D302BACC50500C72B16 /* LanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09007D2F2BACC50500C72B16 /* LanguageView.swift */; };
+		09007D342BACCA5700C72B16 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09007D332BACCA5700C72B16 /* TableViewCell.swift */; };
 		09AAC3762BA8B0BB00D5C913 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AAC3752BA8B0BB00D5C913 /* ProfileTableViewCell.swift */; };
 		09AAC3782BA9DB8100D5C913 /* ProfileInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AAC3772BA9DB7F00D5C913 /* ProfileInfoTableViewCell.swift */; };
 		526B07EE2BA9BA02002C99B1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526B07ED2BA9BA02002C99B1 /* TabBarController.swift */; };
@@ -58,6 +61,9 @@
 		09007D222BAB7E8100C72B16 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09007D272BAB7F2F00C72B16 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		09007D292BAB7F4600C72B16 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		09007D2D2BACC4E500C72B16 /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
+		09007D2F2BACC50500C72B16 /* LanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageView.swift; sourceTree = "<group>"; };
+		09007D332BACCA5700C72B16 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		09AAC3752BA8B0BB00D5C913 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		09AAC3772BA9DB7F00D5C913 /* ProfileInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoTableViewCell.swift; sourceTree = "<group>"; };
 		526B07ED2BA9BA02002C99B1 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -162,6 +168,32 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		09007D2A2BACC3F300C72B16 /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				09007D2C2BACC42200C72B16 /* ViewController */,
+				09007D2B2BACC41900C72B16 /* View */,
+			);
+			path = Language;
+			sourceTree = "<group>";
+		};
+		09007D2B2BACC41900C72B16 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				09007D2F2BACC50500C72B16 /* LanguageView.swift */,
+				09007D332BACCA5700C72B16 /* TableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		09007D2C2BACC42200C72B16 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				09007D2D2BACC4E500C72B16 /* LanguageViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		526B07EC2BA9B9EF002C99B1 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +252,7 @@
 		847F26FA2BA736540057F627 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				09007D2A2BACC3F300C72B16 /* Language */,
 				526B07EC2BA9B9EF002C99B1 /* TabBar */,
 				847F27002BA73B310057F627 /* Onbording */,
 				847F26FB2BA737130057F627 /* Home */,
@@ -569,7 +602,10 @@
 				BE24E70F2BAAB939000D2E0D /* TextFieldCollectionViewCell.swift in Sources */,
 				847F27182BA740530057F627 /* OnbordingViewController.swift in Sources */,
 				09007D1C2BAB766200C72B16 /* TermsConditionsViewController.swift in Sources */,
+				09007D302BACC50500C72B16 /* LanguageView.swift in Sources */,
 				526B07EE2BA9BA02002C99B1 /* TabBarController.swift in Sources */,
+				09007D342BACCA5700C72B16 /* TableViewCell.swift in Sources */,
+				09007D2E2BACC4E500C72B16 /* LanguageViewController.swift in Sources */,
 				BE24E7192BAABA7F000D2E0D /* MockData.swift in Sources */,
 				BE24E71D2BAABAB4000D2E0D /* ListItem.swift in Sources */,
 				847F26E72BA731840057F627 /* SceneDelegate.swift in Sources */,

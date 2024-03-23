@@ -38,7 +38,7 @@ final class ProfileMainTableViewCell: UITableViewCell {
         label.numberOfLines = 1
         return label
     }()
-
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

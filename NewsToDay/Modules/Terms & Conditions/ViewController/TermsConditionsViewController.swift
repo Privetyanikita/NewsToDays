@@ -8,11 +8,17 @@
 import UIKit
 import SnapKit
 
-class TermsConditionsViewController: UIViewController {
-
+final class TermsConditionsViewController: UIViewController {
+    
+    private lazy var termsConditionsView: UIView = TermsConditionsView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.addSubview(termsConditionsView)
+        
+        termsConditionsView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
     }
-
 }
