@@ -19,15 +19,6 @@ final class TermsConditionsView: UIView {
         return view
     }()
     
-    private let mainTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text=NSLocalizedString("termsAndConditionsLabel", comment: "")
-        label.font = UIFont(name: "Inter-SemiBold", size: 24)
-        label.textColor = UIColor(named: "BlackPrimary")
-        label.numberOfLines = 1
-        return label
-    }()
-    
     private let mainTextView: UITextView = {
         let textView = UITextView()
         textView.text=NSLocalizedString("termsAndConditionsMainText", comment: "")
@@ -54,7 +45,7 @@ final class TermsConditionsView: UIView {
     
     // MARK: - View Setup
     private func setViews() {
-        [backgroundView, mainTitleLabel, mainTextView].forEach { self.addSubview($0) }
+        [backgroundView, mainTextView].forEach { self.addSubview($0) }
     }
     
     // MARK: - Layout
@@ -62,14 +53,10 @@ final class TermsConditionsView: UIView {
         backgroundView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        mainTitleLabel.snp.makeConstraints() {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(60)
+        
+        mainTextView.snp.makeConstraints { make in
+            make.edges.equalTo(self.safeAreaLayoutGuide)
         }
-        mainTextView.snp.makeConstraints(){
-                $0.top.equalTo(mainTitleLabel.snp.bottom)
-                $0.left.right.bottom.equalToSuperview().inset(8)
-            }
     }
     
 }
