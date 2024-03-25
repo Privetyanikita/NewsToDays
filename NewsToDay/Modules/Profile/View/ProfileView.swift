@@ -76,23 +76,19 @@ final class ProfileView: UIView {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension ProfileView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return dataSource.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         switch indexPath.row {
         case 0:
-            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileMainTableViewCell.reuseIdentifier, for: indexPath) as? ProfileMainTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             return cell
             
         case 1, 2, 3:
-            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileInfoTableViewCell.reuseIdentifier, for: indexPath) as? ProfileInfoTableViewCell else { return UITableViewCell() }
-            cell.setTitlesAndImage(title: dataSource[indexPath.row - 1].title , image:dataSource[indexPath.row - 1].image ?? UIImage())
+            cell.setTitlesAndImage(title: dataSource[indexPath.row - 1].title, image: dataSource[indexPath.row - 1].image ?? UIImage())
             cell.selectionStyle = .none
             return cell
             
@@ -107,7 +103,7 @@ extension ProfileView: UITableViewDelegate, UITableViewDataSource {
             return 72
         case 1:
             return 240 + 56 + 44
-        case 2,3:
+        case 2, 3:
             return 56 + 44
         default:
             return 0
@@ -118,7 +114,9 @@ extension ProfileView: UITableViewDelegate, UITableViewDataSource {
         print("cell tapped #\(indexPath.row)")
         
         switch indexPath.row {
-            //        case 0:
+        case 0:
+            profileImageTapped()
+            
         case 1:
             let languageViewController = LanguageViewController()
             navigationController?.pushViewController(languageViewController, animated: true)
@@ -127,15 +125,37 @@ extension ProfileView: UITableViewDelegate, UITableViewDataSource {
             let termsConditionsViewController = TermsConditionsViewController()
             navigationController?.pushViewController(termsConditionsViewController, animated: true)
             
-        //case 3:
-            
         default:
             break
         }
     }
     
-    
+    @objc private func profileImageTapped() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            if let window = windowScene.windows.first {
+                window.rootViewController?.present(imagePickerController, animated: true, completion: nil)
+            }
+        }
+    }
 }
 
+extension ProfileView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            if let profileCell = profileMainTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileMainTableViewCell {
+                profileCell.profileImage.image = selectedImage
+            }
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
 
 
