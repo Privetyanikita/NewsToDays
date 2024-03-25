@@ -106,6 +106,7 @@ extension CategoriesView: UICollectionViewDataSource {
         
         let model = categoriesArray[indexPath.item]
         cell.cellConfigure(model: model)
+        cell.backgroundColor = .white
         
         return cell
     }
@@ -152,9 +153,5 @@ private extension CategoriesView {
         categoriesArray.append(CategoriesModel(title: CategoriesMockData.natureCategory))
         categoriesArray.append(CategoriesModel(title: CategoriesMockData.foodCategory))
         categoriesArray.append(CategoriesModel(title: CategoriesMockData.artCategory))
-        categoriesArray.append(CategoriesModel(title: CategoriesMockData.historyCategory))
-        categoriesArray.append(CategoriesModel(title: CategoriesMockData.fashionCategory))
-        categoriesArray.append(CategoriesModel(title: CategoriesMockData.covid19Category))
-        categoriesArray.append(CategoriesModel(title: CategoriesMockData.middleEastCategory))
     }
 }

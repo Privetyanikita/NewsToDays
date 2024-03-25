@@ -12,17 +12,6 @@ final class CategoriesCVCell: UICollectionViewCell {
     
     //MARK: - UI
     
-    private let backgroundCellView: UIView = {
-       let view = UIView()
-        view.backgroundColor = .white
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.greyLighter.cgColor
-        view.layer.cornerRadius = 12
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    
     private let categoriesLabel = CustomLabel(numberOfLines: 2, textColor: .greyDarker, font: Font.getFont(.medium, size: 24))
     
     
@@ -33,10 +22,10 @@ final class CategoriesCVCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
-                backgroundCellView.backgroundColor = .purplePrimary
+                backgroundColor = .purplePrimary
                 categoriesLabel.textColor = .white
             } else {
-                backgroundCellView.backgroundColor = .white
+                backgroundColor = .greyLighter
                 categoriesLabel.textColor = .greyDarker
             }
         }
@@ -73,21 +62,21 @@ extension CategoriesCVCell {
 private extension CategoriesCVCell {
     
     func configure() {
-        addSubview(backgroundCellView)
+        backgroundColor = .white
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.greyLighter.cgColor
+        layer.cornerRadius = 12
+
         addSubview(categoriesLabel)
     }
     
     
     func setConstraints() {
-        backgroundCellView.snp.makeConstraints({ make in
-            make.edges.equalToSuperview()
-        })
-        
         categoriesLabel.snp.makeConstraints { make in
-            make.top.equalTo(backgroundCellView.snp.top).offset(24)
+            make.top.equalToSuperview().offset(24)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.bottom.equalTo(backgroundCellView.snp.bottom).offset(-24)
+            make.bottom.equalToSuperview().offset(-24)
         }
     }
 }

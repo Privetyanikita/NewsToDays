@@ -17,7 +17,7 @@ final class SelectCategoriesViewController: UIViewController {
     
     //MARK: - Properties
     
-    private var favoriteTopicsArray = [CategoriesModel]()
+    private var categoriesArray = [CategoriesModel]()
     
     
     //MARK: - Lifecycle
@@ -40,6 +40,20 @@ extension SelectCategoriesViewController: SelectCategoriesViewProtocol {
         let tabBarVC = TabBarController()
         tabBarVC.modalPresentationStyle = .fullScreen
         present(tabBarVC, animated: true)
+    }
+    
+    
+    func fillArray() -> [CategoriesModel] {
+        categoriesArray.append(CategoriesModel(title: SelectCategoriesMockData.sportsCategory))
+        categoriesArray.append(CategoriesModel(title: SelectCategoriesMockData.politicsCategory))
+        categoriesArray.append(CategoriesModel(title: SelectCategoriesMockData.lifeCategory))
+        categoriesArray.append(CategoriesModel(title: SelectCategoriesMockData.gamingCategory))
+        categoriesArray.append(CategoriesModel(title: SelectCategoriesMockData.animalsCategory))
+        categoriesArray.append(CategoriesModel(title: SelectCategoriesMockData.natureCategory))
+        categoriesArray.append(CategoriesModel(title: SelectCategoriesMockData.foodCategory))
+        categoriesArray.append(CategoriesModel(title: SelectCategoriesMockData.artCategory))
+        
+        return categoriesArray
     }
 }
 
