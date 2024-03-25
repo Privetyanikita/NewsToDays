@@ -21,6 +21,18 @@ class HomeViewController: UIViewController {
         addViews()
         setupViews()
         setDelegates()
+        let newsService = NewsService()
+
+        newsService.fetchNews(forCategory: Categories.business) { result in
+            switch result {
+            case .success(let articles):
+                // Process the fetched articles
+                print(articles)
+            case .failure(let error):
+                // Handle the error
+                print("Error fetching news: \(error)")
+            }
+        }
     }
     //MARK: - Private methods
     private func setupViews() {
