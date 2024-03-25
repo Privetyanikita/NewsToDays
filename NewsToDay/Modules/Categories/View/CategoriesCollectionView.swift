@@ -9,11 +9,11 @@ import UIKit
 
 final class CategoriesCollectionView: UICollectionView {
     
-    
     //MARK: - Properties
     
     private let flowLayout = UICollectionViewFlowLayout()
     private var categoriesArray = [CategoriesModel]()
+    
     
     //MARK: - Lifecycle
     
@@ -43,6 +43,7 @@ extension CategoriesCollectionView: UICollectionViewDelegate {
 }
 
 
+//MARK: - DelegateFlowLayout
 
 extension CategoriesCollectionView: UICollectionViewDelegateFlowLayout {
     
@@ -50,6 +51,7 @@ extension CategoriesCollectionView: UICollectionViewDelegateFlowLayout {
         CGSize(width: collectionView.bounds.width / 2.1, height: collectionView.bounds.width / 5)
     }
 }
+
 
 //MARK: - DataSource
 
