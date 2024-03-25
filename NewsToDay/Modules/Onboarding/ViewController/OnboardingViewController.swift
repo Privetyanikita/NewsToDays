@@ -15,6 +15,15 @@ final class OnboardingViewController: UIViewController {
     private let onboardingView = OnboardingView()
     
     
+    //MARK: - Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        UserDefaults.standard.set(true, forKey: Constants.UserDefaults.onboarding)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -46,19 +55,12 @@ private extension OnboardingViewController {
 }
 
 
-//MARK: - OnboardingViewController Delegate
+//MARK: - OnboardingViewControllerDelegate
 
 extension OnboardingViewController: OnboardingViewProtocol {
     func actionButtonPressed() {
-        if UserDefaults.standard.bool(forKey: Constants.UserDefaults.onboarding) {
-            let rootVC = TabBarController()
+            let rootVC = SelectCategoriesViewController()
             rootVC.modalPresentationStyle = .fullScreen
             present(rootVC, animated: true)
-        } else {
-            let onboardingVC = OnboardingViewController()
-            onboardingVC.modalPresentationStyle = .fullScreen
-            onboardingVC.modalTransitionStyle = .crossDissolve
-            present(onboardingVC, animated: true)
-        }
     }
 }
