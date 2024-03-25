@@ -7,22 +7,48 @@
 
 import UIKit
 
-final class CategoriesCollectionView: UICollectionView {
+final class CategoriesView: UIView {
+    
+    //MARK: - UI
+    
+    private let descriptionCategoryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Thousands of articles in each category"
+        label.font = Font.getFont(.regular, size: 16)
+        label.textColor = .greyPrimary
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
+    private let collectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.minimumLineSpacing = 16
+        flowLayout.minimumInteritemSpacing = 16
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.backgroundColor = .white
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(CategoriesCVCell.self, forCellWithReuseIdentifier: CategoriesCVCell.idCell)
+        return collectionView
+    }()
+    
+    
     
     //MARK: - Properties
     
-    private let flowLayout = UICollectionViewFlowLayout()
     private var categoriesArray = [CategoriesModel]()
     
     
     //MARK: - Lifecycle
-    
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: flowLayout)
+
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         
         configure()
-        configureFlowLayout()
         setDelegates()
+        setConstraints()
         
         temporaryAddArray()
     }
@@ -36,7 +62,7 @@ final class CategoriesCollectionView: UICollectionView {
 
 //MARK: - Delegate
 
-extension CategoriesCollectionView: UICollectionViewDelegate {
+extension CategoriesView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("cell by index \(indexPath.item) was tapped")
     }
@@ -45,7 +71,7 @@ extension CategoriesCollectionView: UICollectionViewDelegate {
 
 //MARK: - DelegateFlowLayout
 
-extension CategoriesCollectionView: UICollectionViewDelegateFlowLayout {
+extension CategoriesView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: collectionView.bounds.width / 2.1, height: collectionView.bounds.width / 5)
@@ -55,7 +81,7 @@ extension CategoriesCollectionView: UICollectionViewDelegateFlowLayout {
 
 //MARK: - DataSource
 
-extension CategoriesCollectionView: UICollectionViewDataSource {
+extension CategoriesView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         categoriesArray.count
@@ -63,7 +89,7 @@ extension CategoriesCollectionView: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = dequeueReusableCell(withReuseIdentifier: CategoriesCVCell.idCell, for: indexPath) as? CategoriesCVCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCVCell.idCell, for: indexPath) as? CategoriesCVCell else { return UICollectionViewCell() }
         
         let model = categoriesArray[indexPath.item]
         cell.cellConfigure(model: model)
@@ -75,26 +101,32 @@ extension CategoriesCollectionView: UICollectionViewDataSource {
 
 //MARK: - Private Methods
 
-private extension CategoriesCollectionView {
-    
-    func configureFlowLayout() {
-        flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = 16
-        flowLayout.minimumInteritemSpacing = 16
-    }
-    
+private extension CategoriesView {
     
     func configure() {
+        addSubview(descriptionCategoryLabel)
+        addSubview(collectionView)
         translatesAutoresizingMaskIntoConstraints = false
-        showsVerticalScrollIndicator = false
-        
-        register(CategoriesCVCell.self, forCellWithReuseIdentifier: CategoriesCVCell.idCell)
     }
     
     
     func setDelegates() {
-        delegate = self
-        dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    
+    func setConstraints() {
+        NSLayoutConstraint.activate([
+            descriptionCategoryLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            descriptionCategoryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            descriptionCategoryLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            
+            collectionView.topAnchor.constraint(equalTo: descriptionCategoryLabel.bottomAnchor, constant: 30),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     
