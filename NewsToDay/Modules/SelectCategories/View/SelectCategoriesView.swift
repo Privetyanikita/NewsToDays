@@ -108,10 +108,9 @@ extension SelectCategoriesView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCVCell.idCell, for: indexPath) as? CategoriesCVCell else { return UICollectionViewCell() }
         
         guard let model = delegate?.fillArray()[indexPath.item] else { return UICollectionViewCell() }
-        
-        cell.backgroundColor = .greyLighter
         cell.cellConfigure(model: model)
         
+        cell.backgroundColor = .greyLighter
         
         return cell
     }
