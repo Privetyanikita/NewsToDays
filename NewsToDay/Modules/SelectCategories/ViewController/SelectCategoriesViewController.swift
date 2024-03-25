@@ -22,13 +22,6 @@ final class SelectCategoriesViewController: UIViewController {
     
     //MARK: - Lifecycle
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        UserDefaults.standard.set(true, forKey: Constants.UserDefaults.selectedCategories)
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

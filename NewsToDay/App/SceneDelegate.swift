@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         
         
-        if UserDefaults.standard.bool(forKey: Constants.UserDefaults.onboarding) && UserDefaults.standard.bool(forKey: Constants.UserDefaults.selectedCategories) {
+        if UserDefaults.standard.bool(forKey: Constants.UserDefaults.onboarding) {
             let tabBarVC = TabBarController()
             tabBarVC.modalPresentationStyle = .fullScreen
             window?.rootViewController = tabBarVC
