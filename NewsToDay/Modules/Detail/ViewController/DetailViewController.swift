@@ -86,8 +86,8 @@ class DetailViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .white
         setViews()
-        setupConstraints()
         addAction()
+        setupConstraints()
     }
     
     private func addAction() {
@@ -108,7 +108,7 @@ class DetailViewController: UIViewController {
     }
     
     @objc private func shareButtonTappet() {
-print("You can share news")
+        print("You can share news")
     }
     
     @objc private func categoryButtonTappet() {
@@ -122,17 +122,17 @@ print("You can share news")
         view.addSubview(articleView)
         
         backgroundImageView.addSubview(colorView)
-        colorView.addSubview(backButton)
-        colorView.addSubview(favoriteButton)
-        colorView.addSubview(shareButton)
-        colorView.addSubview(headerStackView)
-        
         headerStackView.addArrangedSubview(categoryButton)
         headerStackView.addArrangedSubview(titlelabel)
         headerStackView.addArrangedSubview(authorlabel)
         
         articleView.addSubview(articleLabel)
         articleView.addSubview(article)
+        
+        view.addSubview(backButton)
+        view.addSubview(favoriteButton)
+        view.addSubview(shareButton)
+        view.addSubview(headerStackView)
     }
     
 }
