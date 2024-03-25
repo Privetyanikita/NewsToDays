@@ -20,11 +20,12 @@ enum Endpoints {
 }
 
 enum Categories {
-    static let business = "category=business"
-    static let entertainment = "category=entertainment"
-    static let general = "category=general"
-    static let health = "category=health"
-    static let science = "category=science"
-    static let sports = "category=sports"
-    static let technology = "category=technology"
+    static let business = "business"
+    static let entertainment = "entertainment"
+    static let general = "general"
+    static let health = "health"
+    static let science = "science"
+    static let sports = "sports"
+    static let technology = "technology"
+    static let gaming = "gaming"
 }
