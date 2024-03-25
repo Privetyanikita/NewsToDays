@@ -28,8 +28,6 @@ final class LanguageViewController: UIViewController {
         let backButtonImage = UIImage(named: "BackImage")?.withRenderingMode(.alwaysOriginal)
         
         let backButton = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
-        
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = backButton
     }
     

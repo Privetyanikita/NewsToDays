@@ -23,9 +23,10 @@ final class TermsConditionsViewController: UIViewController {
     }
     
     private func setupNavigationBar(){
-        title = "Terms & Conditions"
+        title = NSLocalizedString("termsAndConditionsLabel", comment: "")
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.tintColor = .purplePrimary
     }
+    
     
 }

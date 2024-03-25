@@ -21,16 +21,6 @@ final class ProfileView: UIView {
         return view
     }()
     
-    private let profileLabel: UILabel = {
-        let label = UILabel()
-        label.text=NSLocalizedString("profileLabel", comment: "")
-        label.textAlignment = .left
-        label.font = UIFont(name: "Inter-SemiBold", size: 24)
-        label.textColor = UIColor(named: "BlackPrimary")
-        label.numberOfLines = 1
-        return label
-    }()
-    
     private lazy var profileMainTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ProfileMainTableViewCell.self, forCellReuseIdentifier: ProfileMainTableViewCell.reuseIdentifier)
@@ -62,7 +52,7 @@ final class ProfileView: UIView {
     
     // MARK: Set Views
     private func setViews() {
-        [backgroundView, profileLabel, profileMainTableView].forEach { self.addSubview($0) }
+        [backgroundView, profileMainTableView].forEach { self.addSubview($0) }
     }
     
     // MARK: Layout Views
@@ -70,14 +60,9 @@ final class ProfileView: UIView {
         backgroundView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        profileLabel.snp.makeConstraints {
-            $0.width.equalTo(75)
-            $0.height.equalTo(32)
-            $0.top.equalToSuperview().offset(85)
-            $0.left.equalToSuperview().offset(20)
-        }
+        
         profileMainTableView.snp.makeConstraints {
-            $0.top.equalTo(profileLabel.snp.bottom).offset(20)
+            $0.top.equalToSuperview().offset(105)
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().inset(20)
             $0.bottom.equalTo(safeAreaInsets.bottom)

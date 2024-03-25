@@ -73,10 +73,10 @@ final class LanguageView: UIView {
             $0.top.equalToSuperview().inset(68)
         }
         MainTableView.snp.makeConstraints {
-                $0.top.equalTo(mainTitleLabel.snp.bottom).offset(10) // Установим отступ между заголовком и таблицей
-                $0.left.right.equalToSuperview().inset(20)
-                $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
-            }
+            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(10) // Установим отступ между заголовком и таблицей
+            $0.left.right.equalToSuperview().inset(20)
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+        }
         
     }
     
@@ -91,12 +91,20 @@ extension LanguageView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.row {
-        case 0, 1:
+        case 0:
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.reuseIdentifier, for: indexPath) as? TableViewCell else { return UITableViewCell() }
             cell.setTitlesAndImage(title: dataSource[indexPath.row].title , image:dataSource[indexPath.row].image ?? UIImage())
             cell.selectionStyle = .none
+            UserDefaults.standard.set(["ru"], forKey: "AppleLanguages")
+            return cell
             
+        case 1:
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.reuseIdentifier, for: indexPath) as? TableViewCell else { return UITableViewCell() }
+            cell.setTitlesAndImage(title: dataSource[indexPath.row].title , image:dataSource[indexPath.row].image ?? UIImage())
+            cell.selectionStyle = .none
+            UserDefaults.standard.set(["en"], forKey: "AppleLanguages")
             return cell
             
         default:
@@ -112,7 +120,7 @@ extension LanguageView: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension // Используем автоматическую высоту для остальных ячеек
         }
     }
-
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("cell tapped #\(indexPath.row)")

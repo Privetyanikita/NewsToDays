@@ -23,9 +23,16 @@ final class ProfileViewController: UIViewController {
         view.addSubview(profileView)
         profileView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+            
         }
-        
-       
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setupNavigationBar()
+    }
+    private func setupNavigationBar(){
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = .purplePrimary
     }
 }
 

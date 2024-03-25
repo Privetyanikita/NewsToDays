@@ -637,7 +637,7 @@
 				BE24E7172BAABA04000D2E0D /* RecomendedNewsCollectionViewCell.swift in Sources */,
 				847F272F2BA7429C0057F627 /* ProfileModel.swift in Sources */,
 				BE24E70F2BAAB939000D2E0D /* TextFieldCollectionViewCell.swift in Sources */,
-				847F27182BA740530057F627 /* OnbordingViewController.swift in Sources */,
+				847F27182BA740530057F627 /* OnboardingViewController.swift in Sources */,
 				09007D1C2BAB766200C72B16 /* TermsConditionsViewController.swift in Sources */,
 				09007D302BACC50500C72B16 /* LanguageView.swift in Sources */,
 				847F27182BA740530057F627 /* OnboardingViewController.swift in Sources */,
