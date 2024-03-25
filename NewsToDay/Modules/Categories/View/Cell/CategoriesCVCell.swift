@@ -62,7 +62,7 @@ extension CategoriesCVCell {
 private extension CategoriesCVCell {
     
     func configure() {
-        backgroundColor = .white
+        backgroundColor = .greyLighter
         layer.borderWidth = 1
         layer.borderColor = UIColor.greyLighter.cgColor
         layer.cornerRadius = 12

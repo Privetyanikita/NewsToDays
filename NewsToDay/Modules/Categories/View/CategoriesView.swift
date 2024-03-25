@@ -106,7 +106,6 @@ extension CategoriesView: UICollectionViewDataSource {
         
         let model = categoriesArray[indexPath.item]
         cell.cellConfigure(model: model)
-        cell.backgroundColor = .white
         
         return cell
     }

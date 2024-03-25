@@ -18,19 +18,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
         
-        window?.rootViewController = SelectCategoriesViewController()
         
-        
-//        if UserDefaults.standard.bool(forKey: Constants.UserDefaults.onboarding) {
-//            let tabBarVC = TabBarController()
-//            tabBarVC.modalPresentationStyle = .fullScreen
-//            window?.rootViewController = tabBarVC
-//        } else {
-//            let onboardingVC = OnboardingViewController()
-//            onboardingVC.modalPresentationStyle = .fullScreen
-//            onboardingVC.modalTransitionStyle = .crossDissolve
-//            window?.rootViewController = onboardingVC
-//        }
+        if UserDefaults.standard.bool(forKey: Constants.UserDefaults.onboarding) {
+            let tabBarVC = TabBarController()
+            tabBarVC.modalPresentationStyle = .fullScreen
+            window?.rootViewController = tabBarVC
+        } else {
+            let onboardingVC = OnboardingViewController()
+            onboardingVC.modalPresentationStyle = .fullScreen
+            onboardingVC.modalTransitionStyle = .crossDissolve
+            window?.rootViewController = onboardingVC
+        }
     }
     
     
