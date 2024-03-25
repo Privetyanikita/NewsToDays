@@ -14,6 +14,9 @@
 		526B07FA2BAC9D82002C99B1 /* BlueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526B07F92BAC9D82002C99B1 /* BlueButton.swift */; };
 		526B07FC2BACDCD2002C99B1 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526B07FB2BACDCD2002C99B1 /* CustomLabel.swift */; };
 		526B07FE2BACE414002C99B1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526B07FD2BACE414002C99B1 /* Constants.swift */; };
+		845071052BAF23DA0072AAAE /* NotworkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845071042BAF23DA0072AAAE /* NotworkServices.swift */; };
+		845071082BAF27060072AAAE /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845071072BAF27060072AAAE /* NewsModel.swift */; };
+		8450710A2BAF27F50072AAAE /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845071092BAF27F50072AAAE /* Endpoints.swift */; };
 		847F26E52BA731840057F627 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F26E42BA731840057F627 /* AppDelegate.swift */; };
 		847F26E72BA731840057F627 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F26E62BA731840057F627 /* SceneDelegate.swift */; };
 		847F26E92BA731840057F627 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F26E82BA731840057F627 /* HomeViewController.swift */; };
@@ -60,6 +63,9 @@
 		526B07F92BAC9D82002C99B1 /* BlueButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueButton.swift; sourceTree = "<group>"; };
 		526B07FB2BACDCD2002C99B1 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		526B07FD2BACE414002C99B1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		845071042BAF23DA0072AAAE /* NotworkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotworkServices.swift; sourceTree = "<group>"; };
+		845071072BAF27060072AAAE /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
+		845071092BAF27F50072AAAE /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		847F26E12BA731840057F627 /* NewsToDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsToDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847F26E42BA731840057F627 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847F26E62BA731840057F627 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +142,32 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		845071002BAF21F90072AAAE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				845071012BAF220B0072AAAE /* Network */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		845071012BAF220B0072AAAE /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				845071022BAF23790072AAAE /* Model */,
+				845071042BAF23DA0072AAAE /* NotworkServices.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		845071022BAF23790072AAAE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				845071072BAF27060072AAAE /* NewsModel.swift */,
+				845071092BAF27F50072AAAE /* Endpoints.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		847F26D82BA731840057F627 = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +187,7 @@
 		847F26E32BA731840057F627 /* NewsToDay */ = {
 			isa = PBXGroup;
 			children = (
+				845071002BAF21F90072AAAE /* Services */,
 				847F26F82BA734B40057F627 /* App */,
 				847F26FA2BA736540057F627 /* Modules */,
 				847F26F92BA734D00057F627 /* SupportingFiles */,
@@ -528,6 +561,8 @@
 				BE24E7202BAC2E10000D2E0D /* BookmarksTableViewCell.swift in Sources */,
 				847F27462BA74A1A0057F627 /* Font.swift in Sources */,
 				09AAC3762BA8B0BB00D5C913 /* ProfileTableViewCell.swift in Sources */,
+				845071052BAF23DA0072AAAE /* NotworkServices.swift in Sources */,
+				845071082BAF27060072AAAE /* NewsModel.swift in Sources */,
 				526B07FC2BACDCD2002C99B1 /* CustomLabel.swift in Sources */,
 				847F27142BA740210057F627 /* HomeView.swift in Sources */,
 				847F27282BA7421F0057F627 /* BookmarksModel.swift in Sources */,
@@ -546,6 +581,7 @@
 				BE24E71D2BAABAB4000D2E0D /* ListItem.swift in Sources */,
 				847F26E72BA731840057F627 /* SceneDelegate.swift in Sources */,
 				847F27202BA741DF0057F627 /* CategoriesView.swift in Sources */,
+				8450710A2BAF27F50072AAAE /* Endpoints.swift in Sources */,
 				847F272A2BA742780057F627 /* ProfileViewController.swift in Sources */,
 				526B07FE2BACE414002C99B1 /* Constants.swift in Sources */,
 				BE24E71B2BAABA9C000D2E0D /* ListSection.swift in Sources */,
