@@ -30,6 +30,17 @@ final class CategoriesCVCell: UICollectionViewCell {
     
     static let idCell = "CategoriesCVCell"
     
+    override var isSelected: Bool {
+        didSet {
+            if self.isSelected {
+                backgroundCellView.backgroundColor = .purplePrimary
+                categoriesLabel.textColor = .white
+            } else {
+                backgroundCellView.backgroundColor = .white
+                categoriesLabel.textColor = .greyDarker
+            }
+        }
+    }
     
     //MARK: - Lifecycle
     

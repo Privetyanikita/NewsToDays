@@ -10,5 +10,6 @@ import Foundation
 enum Constants {
     enum UserDefaults {
         static let onboarding = "OnboardingWasViewed"
+        static let selectedCategories = "SelectedCategoriesWasViewed"
     }
 }

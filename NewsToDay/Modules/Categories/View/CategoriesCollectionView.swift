@@ -54,6 +54,19 @@ final class CategoriesView: UIView {
     }
     
     
+    convenience init(descriptionLabel text: String) {
+        self.init(frame: .zero)
+        
+        descriptionCategoryLabel.text = text
+        descriptionCategoryLabel.numberOfLines = 3
+        configure()
+        setDelegates()
+        setConstraints()
+        
+        temporaryAddArray()
+    }
+    
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
