@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Constants {
+enum Constants {
     enum UserDefaults {
         static let onboarding = "OnboardingWasViewed"
     }
