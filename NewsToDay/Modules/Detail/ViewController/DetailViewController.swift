@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import SafariServices
 
 class DetailViewController: UIViewController {
     
@@ -81,6 +82,8 @@ class DetailViewController: UIViewController {
         return element
     }()
     
+    private var urlForNews: String = ""
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -92,6 +95,24 @@ class DetailViewController: UIViewController {
         addAction()
         setupConstraints()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+
+            DispatchQueue.main.async {
+                self.navigationController?.navigationBar.prefersLargeTitles = false
+                self.navigationItem.largeTitleDisplayMode = .never
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+            }
+        }
+        
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+    
+    // MARK: - Setup
     ///прокидываем ячейку
     func configure(with news: News) {
         backgroundImageView.kf.setImage(with: URL(string: news.urlToImage ?? ""))
@@ -99,6 +120,7 @@ class DetailViewController: UIViewController {
         authorlabel.text = news.author
         articleLabel.text = news.description
         article.text = news.content
+        urlForNews = news.url ?? "google.com"
         
     }
     
@@ -122,7 +144,8 @@ class DetailViewController: UIViewController {
     }
     
     @objc private func shareButtonTappet() {
-        print("You can share news")
+        let webController = SFSafariViewController(url: URL(string: urlForNews)!)
+        present(webController, animated: true)
     }
     
     @objc private func categoryButtonTappet() {
