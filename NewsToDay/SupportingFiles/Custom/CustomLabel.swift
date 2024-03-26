@@ -17,7 +17,7 @@ final class CustomLabel: UILabel {
     }
     
     
-    convenience init(text: String,
+    convenience init(text: String = "",
                      alignment: NSTextAlignment = .center,
                      numberOfLines: Int = 2,
                      textColor: UIColor = .greyPrimary,
@@ -49,7 +49,7 @@ private extension CustomLabel {
         text = title
         textAlignment = alignment
         adjustsFontSizeToFitWidth = true
-        minimumScaleFactor = 0.7
+        minimumScaleFactor = 0.5
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

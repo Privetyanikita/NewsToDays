@@ -30,7 +30,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
-        setupViews()
+        configure()
         setConstraints()
     }
     
@@ -55,7 +55,7 @@ extension OnboardingCollectionViewCell {
 
 private extension OnboardingCollectionViewCell {
     
-    func setupViews() {
+    func configure() {
         addSubview(mainImage)
         layer.cornerRadius = 12
     }
