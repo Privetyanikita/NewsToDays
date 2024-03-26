@@ -85,9 +85,18 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .white
+        addAction()
         setViews()
         addAction()
         setupConstraints()
+    }
+    ///передаю данные для обновления
+    func configure(with news: NewsDetails) {
+        backgroundImageView.image = news.image
+//        categoryButton.setTitle(news.category, for: .normal)
+        titlelabel.text = news.title
+        authorlabel.text = news.author
+        article.text = news.text
     }
     
     private func addAction() {
@@ -101,7 +110,9 @@ class DetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    //TODO: - добавить в закладки
     @objc private func favoriteButtonTappet() {
+        print("bookmarks")
         let bookmarksVC = BookmarksViewController()
         self.navigationController?.pushViewController(bookmarksVC, animated: true)
         self.navigationItem.hidesBackButton = true
