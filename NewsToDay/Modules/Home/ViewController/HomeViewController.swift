@@ -191,34 +191,22 @@ extension HomeViewController: UICollectionViewDelegate {
             print("Поиск")
         case .topics(_):
             print("Категории")
-            //TODO: - переделать
         case .news(_):
             print("Новости")
+            guard let selectedNews = newsData?[indexPath.row] else { return }
+               
+            let detailVC = DetailViewController()
+            detailVC.configure(with: selectedNews)
+            navigationController?.pushViewController(detailVC, animated: true)
         case .recommended(_):
             print("Рекомендации")
-            
-            //        case .news(let news):
-            //            let selectedNews = news[indexPath.row]
-            //            showDetail(with: selectedNews)
-            //        case .recommended(let recommendedNews):
-            //            let selectedRecommendedNews = recommendedNews[indexPath.row]
-            //            showDetail(with: selectedRecommendedNews)
-            //        }
+            guard let selectedRecomendedData = recNewsData?[indexPath.row] else { return }
+               
+            let detailVC = DetailViewController()
+            detailVC.configure(with: selectedRecomendedData)
+            navigationController?.pushViewController(detailVC, animated: true)
         }
     }
-    //    ///cоздаем экземпляр NewsDetails и передаем данные из выбранной новости
-    //    func showDetail(with news: ListItem) {
-    //        let detailVC = DetailViewController()
-    //        let newsDetails = NewsDetails(image: UIImage(named: news.image)!,
-    //                                      category: news.categories,
-    //                                      title: news.newsTopic,
-    //                                      author: "",
-    //                                      text: news.news)
-    //        detailVC.configure(with: newsDetails)
-    //        navigationController?.pushViewController(detailVC, animated: true)
-    //    }
-    
-    
 }
 
 //MARK: - UICollectionViewDataSource
@@ -266,7 +254,7 @@ extension HomeViewController: UICollectionViewDataSource {
             if let dataNews = newsData, indexPath.item < dataNews.count {
                 let newsDataItem = dataNews[indexPath.item]
                 cell.configureCell(image: newsDataItem.urlToImage ?? "",
-                                   newTopic: newsDataItem.title ?? "",
+                                   newTopic: newsDataItem.author ?? "",
                                    news: newsDataItem.description ?? "")
             }
             cell.delegate = self
