@@ -24,6 +24,11 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         element.contentMode = .scaleAspectFill
         return element
     }()
+    private lazy var colorView: UIView = {
+        let element = UIView()
+        element.backgroundColor = UIColor(red: 0 / 255, green: 0 / 255, blue: 0 / 255, alpha: 0.4)
+        return element
+    }()
     
     private let topicNewsLabel: UILabel = {
         let element = UILabel()
@@ -95,6 +100,7 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
     
     private func setupView() {
         addSubview(latestNewsImage)
+        latestNewsImage.addSubview(colorView)
         addSubview(bookMarkButton)
         addSubview(topicNewsLabel)
         addSubview(newsLabel)
@@ -103,6 +109,10 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
     private func setConstraints() {
         latestNewsImage.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        colorView.snp.makeConstraints { make in
+            make.edges.equalTo(latestNewsImage)
         }
         
         bookMarkButton.snp.makeConstraints { make in
@@ -123,6 +133,10 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(newsLabel.snp.top).offset(-8)
         }
     }
-    
 }
-
+//MARK: - затемнение
+extension UIImageView {
+    func toner() {
+        self.inputView?.backgroundColor = UIColor(red: 0 / 255, green: 0 / 255, blue: 0 / 255, alpha: 0.4)
+    }
+}
