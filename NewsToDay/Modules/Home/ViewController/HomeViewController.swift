@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 import SwiftUI
 
 protocol BookmarkDelegate: AnyObject {
@@ -17,7 +18,11 @@ class HomeViewController: UIViewController {
     //MARK: - Private Properties
     private let homeView = HomeView()
     private let sections = MockData.shared.pageData
-        
+    private let newsService = NewsService()
+    
+    var newsData: [News]?
+    var recNewsData: [News]?
+    
     //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +30,9 @@ class HomeViewController: UIViewController {
         addViews()
         setupViews()
         setDelegates()
+        fetchDataNews()
+        fetchRecommendedNews()
+        
     }
     //MARK: - Private methods
     private func setupViews() {
@@ -41,6 +49,39 @@ class HomeViewController: UIViewController {
         homeView.collectionView.delegate = self
         homeView.collectionView.dataSource = self
     }
+    
+    private func fetchDataNews() {
+        newsService.fetchNews(forCategory: Categories.science) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    print(data.description)
+                    print(data.count)
+                    self.newsData = data
+                    self.homeView.collectionView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    private func fetchRecommendedNews() {
+        newsService.fetchNewNews(limitRequest: 10) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let news):
+                DispatchQueue.main.async {
+                    self.recNewsData = news
+                    self.homeView.collectionView.reloadData()
+                }
+            case .failure(let error):
+                print("Failed to fetch recommended news: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     
     private func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
@@ -120,7 +161,7 @@ class HomeViewController: UIViewController {
     private func createRecommendedNewsSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalHeight(1)))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.9),
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.95),
                                                                          heightDimension: .absolute(96)),
                                                        subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
@@ -150,25 +191,34 @@ extension HomeViewController: UICollectionViewDelegate {
             print("Поиск")
         case .topics(_):
             print("Категории")
-        case .news(let news):
-            let selectedNews = news[indexPath.row]
-            showDetail(with: selectedNews)
-        case .recommended(let recommendedNews):
-            let selectedRecommendedNews = recommendedNews[indexPath.row]
-            showDetail(with: selectedRecommendedNews)
+            //TODO: - переделать
+        case .news(_):
+            print("Новости")
+        case .recommended(_):
+            print("Рекомендации")
+            
+            //        case .news(let news):
+            //            let selectedNews = news[indexPath.row]
+            //            showDetail(with: selectedNews)
+            //        case .recommended(let recommendedNews):
+            //            let selectedRecommendedNews = recommendedNews[indexPath.row]
+            //            showDetail(with: selectedRecommendedNews)
+            //        }
         }
     }
-    ///cоздаем экземпляр NewsDetails и передаем данные из выбранной новости
-    func showDetail(with news: ListItem) {
-        let detailVC = DetailViewController()
-        let newsDetails = NewsDetails(image: UIImage(named: news.image)!,
-                                      category: news.categories,
-                                      title: news.newsTopic,
-                                      author: "", 
-                                      text: news.news)
-        detailVC.configure(with: newsDetails)
-        navigationController?.pushViewController(detailVC, animated: true)
-    }
+    //    ///cоздаем экземпляр NewsDetails и передаем данные из выбранной новости
+    //    func showDetail(with news: ListItem) {
+    //        let detailVC = DetailViewController()
+    //        let newsDetails = NewsDetails(image: UIImage(named: news.image)!,
+    //                                      category: news.categories,
+    //                                      title: news.newsTopic,
+    //                                      author: "",
+    //                                      text: news.news)
+    //        detailVC.configure(with: newsDetails)
+    //        navigationController?.pushViewController(detailVC, animated: true)
+    //    }
+    
+    
 }
 
 //MARK: - UICollectionViewDataSource
@@ -179,7 +229,24 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        sections[section].count
+        switch sections[section] {
+        case .textField(_):
+            return 1
+        case .topics(_):
+            return 10
+        case .news(_):
+            return 10
+        case .recommended(_):
+            if let recNews = recNewsData {
+                if recNews.count > 5 {
+                    return 5
+                }
+                if recNews.count < 5 {
+                    return recNews.count
+                }
+            }
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -189,19 +256,31 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         case .topics(let topic):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "CategoriesCollectionViewCell", for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
+            
             cell.configureCell(topicName: topic[indexPath.row].categories)
             return cell
-        case .news(let news):
-            guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "LatestNewsCollectionViewCell", for: indexPath) as? LatestNewsCollectionViewCell else { return UICollectionViewCell() }
-            cell.configureCell(image: news[indexPath.row].image, newTopic: news[indexPath.row].newsTopic, news: news[indexPath.row].news, newsItem: news[indexPath.row])
             
+        case .news(_):
+            guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "LatestNewsCollectionViewCell", for: indexPath) as? LatestNewsCollectionViewCell else { return UICollectionViewCell() }
+    
+            if let dataNews = newsData, indexPath.item < dataNews.count {
+                let newsDataItem = dataNews[indexPath.item]
+                cell.configureCell(image: newsDataItem.urlToImage ?? "",
+                                   newTopic: newsDataItem.title ?? "",
+                                   news: newsDataItem.description ?? "")
+            }
             cell.delegate = self
             return cell
-
-        case .recommended(let recommendedNews):
-            guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "RecomendedNewsCollectionViewCell", for: indexPath) as? RecomendedNewsCollectionViewCell else { return UICollectionViewCell() }
-            cell.configureCell(image: recommendedNews[indexPath.row].image, newTopic: recommendedNews[indexPath.row].newsTopic, news: recommendedNews[indexPath.row].news)
             
+        case .recommended(_):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecomendedNewsCollectionViewCell", for: indexPath) as? RecomendedNewsCollectionViewCell else { return UICollectionViewCell() }
+            
+            if let recNews = recNewsData, indexPath.item < recNews.count {
+                let newsItem = recNews[indexPath.item]
+                cell.configureCell(image: newsItem.urlToImage ?? "",
+                                   newTopic: newsItem.title ?? "",
+                                   news: newsItem.description ?? "")
+            }
             return cell
         }
     }

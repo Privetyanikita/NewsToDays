@@ -57,6 +57,8 @@
 		BE24E71B2BAABA9C000D2E0D /* ListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E71A2BAABA9C000D2E0D /* ListSection.swift */; };
 		BE24E71D2BAABAB4000D2E0D /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E71C2BAABAB4000D2E0D /* ListItem.swift */; };
 		BE24E7202BAC2E10000D2E0D /* BookmarksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E71F2BAC2E10000D2E0D /* BookmarksTableViewCell.swift */; };
+		BE64D1B22BB34C89006CCB0D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BE64D1B12BB34C89006CCB0D /* Kingfisher */; };
+		BEB19B3E2BB2F9520002F973 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB19B3D2BB2F9520002F973 /* BookmarkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +112,7 @@
 		BE24E71A2BAABA9C000D2E0D /* ListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSection.swift; sourceTree = "<group>"; };
 		BE24E71C2BAABAB4000D2E0D /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		BE24E71F2BAC2E10000D2E0D /* BookmarksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewCell.swift; sourceTree = "<group>"; };
+		BEB19B3D2BB2F9520002F973 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE64D1B22BB34C89006CCB0D /* Kingfisher in Frameworks */,
 				84A3C5742BAA2CEC00A67492 /* SnapKit in Frameworks */,
 				84A3C5762BAA2CEC00A67492 /* SnapKit-Dynamic in Frameworks */,
 			);
@@ -482,6 +486,7 @@
 		84B80E822BB2290100535B72 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BEB19B3D2BB2F9520002F973 /* BookmarkManager.swift */,
 				84B80E802BB2290100535B72 /* Endpoints.swift */,
 				84B80E812BB2290100535B72 /* NewsModel.swift */,
 			);
@@ -544,6 +549,7 @@
 			packageProductDependencies = (
 				84A3C5732BAA2CEC00A67492 /* SnapKit */,
 				84A3C5752BAA2CEC00A67492 /* SnapKit-Dynamic */,
+				BE64D1B12BB34C89006CCB0D /* Kingfisher */,
 			);
 			productName = NewsToDay;
 			productReference = 847F26E12BA731840057F627 /* NewsToDay.app */;
@@ -624,6 +630,7 @@
 				847F26E52BA731840057F627 /* AppDelegate.swift in Sources */,
 				84B80E862BB2290100535B72 /* Endpoints.swift in Sources */,
 				847F272D2BA742900057F627 /* ProfileView.swift in Sources */,
+				BEB19B3E2BB2F9520002F973 /* BookmarkManager.swift in Sources */,
 				847F27312BA742B20057F627 /* DetailViewController.swift in Sources */,
 				526B08052BB17F96002C99B1 /* SelectCategoriesViewController.swift in Sources */,
 				BE24E7172BAABA04000D2E0D /* RecomendedNewsCollectionViewCell.swift in Sources */,
@@ -899,6 +906,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 84A3C5722BAA2CEC00A67492 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = "SnapKit-Dynamic";
+		};
+		BE64D1B12BB34C89006CCB0D /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 526B07F02BA9BFB4002C99B1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

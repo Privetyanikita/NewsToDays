@@ -7,11 +7,12 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class LatestNewsCollectionViewCell: UICollectionViewCell {
     
     var bookMarkChangeColor: Bool = false
-    private var newsItem: ListItem?
+//    private var newsItem: ListItem?
     weak var delegate: BookmarkDelegate?
     
     //MARK: - Private Properties
@@ -19,6 +20,7 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         let element = UIImageView()
         element.layer.cornerRadius = 12
         element.layer.masksToBounds = true
+        element.backgroundColor = .red
         element.contentMode = .scaleAspectFill
         return element
     }()
@@ -52,14 +54,14 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
     // MARK: - Action
     @objc private func addToBookmarks() {
         if bookMarkChangeColor == false {
-            guard let newsItem = newsItem else { return }
+//            guard let newsItem = newsItem else { return }
             bookMarkButton.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal)
             bookMarkButton.tintColor = .systemYellow
             bookMarkChangeColor = true
-            delegate?.addToBookmarks(news: newsItem)
+//            delegate?.addToBookmarks(news: newsItem)
             print("добавлена")
         } else {
-            guard let newsItem = newsItem else { return }
+//            guard let newsItem = newsItem else { return }
             bookMarkButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
             bookMarkButton.tintColor = .white
             bookMarkChangeColor = false
@@ -83,9 +85,10 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Methods
-    func configureCell(image: String, newTopic: String, news: String, newsItem: ListItem) {
-        self.newsItem = newsItem
-        latestNewsImage.image = UIImage(named: image)
+    func configureCell(image: String, newTopic: String, news: String) {
+//        self.newsItem = newsItem
+        latestNewsImage.kf.indicatorType = .activity
+        latestNewsImage.kf.setImage(with: URL(string: image))    //UIImage(named: image)
         topicNewsLabel.text = newTopic
         newsLabel.text = news
     }
