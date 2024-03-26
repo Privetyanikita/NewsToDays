@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class DetailViewController: UIViewController {
     
@@ -15,6 +16,7 @@ class DetailViewController: UIViewController {
     private lazy var backgroundImageView: UIImageView = {
         let element = UIImageView()
         element.image = UIImage(named: "mockimage")
+        element.clipsToBounds = true
         element.contentMode = .scaleAspectFill
         return element
     }()
@@ -90,13 +92,14 @@ class DetailViewController: UIViewController {
         addAction()
         setupConstraints()
     }
-    ///передаю данные для обновления
-    func configure(with news: NewsDetails) {
-        backgroundImageView.image = news.image
-//        categoryButton.setTitle(news.category, for: .normal)
+    ///прокидываем ячейку
+    func configure(with news: News) {
+        backgroundImageView.kf.setImage(with: URL(string: news.urlToImage ?? ""))
         titlelabel.text = news.title
         authorlabel.text = news.author
-        article.text = news.text
+        articleLabel.text = news.description
+        article.text = news.content
+        
     }
     
     private func addAction() {
