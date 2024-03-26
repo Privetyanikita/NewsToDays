@@ -14,7 +14,7 @@ class DetailViewController: UIViewController {
     
     private lazy var backgroundImageView: UIImageView = {
         let element = UIImageView()
-        element.image = UIImage(named: "Rectangle6")
+        element.image = UIImage(named: "mockimage")
         element.contentMode = .scaleAspectFill
         return element
     }()
@@ -49,7 +49,7 @@ class DetailViewController: UIViewController {
         element.backgroundColor = UIColor(named: "PurplePrimary")
         element.setTitle("Politics", for: .normal)                //изменится согласно API
         element.titleLabel?.font = UIFont(name: "Inter-Medium", size: 12)
-        element.layer.cornerRadius = 10
+        element.layer.cornerRadius = 16
         element.setTitleColor(.white, for: .normal)
         return element
     }()
@@ -83,12 +83,14 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .white
         setViews()
+        addAction()
         setupConstraints()
     }
     
-    func addAction() {
+    private func addAction() {
         backButton.addTarget(self, action: #selector(backButtonTappet), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(favoriteButtonTappet), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(shareButtonTappet), for: .touchUpInside)
@@ -106,7 +108,7 @@ class DetailViewController: UIViewController {
     }
     
     @objc private func shareButtonTappet() {
-print("You can share news")
+        print("You can share news")
     }
     
     @objc private func categoryButtonTappet() {
@@ -120,17 +122,17 @@ print("You can share news")
         view.addSubview(articleView)
         
         backgroundImageView.addSubview(colorView)
-        backgroundImageView.addSubview(headerStackView)
-        backgroundImageView.addSubview(backButton)
-        backgroundImageView.addSubview(favoriteButton)
-        backgroundImageView.addSubview(shareButton)
-        
         headerStackView.addArrangedSubview(categoryButton)
         headerStackView.addArrangedSubview(titlelabel)
         headerStackView.addArrangedSubview(authorlabel)
         
         articleView.addSubview(articleLabel)
         articleView.addSubview(article)
+        
+        view.addSubview(backButton)
+        view.addSubview(favoriteButton)
+        view.addSubview(shareButton)
+        view.addSubview(headerStackView)
     }
     
 }
@@ -150,14 +152,14 @@ extension DetailViewController {
         
         backButton.snp.makeConstraints { make in
             make.height.width.equalTo(24)
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(28)
             make.leading.equalToSuperview().inset(20)
             
         }
         
         favoriteButton.snp.makeConstraints { make in
             make.height.width.equalTo(24)
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(28)
             make.trailing.equalToSuperview().inset(20)
         }
         
@@ -173,8 +175,8 @@ extension DetailViewController {
         }
         
         categoryButton.snp.makeConstraints { make in
-            make.height.equalTo(categoryButton.titleLabel!.intrinsicContentSize.height + 8)
-            make.width.equalTo(categoryButton.titleLabel!.intrinsicContentSize.width + 16)
+            make.height.equalTo(categoryButton.titleLabel!.intrinsicContentSize.height + 16)
+            make.width.equalTo(categoryButton.titleLabel!.intrinsicContentSize.width + 32)
         }
         
         articleView.snp.makeConstraints { make in
@@ -188,7 +190,7 @@ extension DetailViewController {
         }
         
         article.snp.makeConstraints { make in
-            make.top.equalTo(articleLabel.snp.bottom).offset(-8)
+            make.top.equalTo(articleLabel.snp.bottom).offset(8)
             make.leading.trailing.bottom.equalTo(articleView)
         }
         
