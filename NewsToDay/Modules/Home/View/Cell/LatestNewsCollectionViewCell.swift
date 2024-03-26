@@ -11,6 +11,8 @@ import SnapKit
 final class LatestNewsCollectionViewCell: UICollectionViewCell {
     
     var bookMarkChangeColor: Bool = false
+    private var newsItem: ListItem?
+    weak var delegate: BookmarkDelegate?
     
     //MARK: - Private Properties
     private let latestNewsImage: UIImageView = {
@@ -48,20 +50,25 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         return element
     }()
     // MARK: - Action
-    
     @objc private func addToBookmarks() {
         if bookMarkChangeColor == false {
+            guard let newsItem = newsItem else { return }
             bookMarkButton.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal)
             bookMarkButton.tintColor = .systemYellow
             bookMarkChangeColor = true
-            //TODO: -
-            
+            delegate?.addToBookmarks(news: newsItem)
+            print("добавлена")
         } else {
+            guard let newsItem = newsItem else { return }
             bookMarkButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
             bookMarkButton.tintColor = .white
             bookMarkChangeColor = false
-            //TODO: -
             
+//            ///поиск индекса элемента в массиве закладок
+//            if let index = BookmarkManager.shared.bookmarkedItems.firstIndex(of: newsItem) {
+//                BookmarkManager.shared.removeBookmark(at: index)
+//            }
+            print("снята")
         }
     }
     
@@ -76,7 +83,8 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Methods
-    func configureCell(image: String, newTopic: String, news: String) {
+    func configureCell(image: String, newTopic: String, news: String, newsItem: ListItem) {
+        self.newsItem = newsItem
         latestNewsImage.image = UIImage(named: image)
         topicNewsLabel.text = newTopic
         newsLabel.text = news

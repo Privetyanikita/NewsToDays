@@ -9,11 +9,15 @@ import UIKit
 import SnapKit
 import SwiftUI
 
+protocol BookmarkDelegate: AnyObject {
+    func addToBookmarks(news: ListItem)
+}
+
 class HomeViewController: UIViewController {
     //MARK: - Private Properties
     private let homeView = HomeView()
     private let sections = MockData.shared.pageData
-    
+        
     //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,6 +138,7 @@ class HomeViewController: UIViewController {
               alignment: .top)
     }
 }
+
 //MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
     
@@ -142,23 +147,30 @@ extension HomeViewController: UICollectionViewDelegate {
         let section = sections[indexPath.section]
         switch section {
         case .textField(_):
-            
             print("Поиск")
         case .topics(_):
-
             print("Категории")
-        case .news(_):
-            //TODO:
-            let detailVC = DetailViewController()
-            navigationController?.pushViewController(detailVC, animated: true)
-        case .recommended(_):
-            //TODO: 
-            let detailVC = DetailViewController()
-            navigationController?.pushViewController(detailVC, animated: true)
-            
+        case .news(let news):
+            let selectedNews = news[indexPath.row]
+            showDetail(with: selectedNews)
+        case .recommended(let recommendedNews):
+            let selectedRecommendedNews = recommendedNews[indexPath.row]
+            showDetail(with: selectedRecommendedNews)
         }
     }
+    ///cоздаем экземпляр NewsDetails и передаем данные из выбранной новости
+    func showDetail(with news: ListItem) {
+        let detailVC = DetailViewController()
+        let newsDetails = NewsDetails(image: UIImage(named: news.image)!,
+                                      category: news.categories,
+                                      title: news.newsTopic,
+                                      author: "", 
+                                      text: news.news)
+        detailVC.configure(with: newsDetails)
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
+
 //MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
     
@@ -181,11 +193,15 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         case .news(let news):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "LatestNewsCollectionViewCell", for: indexPath) as? LatestNewsCollectionViewCell else { return UICollectionViewCell() }
-            cell.configureCell(image: news[indexPath.row].image, newTopic: news[indexPath.row].newsTopic, news: news[indexPath.row].news)
+            cell.configureCell(image: news[indexPath.row].image, newTopic: news[indexPath.row].newsTopic, news: news[indexPath.row].news, newsItem: news[indexPath.row])
+            
+            cell.delegate = self
             return cell
+
         case .recommended(let recommendedNews):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "RecomendedNewsCollectionViewCell", for: indexPath) as? RecomendedNewsCollectionViewCell else { return UICollectionViewCell() }
             cell.configureCell(image: recommendedNews[indexPath.row].image, newTopic: recommendedNews[indexPath.row].newsTopic, news: recommendedNews[indexPath.row].news)
+            
             return cell
         }
     }
@@ -219,6 +235,18 @@ extension HomeViewController {
         }
     }
 }
+//MARK: - BookmarkDelegate
+extension HomeViewController: BookmarkDelegate {
+    func addToBookmarks(news: ListItem) {
+        BookmarkManager.shared.addBookmark(news)
+        print(BookmarkManager.shared.bookmarkedItems.count)
+        
+        if let bookmarksVC = navigationController?.viewControllers.first(where: { $0 is BookmarksViewController }) as? BookmarksViewController {
+            bookmarksVC.updateBookmarks()
+        }
+    }
+}
+
 //MARK: - PreviewProvider
 struct ContentViewController_Previews: PreviewProvider {
     static var previews: some View {
@@ -236,5 +264,3 @@ struct ContentViewController: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: HomeViewController, context: Context) {}
 }
-
-
