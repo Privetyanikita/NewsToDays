@@ -83,6 +83,7 @@ class DetailViewController: UIViewController {
     }()
     
     private var urlForNews: String = ""
+    private var dataForNews:News!
     
     // MARK: - Life Cycle
     
@@ -121,7 +122,7 @@ class DetailViewController: UIViewController {
         articleLabel.text = news.description
         article.text = news.content
         urlForNews = news.url ?? "google.com"
-        
+        dataForNews = news
     }
     
     private func addAction() {
@@ -138,9 +139,10 @@ class DetailViewController: UIViewController {
     //TODO: - добавить в закладки
     @objc private func favoriteButtonTappet() {
         print("bookmarks")
-        let bookmarksVC = BookmarksViewController()
-        self.navigationController?.pushViewController(bookmarksVC, animated: true)
-        self.navigationItem.hidesBackButton = true
+//        let bookmarksVC = BookmarksViewController()
+//        self.navigationController?.pushViewController(bookmarksVC, animated: true)
+//        self.navigationItem.hidesBackButton = true
+        
     }
     
     @objc private func shareButtonTappet() {
