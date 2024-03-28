@@ -80,6 +80,29 @@ final class LanguageView: UIView {
         
     }
     
+    private func restartApp() {
+        // Find the scene delegate
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
+            return
+        }
+
+        // Get the window from the scene delegate
+        guard let window = sceneDelegate.window else {
+            return
+        }
+
+        // Create a new instance of the root view controller
+        let rootViewController = TabBarController()
+        rootViewController.configure()
+        rootViewController.setupTabBar()
+
+        // Set the new instance as the root view controller
+        window.rootViewController = rootViewController
+
+        // Make the window visible
+        window.makeKeyAndVisible()
+    }
+    
 }
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension LanguageView: UITableViewDelegate, UITableViewDataSource {
@@ -89,22 +112,15 @@ extension LanguageView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.reuseIdentifier, for: indexPath) as? TableViewCell else { return UITableViewCell() }
+        cell.setTitlesAndImage(title: dataSource[indexPath.row].title , image:dataSource[indexPath.row].image ?? UIImage())
+        cell.selectionStyle = .none
         
         switch indexPath.row {
         case 0:
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.reuseIdentifier, for: indexPath) as? TableViewCell else { return UITableViewCell() }
-            cell.setTitlesAndImage(title: dataSource[indexPath.row].title , image:dataSource[indexPath.row].image ?? UIImage())
-            cell.selectionStyle = .none
-            UserDefaults.standard.set(["ru"], forKey: "AppleLanguages")
             return cell
             
         case 1:
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.reuseIdentifier, for: indexPath) as? TableViewCell else { return UITableViewCell() }
-            cell.setTitlesAndImage(title: dataSource[indexPath.row].title , image:dataSource[indexPath.row].image ?? UIImage())
-            cell.selectionStyle = .none
-            UserDefaults.standard.set(["en"], forKey: "AppleLanguages")
             return cell
             
         default:
@@ -126,12 +142,18 @@ extension LanguageView: UITableViewDelegate, UITableViewDataSource {
         print("cell tapped #\(indexPath.row)")
         
         switch indexPath.row {
-            //        case 0:
-            //
-            //        case 1:
+        case 0:
+            UserDefaults.standard.set(["en"], forKey: "AppleLanguages")
+            
+        case 1:
+            UserDefaults.standard.set(["ru"], forKey: "AppleLanguages")
+            
         default:
             break
         }
+        
+        UserDefaults.standard.synchronize()
+        restartApp()
     }
     
     

@@ -1,10 +1,3 @@
-//
-//  ProfileView.swift
-//  NewsToDay
-//
-//  Created by NikitaKorniuk   on 17.03.2024.
-//
-
 import Foundation
 import UIKit
 import SnapKit
@@ -13,6 +6,7 @@ final class ProfileView: UIView {
     
     private var navigationController: UINavigationController?
     private var dataSource: [ProfileCellModel] = []
+    private let profileImageKey = "profileImageKey"
     
     // MARK: - Views
     private let backgroundView: UIView = {
@@ -34,21 +28,23 @@ final class ProfileView: UIView {
     }()
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
-        setViews()
-        layoutViews()
-    }
-    
-    init(frame: CGRect, dataSource: [ProfileCellModel], navigationController: UINavigationController?) {
-        self.navigationController = navigationController
-        super.init(frame: frame)
-        self.dataSource = dataSource
-        setViews()
-        layoutViews()
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+            super.init(frame: frame)
+            setViews()
+            layoutViews()
+            loadProfileImage()
+        }
+
+        init(frame: CGRect, dataSource: [ProfileCellModel], navigationController: UINavigationController?) {
+            self.navigationController = navigationController
+            super.init(frame: frame)
+            self.dataSource = dataSource
+            setViews()
+            layoutViews()
+            loadProfileImage()
+        }
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
     
     // MARK: Set Views
     private func setViews() {
@@ -67,10 +63,17 @@ final class ProfileView: UIView {
             $0.right.equalToSuperview().inset(20)
             $0.bottom.equalTo(safeAreaInsets.bottom)
         }
-        
-        
     }
     
+    private func loadProfileImage() {
+        guard let profileCell = profileMainTableView.visibleCells.compactMap({ $0 as? ProfileMainTableViewCell }).first,
+              let imageData = UserDefaults.standard.data(forKey: profileImageKey),
+              let profileImage = UIImage(data: imageData) else {
+            return
+        }
+        
+        profileCell.profileImage.image = profileImage
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -109,7 +112,7 @@ extension ProfileView: UITableViewDelegate, UITableViewDataSource {
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("cell tapped #\(indexPath.row)")
         
@@ -143,11 +146,15 @@ extension ProfileView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension ProfileView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
             if let profileCell = profileMainTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileMainTableViewCell {
                 profileCell.profileImage.image = selectedImage
+                
+                // Save the selected image to UserDefaults
+                saveImageToUserDefaults(image: selectedImage)
             }
         }
         picker.dismiss(animated: true, completion: nil)
@@ -156,6 +163,11 @@ extension ProfileView: UIImagePickerControllerDelegate, UINavigationControllerDe
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    
+    private func saveImageToUserDefaults(image: UIImage) {
+        // Compress the image data
+        if let imageData = image.jpegData(compressionQuality: 0.8) {
+            UserDefaults.standard.set(imageData, forKey: profileImageKey)
+        }
+    }
 }
-
-
