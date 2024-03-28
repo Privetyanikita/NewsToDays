@@ -33,6 +33,13 @@ final class LoginViewController: UIViewController {
 
     private lazy var actionButton = BlueButton(text: "Sign In")
     
+    private lazy var signInButton: UIButton = {
+        let element = UIButton()
+        element.setTitle("Don't have an account? Sign Up", for: .normal)
+        element.setTitleColor(UIColor(named: "BlackLight"), for: .normal)
+        return element
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Welcome Back 👋"
@@ -53,6 +60,8 @@ final class LoginViewController: UIViewController {
         view.addSubview(greeting)
         view.addSubview(mainStackView)
         view.addSubview(actionButton)
+        view.addSubview(signInButton)
+        
         mainStackView.addArrangedSubview(nameTF)
         mainStackView.addArrangedSubview(passwordTF)
         
@@ -80,27 +89,32 @@ extension LoginViewController {
         }
         actionButton.snp.makeConstraints { make in
             make.height.equalTo(56)
-            make.bottom.equalTo(mainStackView.snp.bottom).offset(-64)
+            make.top.equalTo(mainStackView.snp.bottom).offset(64)
             make.leading.trailing.equalToSuperview().inset(20)
+        }
+        signInButton.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            make.centerX.equalToSuperview()
         }
     }
 }
 
 
 //MARK: - PreviewProvider
-struct ContentViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentViewController()
-            .edgesIgnoringSafeArea(.all)
-    }
-}
-struct ContentViewController: UIViewControllerRepresentable {
-    
-    typealias UIViewControllerType = LoginViewController
-    
-    func makeUIViewController(context: Context) -> UIViewControllerType {
-        return LoginViewController()
-    }
-    
-    func updateUIViewController(_ uiViewController: LoginViewController, context: Context) {}
-}
+//struct ContentViewController_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentViewController()
+//            .edgesIgnoringSafeArea(.all)
+//    }
+//}
+//struct ContentViewController: UIViewControllerRepresentable {
+//    
+//    typealias UIViewControllerType = LoginViewController
+//    
+//    func makeUIViewController(context: Context) -> UIViewControllerType {
+//        return LoginViewController()
+//    }
+//    
+//    func updateUIViewController(_ uiViewController: LoginViewController, context: Context) {}
+//}

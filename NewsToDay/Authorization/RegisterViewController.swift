@@ -35,6 +35,13 @@ final class RegisterViewController: UIViewController {
 
     private lazy var actionButton = BlueButton(text: "Sign Un")
     
+    private lazy var signInButton: UIButton = {
+        let element = UIButton()
+        element.setTitle("Already have an account? Sign In", for: .normal)
+        element.setTitleColor(UIColor(named: "BlackLight"), for: .normal)
+        return element
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Welcome to NewsToDay"
@@ -54,6 +61,7 @@ final class RegisterViewController: UIViewController {
     private func setViews() {
         view.addSubview(greeting)
         view.addSubview(mainStackView)
+        view.addSubview(signInButton)
         
         mainStackView.addArrangedSubview(nameTF)
         mainStackView.addArrangedSubview(emailTF)
@@ -95,5 +103,29 @@ extension RegisterViewController {
             make.height.equalTo(56)
             make.leading.trailing.equalTo(mainStackView)
         }
+        
+        signInButton.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            make.centerX.equalToSuperview()
+        }
     }
+}
+
+struct ContentViewController_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentViewController()
+            .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct ContentViewController: UIViewControllerRepresentable {
+    
+    typealias UIViewControllerType = RegisterViewController
+    
+    func makeUIViewController(context: Context) -> UIViewControllerType {
+        return RegisterViewController()
+    }
+    
+    func updateUIViewController(_ uiViewController: RegisterViewController, context: Context) {}
 }

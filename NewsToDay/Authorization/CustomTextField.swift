@@ -36,12 +36,6 @@ class CustomTextField: UITextField {
         self.leftViewMode = .always
         self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: self.frame.size.height))
         
-//        if let icon = icon {
-//                  let iconView = UIImageView(image: icon)
-//                  iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-//                  self.leftView = iconView
-//                  self.leftViewMode = .always
-//              }
         
         switch fieldType {
         case .username:
