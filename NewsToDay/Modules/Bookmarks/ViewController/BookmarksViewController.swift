@@ -14,9 +14,6 @@ class BookmarksViewController: UIViewController {
     ///Пока моковые данные
     private let sections = MockData.shared.pageData
     
-    ///Массив для хранения ячеек, добавленных в закладки
-    private var bookmarkedItems: [ListItem] = []
-    
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.delegate = self
@@ -25,25 +22,101 @@ class BookmarksViewController: UIViewController {
         table.separatorStyle = .none
         return table
     }()
+    
+    private let noBookmarksView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        
+        let bookImage = UIImageView(image: UIImage(systemName: "text.book.closed"))
+        bookImage.tintColor = .purplePrimary
+        bookImage.contentMode = .scaleAspectFit
+        
+        let imageViewContainer = UIView()
+        imageViewContainer.addSubview(bookImage)
+        bookImage.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(24)
+        }
+        
+        let messageLabel = UILabel()
+        messageLabel.text = "You haven't saved any articles \n yet. Start reading and \n bookmarking them now"
+        messageLabel.textColor = .blackPrimary
+        messageLabel.textAlignment = .center
+        messageLabel.numberOfLines = 0
+        
+        let circleView = UIView()
+        circleView.backgroundColor = .greyLighter
+        circleView.layer.cornerRadius = 36
+        
+        view.addSubview(circleView)
+        view.addSubview(messageLabel)
+        view.addSubview(imageViewContainer)
+        
+        circleView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-56)
+            make.size.equalTo(72)
+        }
+        
+        imageViewContainer.snp.makeConstraints { make in
+            make.center.equalTo(circleView.snp.center)
+        }
+        
+        messageLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(circleView.snp.bottom).offset(16)
+        }
+        
+        return view
+    }()
+    
     //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
+//        setupViews()
+        updateBookmarksVisibility()
         
     }
-    //MARK: - Private methods
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateBookmarksVisibility()
+
+    }
+    
+    //MARK: - Methods
+    func updateBookmarks() {
+        tableView.reloadData()
+    }
+    
+    private func updateBookmarksVisibility() {
+        if BookmarkManager.shared.bookmarkedItems.isEmpty {
+            tableView.isHidden = true
+            view.addSubview(noBookmarksView)
+            noBookmarksView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+        } else {
+            tableView.isHidden = false
+            noBookmarksView.removeFromSuperview()
+            setupViews()
+            tableView.reloadData()
+        }
+    }
+    
     private func setupViews() {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
+    
 }
 //MARK: - UITableViewDataSource
 extension BookmarksViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -51,15 +124,7 @@ extension BookmarksViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        switch section {
-        case 0: ///"news" секция
-            return sections[2].items.count
-        case 1: ///"recommended" секция
-            return sections[3].items.count
-        default:
-            return 0
-        }
+        return BookmarkManager.shared.bookmarkedItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,26 +132,13 @@ extension BookmarksViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        ///Определение данных для отображения в ячейке в соответствии с секцией
-        let item: ListItem
-        switch indexPath.section {
-        case 0: ///"news" секция
-            item = sections[2].items[indexPath.row]
-        case 1: ///"recommended" секция
-            item = sections[3].items[indexPath.row]
-        default:
-            return UITableViewCell()
-        }
-        
-        ///Прокидываем данные в ячейку
+        let item = BookmarkManager.shared.bookmarkedItems[indexPath.row]
         cell.configureCell(image: item.image, newTopic: item.newsTopic, news: item.news)
         
         return cell
     }
-    
-
-
 }
+
 
 //MARK: - UITableViewDelegate
 extension BookmarksViewController: UITableViewDelegate {
