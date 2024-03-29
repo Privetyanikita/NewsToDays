@@ -33,12 +33,20 @@ struct MockData {
     }()
     
     private let recommended: ListSection = {
-        .recommended([.init(image: "Rectangle7", categories: "", newsTopic: "UI/UX Design", news: "A Simple Trick For Creating Color Palettes Quickly"),
-                      .init(image: "Rectangle7", categories: "", newsTopic: "Art", news: "Six steps to creating a color palette"),
-                      .init(image: "Rectangle7", categories: "", newsTopic: "Colors", news: "Creating Color Palette from world around you"),
-                      .init(image: "Rectangle7", categories: "", newsTopic: "Politics", news: "The latest situation in the presidential election")
+        .recommended([.init(image: "", categories: "", newsTopic: "", news: ""),
+                      .init(image: "", categories: "", newsTopic: "", news: ""),
+                      .init(image: "", categories: "", newsTopic: "", news: ""),
+                      .init(image: "", categories: "", newsTopic: "", news: "")
         ])
     }()
+    
+//    private let recommended: ListSection = {
+//        .recommended([.init(image: "Rectangle7", categories: "", newsTopic: "UI/UX Design", news: "A Simple Trick For Creating Color Palettes Quickly"),
+//                      .init(image: "Rectangle7", categories: "", newsTopic: "Art", news: "Six steps to creating a color palette"),
+//                      .init(image: "Rectangle7", categories: "", newsTopic: "Colors", news: "Creating Color Palette from world around you"),
+//                      .init(image: "Rectangle7", categories: "", newsTopic: "Politics", news: "The latest situation in the presidential election")
+//        ])
+//    }()
     
     var pageData: [ListSection] {
         [textField, topics, news, recommended]
