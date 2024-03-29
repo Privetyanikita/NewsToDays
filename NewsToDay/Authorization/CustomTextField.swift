@@ -89,8 +89,8 @@ class CustomTextField: UITextField {
             
             let rightViewContainer = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
             let eyeButton = UIButton(type: .custom)
-            eyeButton.setImage(UIImage(systemName: "eye"), for: .selected)
-            eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .disabled)
+            eyeButton.setImage(UIImage(systemName: "eye"), for: .normal)
+            eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
             eyeButton.frame = CGRect(x: 0, y: 10, width: 24, height: 24)
             eyeButton.contentMode = .scaleAspectFit
             eyeButton.addTarget(self, action: #selector(eyeButtonTapped), for: .touchUpInside)
