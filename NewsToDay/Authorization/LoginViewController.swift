@@ -30,7 +30,7 @@ final class LoginViewController: UIViewController {
         return element
     }()
     
-    private let nameTF = CustomTextField(fieldType: .username)
+    private let nameTF = CustomTextField(fieldType: .email)
     private let passwordTF = CustomTextField(fieldType: .password)
     
     private lazy var actionButton = BlueButton(text: "Sign In")
@@ -46,11 +46,10 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Welcome Back 👋"
+        setViews()
+        setupConstraints()
         setupDelegates()
         addAction()
-        setViews()
-        addAction()
-        setupConstraints()
         hideKeyboardWhenTappedAround()
     }
     
@@ -88,7 +87,7 @@ final class LoginViewController: UIViewController {
                     return
                 }
                 else {
-                    let tabBarVC = TabBarController()
+                    let tabBarVC = SelectCategoriesViewController()
                     tabBarVC.modalPresentationStyle = .fullScreen
                     self.present(tabBarVC, animated: true)
                 }

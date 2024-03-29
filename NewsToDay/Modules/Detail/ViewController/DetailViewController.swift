@@ -41,11 +41,11 @@ class DetailViewController: UIViewController {
         let element = UIView()
         return element
     }()
-   
+    
     private let backButton = UIButton(systemImageName: "arrow.left")
     private let favoriteButton = UIButton(systemImageName: "bookmark")
     private let shareButton = UIButton(systemImageName: "arrowshape.turn.up.right")
-
+    
     
     private lazy var categoryButton: UIButton = {
         let element = UIButton()
@@ -60,14 +60,14 @@ class DetailViewController: UIViewController {
     private let titlelabel = UILabel(text: "Name of title will be here",
                                      font: UIFont(name: "Inter-SemiBold", size: 20),
                                      color: .white)
-
+    
     private let authorlabel = UILabel(text: "Name of author here",
-                                     font: UIFont(name: "Inter-Medium", size: 16),
-                                     color: .white)
+                                      font: UIFont(name: "Inter-Medium", size: 16),
+                                      color: .white)
     
     private let articleLabel = UILabel(text: "Result here",
-                                     font: UIFont(name: "Inter-Medium", size: 16),
-                                     color: .black)
+                                       font: UIFont(name: "Inter-Medium", size: 16),
+                                       color: .black)
     
     //изменится согласно API
     private lazy var article: UITextView = {
@@ -98,20 +98,22 @@ class DetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-
-            DispatchQueue.main.async {
-                self.navigationController?.navigationBar.prefersLargeTitles = false
-                self.navigationItem.largeTitleDisplayMode = .never
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-            }
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.main.async {
+            self.navigationController?.navigationBar.prefersLargeTitles = false
+            self.navigationItem.largeTitleDisplayMode = .never
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         
-        override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     
     // MARK: - Setup
     ///прокидываем ячейку
@@ -139,9 +141,6 @@ class DetailViewController: UIViewController {
     //TODO: - добавить в закладки
     @objc private func favoriteButtonTappet() {
         print("bookmarks")
-//        let bookmarksVC = BookmarksViewController()
-//        self.navigationController?.pushViewController(bookmarksVC, animated: true)
-//        self.navigationItem.hidesBackButton = true
         
     }
     

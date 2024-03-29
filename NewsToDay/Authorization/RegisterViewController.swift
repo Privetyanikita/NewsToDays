@@ -96,7 +96,7 @@ final class RegisterViewController: UIViewController {
                 return
             }
             else {
-                let tabBarVC = TabBarController()
+                let tabBarVC = SelectCategoriesViewController()
                 tabBarVC.modalPresentationStyle = .fullScreen
                 self.present(tabBarVC, animated: true)
             }
