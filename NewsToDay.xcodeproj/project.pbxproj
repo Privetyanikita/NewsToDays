@@ -55,10 +55,6 @@
 		84B80E862BB2290100535B72 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B80E802BB2290100535B72 /* Endpoints.swift */; };
 		84B80E872BB2290100535B72 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B80E812BB2290100535B72 /* NewsModel.swift */; };
 		84B80E882BB2290100535B72 /* NotworkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B80E832BB2290100535B72 /* NotworkServices.swift */; };
-		938226282BB3FB20002DAB5A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938226272BB3FB20002DAB5A /* LoginViewController.swift */; };
-		9382262A2BB596E1002DAB5A /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938226292BB596E1002DAB5A /* CustomTextField.swift */; };
-		9382262C2BB5AD2A002DAB5A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9382262B2BB5AD2A002DAB5A /* RegisterViewController.swift */; };
-		938226302BB5ED62002DAB5A /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9382262F2BB5ED62002DAB5A /* UIViewController+Extension.swift */; };
 		BE24E70F2BAAB939000D2E0D /* TextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E70E2BAAB939000D2E0D /* TextFieldCollectionViewCell.swift */; };
 		BE24E7112BAAB954000D2E0D /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E7102BAAB954000D2E0D /* CategoriesCollectionViewCell.swift */; };
 		BE24E7132BAAB99C000D2E0D /* LatestNewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E7122BAAB99C000D2E0D /* LatestNewsCollectionViewCell.swift */; };
@@ -68,8 +64,6 @@
 		BE24E71B2BAABA9C000D2E0D /* ListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E71A2BAABA9C000D2E0D /* ListSection.swift */; };
 		BE24E71D2BAABAB4000D2E0D /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E71C2BAABAB4000D2E0D /* ListItem.swift */; };
 		BE24E7202BAC2E10000D2E0D /* BookmarksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E71F2BAC2E10000D2E0D /* BookmarksTableViewCell.swift */; };
-		BE64D1B22BB34C89006CCB0D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BE64D1B12BB34C89006CCB0D /* Kingfisher */; };
-		BEB19B3E2BB2F9520002F973 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB19B3D2BB2F9520002F973 /* BookmarkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,10 +116,6 @@
 		84B80E802BB2290100535B72 /* Endpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		84B80E812BB2290100535B72 /* NewsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		84B80E832BB2290100535B72 /* NotworkServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotworkServices.swift; sourceTree = "<group>"; };
-		938226272BB3FB20002DAB5A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		938226292BB596E1002DAB5A /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		9382262B2BB5AD2A002DAB5A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		9382262F2BB5ED62002DAB5A /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		BE24E70E2BAAB939000D2E0D /* TextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		BE24E7102BAAB954000D2E0D /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		BE24E7122BAAB99C000D2E0D /* LatestNewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNewsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -135,7 +125,6 @@
 		BE24E71A2BAABA9C000D2E0D /* ListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSection.swift; sourceTree = "<group>"; };
 		BE24E71C2BAABAB4000D2E0D /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		BE24E71F2BAC2E10000D2E0D /* BookmarksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewCell.swift; sourceTree = "<group>"; };
-		BEB19B3D2BB2F9520002F973 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,7 +132,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE64D1B22BB34C89006CCB0D /* Kingfisher in Frameworks */,
 				84A3C5742BAA2CEC00A67492 /* SnapKit in Frameworks */,
 				84A3C5762BAA2CEC00A67492 /* SnapKit-Dynamic in Frameworks */,
 			);
@@ -318,7 +306,6 @@
 				84B80E852BB2290100535B72 /* Services */,
 				847F26FA2BA736540057F627 /* Modules */,
 				847F26F92BA734D00057F627 /* SupportingFiles */,
-				9382262D2BB5DB70002DAB5A /* Authorization */,
 			);
 			path = NewsToDay;
 			sourceTree = "<group>";
@@ -589,7 +576,6 @@
 		84B80E822BB2290100535B72 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BEB19B3D2BB2F9520002F973 /* BookmarkManager.swift */,
 				84B80E802BB2290100535B72 /* Endpoints.swift */,
 				84B80E812BB2290100535B72 /* NewsModel.swift */,
 			);
@@ -611,24 +597,6 @@
 				84B80E842BB2290100535B72 /* Network */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		9382262D2BB5DB70002DAB5A /* Authorization */ = {
-			isa = PBXGroup;
-			children = (
-				938226272BB3FB20002DAB5A /* LoginViewController.swift */,
-				9382262B2BB5AD2A002DAB5A /* RegisterViewController.swift */,
-				938226292BB596E1002DAB5A /* CustomTextField.swift */,
-			);
-			path = Authorization;
-			sourceTree = "<group>";
-		};
-		9382262E2BB5ED3F002DAB5A /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				9382262F2BB5ED62002DAB5A /* UIViewController+Extension.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		BE24E71E2BAAD643000D2E0D /* Cell */ = {
@@ -670,7 +638,6 @@
 			packageProductDependencies = (
 				84A3C5732BAA2CEC00A67492 /* SnapKit */,
 				84A3C5752BAA2CEC00A67492 /* SnapKit-Dynamic */,
-				BE64D1B12BB34C89006CCB0D /* Kingfisher */,
 			);
 			productName = NewsToDay;
 			productReference = 847F26E12BA731840057F627 /* NewsToDay.app */;
@@ -754,7 +721,6 @@
 				847F26E52BA731840057F627 /* AppDelegate.swift in Sources */,
 				84B80E862BB2290100535B72 /* Endpoints.swift in Sources */,
 				847F272D2BA742900057F627 /* ProfileView.swift in Sources */,
-				BEB19B3E2BB2F9520002F973 /* BookmarkManager.swift in Sources */,
 				847F27312BA742B20057F627 /* DetailViewController.swift in Sources */,
 				526B08052BB17F96002C99B1 /* SelectCategoriesViewController.swift in Sources */,
 				BE24E7172BAABA04000D2E0D /* RecomendedNewsCollectionViewCell.swift in Sources */,
@@ -772,15 +738,12 @@
 				BE24E7192BAABA7F000D2E0D /* MockData.swift in Sources */,
 				BE24E71D2BAABAB4000D2E0D /* ListItem.swift in Sources */,
 				84B80E882BB2290100535B72 /* NotworkServices.swift in Sources */,
-				938226302BB5ED62002DAB5A /* UIViewController+Extension.swift in Sources */,
 				847F26E72BA731840057F627 /* SceneDelegate.swift in Sources */,
 				847F27202BA741DF0057F627 /* CategoriesView.swift in Sources */,
-				938226282BB3FB20002DAB5A /* LoginViewController.swift in Sources */,
 				847F272A2BA742780057F627 /* ProfileViewController.swift in Sources */,
 				526B07FE2BACE414002C99B1 /* Constants.swift in Sources */,
 				BE24E71B2BAABA9C000D2E0D /* ListSection.swift in Sources */,
 				847F27352BA742CB0057F627 /* DetailModel.swift in Sources */,
-				9382262C2BB5AD2A002DAB5A /* RegisterViewController.swift in Sources */,
 				847F27332BA742BE0057F627 /* DetailView.swift in Sources */,
 				09007D202BAB775A00C72B16 /* TermsConditionsView.swift in Sources */,
 				09AAC3782BA9DB8100D5C913 /* ProfileInfoTableViewCell.swift in Sources */,
@@ -789,7 +752,6 @@
 				BE24E7132BAAB99C000D2E0D /* LatestNewsCollectionViewCell.swift in Sources */,
 				847F271A2BA7419E0057F627 /* OnbordingView.swift in Sources */,
 				526B07F72BAC9B22002C99B1 /* OnboardingCollectionViewCell.swift in Sources */,
-				9382262A2BB596E1002DAB5A /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,11 +1023,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 84A3C5722BAA2CEC00A67492 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = "SnapKit-Dynamic";
-		};
-		BE64D1B12BB34C89006CCB0D /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 526B07F02BA9BFB4002C99B1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

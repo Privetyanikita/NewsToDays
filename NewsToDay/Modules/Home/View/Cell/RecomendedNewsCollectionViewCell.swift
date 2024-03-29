@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import Kingfisher
 import SnapKit
 
 final class RecomendedNewsCollectionViewCell: UICollectionViewCell {
     //MARK: - Private Properties
-    lazy var cellImage: UIImageView = {
+    private let cellImage: UIImageView = {
         let element = UIImageView()
         element.layer.cornerRadius = 12
         element.layer.masksToBounds = true
@@ -19,7 +18,7 @@ final class RecomendedNewsCollectionViewCell: UICollectionViewCell {
         return element
     }()
     
-    lazy var newsTopicLabel: UILabel = {
+    private let newsTopicLabel: UILabel = {
         let element = UILabel()
         element.font = Font.getFont(.regular, size: 14)
         element.textColor = UIColor(named: "GreyPrimary")
@@ -27,7 +26,7 @@ final class RecomendedNewsCollectionViewCell: UICollectionViewCell {
         return element
     }()
     
-    lazy var newsLabel: UILabel = {
+    private let newsLabel: UILabel = {
         let element = UILabel()
         element.font = Font.getFont(.bold, size: 16)
         element.textColor = UIColor(named: "BlackPrimary")
@@ -46,8 +45,7 @@ final class RecomendedNewsCollectionViewCell: UICollectionViewCell {
     }
     //MARK: - Methods
     func configureCell(image: String, newTopic: String, news: String) {
-        cellImage.kf.indicatorType = .activity
-        cellImage.kf.setImage(with: URL(string: image))  //UIImage(named: image)
+        cellImage.image = UIImage(named: image)
         newsTopicLabel.text = newTopic
         newsLabel.text = news
     }
