@@ -19,9 +19,12 @@ class HomeViewController: UIViewController {
     private let homeView = HomeView()
     private let sections = MockData.shared.pageData
     private let newsService = NewsService()
-    
+    ///выбранная категория
+    private var selectedIndexPath: IndexPath?
+
     var newsData: [News]?
     var recNewsData: [News]?
+    
     
     //MARK: - View lifecycle
     override func viewDidLoad() {
@@ -30,7 +33,9 @@ class HomeViewController: UIViewController {
         addViews()
         setupViews()
         setDelegates()
-        fetchDataNews()
+        fetchDataNews(forCategory: Categories.gaming)
+        ///установка начального значения для selectedIndexPath
+        selectedIndexPath = IndexPath(item: 0, section: 1)
         fetchRecommendedNews()
         
     }
@@ -49,15 +54,13 @@ class HomeViewController: UIViewController {
         homeView.collectionView.delegate = self
         homeView.collectionView.dataSource = self
     }
-    
-    private func fetchDataNews() {
-        newsService.fetchNews(forCategory: Categories.science) { [weak self] result in
+
+    private func fetchDataNews(forCategory category: String) {
+        newsService.fetchNews(forCategory: category) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
-                    print(data.description)
-                    print(data.count)
                     self.newsData = data
                     self.homeView.collectionView.reloadData()
                 }
@@ -65,8 +68,8 @@ class HomeViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        
     }
+    
     private func fetchRecommendedNews() {
         newsService.fetchNewNews(limitRequest: 10) { [weak self] result in
             guard let self = self else { return }
@@ -185,12 +188,22 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        ///устанавливаем выбранную ячейку в selectedIndexPath
+        selectedIndexPath = indexPath
+        ///обновляем коллекцию
+        homeView.collectionView.reloadData()
+        
         let section = sections[indexPath.section]
         switch section {
         case .textField(_):
             print("Поиск")
-        case .topics(_):
-            print("Категории")
+        case .topics(let topics):
+            let selectedCategory = topics[indexPath.row].categories
+            print("Выбранная категория: \(selectedCategory)")
+            fetchDataNews(forCategory: selectedCategory)
+            ///после выбора новой категории, выполнить скролл к началу
+            homeView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 2), at: .left, animated: true)
+        
         case .news(_):
             print("Новости")
             guard let selectedNews = newsData?[indexPath.row] else { return }
@@ -220,8 +233,8 @@ extension HomeViewController: UICollectionViewDataSource {
         switch sections[section] {
         case .textField(_):
             return 1
-        case .topics(_):
-            return 10
+        case .topics(let topics):
+            return topics.count
         case .news(_):
             return 10
         case .recommended(_):
@@ -242,12 +255,16 @@ extension HomeViewController: UICollectionViewDataSource {
         case .textField(_):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "TextFieldCollectionViewCell", for: indexPath) as? TextFieldCollectionViewCell else { return UICollectionViewCell() }
             return cell
-        case .topics(let topic):
+        case .topics(let topics):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "CategoriesCollectionViewCell", for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
+            ///isSelectedCell в зависимости от того, выбрана ли ячейка в данный момент
+            cell.isSelectedCell = indexPath == selectedIndexPath
             
-            cell.configureCell(topicName: topic[indexPath.row].categories)
+            if indexPath.row < topics.count {
+                cell.configureCell(topicName: topics[indexPath.row].categories)
+            }
             return cell
-            
+
         case .news(_):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "LatestNewsCollectionViewCell", for: indexPath) as? LatestNewsCollectionViewCell else { return UICollectionViewCell() }
     
