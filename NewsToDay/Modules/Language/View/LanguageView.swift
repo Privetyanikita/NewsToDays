@@ -9,8 +9,8 @@ import UIKit
 
 final class LanguageView: UIView {
     
-    private lazy var languageView: UIView = LanguageView().languageView
-    private var navigationController: UINavigationController?
+    var languageTapCallBack: ((Int) -> Void)?
+
     private var dataSource: [ProfileCellModel] = []
     
     // MARK: - Views
@@ -47,7 +47,6 @@ final class LanguageView: UIView {
     }
     
     init(frame: CGRect, dataSource: [ProfileCellModel], navigationController: UINavigationController?) {
-        self.navigationController = navigationController
         super.init(frame: frame)
         self.dataSource = dataSource
         setViews()
@@ -79,30 +78,6 @@ final class LanguageView: UIView {
         }
         
     }
-    
-    private func restartApp() {
-        // Find the scene delegate
-        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
-            return
-        }
-
-        // Get the window from the scene delegate
-        guard let window = sceneDelegate.window else {
-            return
-        }
-
-        // Create a new instance of the root view controller
-        let rootViewController = TabBarController()
-        rootViewController.configure()
-        rootViewController.setupTabBar()
-
-        // Set the new instance as the root view controller
-        window.rootViewController = rootViewController
-
-        // Make the window visible
-        window.makeKeyAndVisible()
-    }
-    
 }
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension LanguageView: UITableViewDelegate, UITableViewDataSource {
@@ -140,20 +115,8 @@ extension LanguageView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("cell tapped #\(indexPath.row)")
-        
-        switch indexPath.row {
-        case 0:
-            UserDefaults.standard.set(["en"], forKey: "AppleLanguages")
-            
-        case 1:
-            UserDefaults.standard.set(["ru"], forKey: "AppleLanguages")
-            
-        default:
-            break
-        }
-        
-        UserDefaults.standard.synchronize()
-        restartApp()
+        languageTapCallBack?(indexPath.row)
+       
     }
     
     

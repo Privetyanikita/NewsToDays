@@ -6,7 +6,7 @@ final class ProfileView: UIView {
     
     private var navigationController: UINavigationController?
     private var dataSource: [ProfileCellModel] = []
-    private let profileImageKey = "profileImageKey"
+    private let profileImageKey = "profileImageKey" // Key for UserDefaults
     
     // MARK: - Views
     private let backgroundView: UIView = {
@@ -26,25 +26,25 @@ final class ProfileView: UIView {
         
         return tableView
     }()
-    
-    override init(frame: CGRect) {
-            super.init(frame: frame)
-            setViews()
-            layoutViews()
-            loadProfileImage()
-        }
 
-        init(frame: CGRect, dataSource: [ProfileCellModel], navigationController: UINavigationController?) {
-            self.navigationController = navigationController
-            super.init(frame: frame)
-            self.dataSource = dataSource
-            setViews()
-            layoutViews()
-            loadProfileImage()
-        }
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setViews()
+        layoutViews()
+        loadProfileImage() // Загружаем изображение при инициализации
+    }
+
+    init(frame: CGRect, dataSource: [ProfileCellModel], navigationController: UINavigationController?) {
+        self.navigationController = navigationController
+        super.init(frame: frame)
+        self.dataSource = dataSource
+        setViews()
+        layoutViews()
+        loadProfileImage() // Загружаем изображение при инициализации
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: Set Views
     private func setViews() {
@@ -65,6 +65,7 @@ final class ProfileView: UIView {
         }
     }
     
+    // Load profile image from UserDefaults
     private func loadProfileImage() {
         guard let profileCell = profileMainTableView.visibleCells.compactMap({ $0 as? ProfileMainTableViewCell }).first,
               let imageData = UserDefaults.standard.data(forKey: profileImageKey),
