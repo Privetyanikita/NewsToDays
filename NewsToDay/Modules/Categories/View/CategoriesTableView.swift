@@ -23,6 +23,7 @@ final class CategoriesTableView: UIView {
         table.dataSource = self
         table.register(BookmarksTableViewCell.self, forCellReuseIdentifier: "BookmarksTableViewCell")
         table.separatorStyle = .none
+        table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
@@ -31,6 +32,7 @@ final class CategoriesTableView: UIView {
     
     weak var delegate: CategoriesTableViewProtocol?
     private let network = NewsService()
+    private var NewsTableData:[News]? = []
     
     
     //MARK: - Lifecycle
@@ -46,6 +48,14 @@ final class CategoriesTableView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func arrayTransfer(news:[News]?){
+        self.NewsTableData = news
+    }
+    
+    func reloadTableView(){
+        tableView.reloadData()
+    }
 }
 
 
@@ -59,7 +69,7 @@ extension CategoriesTableView: UITableViewDelegate {
 //MARK: - DataSource
 extension CategoriesTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        NewsTableData?.count ?? 0
     }
     
     
@@ -69,12 +79,10 @@ extension CategoriesTableView: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookmarksTableViewCell", for: indexPath) as? BookmarksTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookmarksTableViewCell", for: indexPath) as? BookmarksTableViewCell, let NewsTableData = NewsTableData else { return UITableViewCell() }
         
-        
-        let item = BookmarkManager.shared.bookmarkedItems[indexPath.row]
-        cell.configureCell(image: item.image, newTopic: item.newsTopic, news: item.news)
-        
+        let item = NewsTableData[indexPath.row]
+        cell.configureCell(image: item.urlToImage ?? "", newTopic: item.title ?? "", news: item.description ?? "")
         return cell
     }
 }
@@ -91,11 +99,15 @@ private extension CategoriesTableView {
     
     
     func setConstraints() {
-            NSLayoutConstraint.activate([
-                tableView.topAnchor.constraint(equalTo: topAnchor, constant: 32),
-                tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-                tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-                tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
-            ])
+//            NSLayoutConstraint.activate([
+//                tableView.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+//                tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+//                tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+//                tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+//            ])
+        tableView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+        }
     }
 }

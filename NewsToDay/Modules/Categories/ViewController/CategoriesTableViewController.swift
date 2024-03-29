@@ -13,11 +13,11 @@ final class CategoriesTableViewController: UIViewController {
     
     //MARK: - UI
     
-    private let titleLabel = CustomLabel(text: SelectCategoriesMockData.titleLabel,
-                                    alignment: .left,
-                                    numberOfLines: 1,
-                                    textColor: .blackPrimary,
-                                    font: Font.getFont(.semibold, size: 24))
+//    private let titleLabel = CustomLabel(text: SelectCategoriesMockData.titleLabel,
+//                                         alignment: .left,
+//                                         numberOfLines: 1,
+//                                         textColor: .blackPrimary,
+//                                         font: Font.getFont(.semibold, size: 24))
     
     
     private let categoriesTableView = CategoriesTableView()
@@ -26,16 +26,17 @@ final class CategoriesTableViewController: UIViewController {
     //MARK: - Properties
     
     private let news: [News]?
+    private var titleForTitle = ""
     
     
     //MARK: - Lifecycle
     
     
     init (news: [News]?, title: String?) {
-            self.news = news
-            titleLabel.text = title
-            super.init(nibName: nil, bundle: nil)
-        }
+        self.news = news
+        super.init(nibName: nil, bundle: nil)
+        self.titleForTitle = title ?? "General"
+    }
     
     
     required init?(coder: NSCoder) {
@@ -49,6 +50,13 @@ final class CategoriesTableViewController: UIViewController {
         configure()
         setConstraints()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = titleForTitle
+        categoriesTableView.arrayTransfer(news: news)
+        categoriesTableView.reloadTableView()
+    }
 }
 
 
@@ -56,19 +64,18 @@ private extension CategoriesTableViewController {
     
     func configure() {
         view.backgroundColor = .white
-        view.addSubview(titleLabel)
         view.addSubview(categoriesTableView)
     }
     
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            titleLabel.heightAnchor.constraint(equalToConstant: 32),
+//            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+//            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+//            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//            titleLabel.heightAnchor.constraint(equalToConstant: 32),
             
-            categoriesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            categoriesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             categoriesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoriesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoriesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 import SnapKit
 
 final class BookmarksTableViewCell: UITableViewCell {
@@ -46,7 +47,8 @@ final class BookmarksTableViewCell: UITableViewCell {
     }
     //MARK: - Methods
     func configureCell(image: String, newTopic: String, news: String) {
-        cellImage.image = UIImage(named: image)
+        cellImage.kf.indicatorType = .activity
+        cellImage.kf.setImage(with: URL(string: image))
         newsTopicLabel.text = newTopic
         newsLabel.text = news
     }

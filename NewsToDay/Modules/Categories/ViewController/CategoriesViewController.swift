@@ -36,13 +36,17 @@ final class CategoriesViewController: UIViewController {
 //MARK: - Delegate
 extension CategoriesViewController: CategoriesViewControllerProtocol {
     func fetchData(category: String) {
+        var dataSuccess:[News]? = []
         network.fetchNews(forCategory: category) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let success):
                 print("success")
-                self.navigationController?.pushViewController(CategoriesTableViewController(news: <#T##[News]?#>, title: <#T##String?#>), animated: true)
+                dataSuccess = success
+                DispatchQueue.main.sync {
+                    self.navigationController?.pushViewController(CategoriesTableViewController(news: dataSuccess, title: category), animated: true)
+                }
             case .failure(let failure):
                 print("failure")
 //                alert error or smth
