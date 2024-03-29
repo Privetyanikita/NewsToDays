@@ -33,7 +33,7 @@ final class RegisterViewController: UIViewController {
     private let passwordTF = CustomTextField(fieldType: .password)
     private let repeatPasswordTF = CustomTextField(fieldType: .repeatPassword)
 
-    private lazy var actionButton = BlueButton(text: "Sign Un")
+    private lazy var actionButton = BlueButton(text: "Sign Up")
     
     private lazy var signInButton: UIButton = {
         let element = UIButton()

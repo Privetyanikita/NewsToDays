@@ -34,38 +34,40 @@ class CustomTextField: UITextField {
         self.autocapitalizationType = .none
         
         self.leftViewMode = .always
-        self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: self.frame.size.height))
+        let leftViewContainer = UIView(frame: CGRect(x: 0, y: 0, width: 64, height: 64))
         
         
         switch fieldType {
         case .username:
             self.placeholder = "Username"
-            self.leftView = UIImageView(image: UIImage(systemName: "person"))
-            self.leftView?.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+            self.leftView = leftViewContainer
+            let usernameImageView = UIImageView(image: UIImage(systemName: "person"))
+            usernameImageView.frame = CGRect(x: 20, y: 20, width: 24, height: 24)
+            leftViewContainer.addSubview(usernameImageView)
             self.leftViewMode = .always
             
         case .email:
             self.placeholder = "Email Address"
-            self.keyboardType = .emailAddress
-            self.textContentType = .emailAddress
-            self.leftView = UIImageView(image: UIImage(systemName: "envelope"))
-            self.leftView?.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+            self.leftView = leftViewContainer
+            let usernameImageView = UIImageView(image: UIImage(systemName: "envelope"))
+            usernameImageView.frame = CGRect(x: 20, y: 20, width: 24, height: 22)
+            leftViewContainer.addSubview(usernameImageView)
             self.leftViewMode = .always
             
         case .password:
             self.placeholder = "Password"
-            self.textContentType = .oneTimeCode
-            self.isSecureTextEntry = true
-            self.leftView = UIImageView(image: UIImage(systemName: "lock"))
-            self.leftView?.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+            self.leftView = leftViewContainer
+            let usernameImageView = UIImageView(image: UIImage(systemName: "lock"))
+            usernameImageView.frame = CGRect(x: 20, y: 20, width: 24, height: 24)
+            leftViewContainer.addSubview(usernameImageView)
             self.leftViewMode = .always
             
         case .repeatPassword:
             self.placeholder = "Repeat password"
-            self.textContentType = .oneTimeCode
-            self.isSecureTextEntry = true
-            self.leftView = UIImageView(image: UIImage(systemName: "lock"))
-            self.leftView?.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+            self.leftView = leftViewContainer
+            let usernameImageView = UIImageView(image: UIImage(systemName: "lock"))
+            usernameImageView.frame = CGRect(x: 20, y: 20, width: 24, height: 24)
+            leftViewContainer.addSubview(usernameImageView)
             self.leftViewMode = .always
             
         }
