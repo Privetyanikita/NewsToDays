@@ -25,15 +25,30 @@ final class LanguageViewController: UIViewController {
             $0.edges.equalToSuperview()
         }
         
-        let backButtonImage = UIImage(named: "BackImage")?.withRenderingMode(.alwaysOriginal)
-        
-        let backButton = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
+//        let backButtonImage = UIImage(named: "BackImage")?.withRenderingMode(.alwaysOriginal)
+//        
+//        let backButton = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
+//        navigationItem.leftBarButtonItem = backButton
     }
     
-    @objc func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.main.async {
+            self.navigationController?.navigationBar.prefersLargeTitles = false
+            self.navigationController?.navigationBar.tintColor = .purplePrimary
+        }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+//    @objc func backButtonTapped() {
+//        navigationController?.popViewController(animated: true)
+//    }
 }
 
 

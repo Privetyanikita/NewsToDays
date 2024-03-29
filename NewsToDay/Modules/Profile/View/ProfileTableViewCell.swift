@@ -11,10 +11,12 @@ final class ProfileMainTableViewCell: UITableViewCell, UIImagePickerControllerDe
     
     static let reuseIdentifier = "ProfileMainTableViewCell"
     
-      let profileImage: UIImageView = {
+    let profileImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "ProfileImage")
+        imageView.image = UIImage(systemName: "person")
+        imageView.tintColor = .purplePrimary
         imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = UIColor(named: "GreyLighter")
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         return imageView

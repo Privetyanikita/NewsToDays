@@ -10,6 +10,7 @@ import SnapKit
 
 final class ProfileViewController: UIViewController {
     
+    //MARK: - Properties
     let dataSource: [ProfileCellModel] = [
         ProfileCellModel(title: NSLocalizedString("profileLanguage", comment: ""), image: UIImage(named:"AngleRight")),
         ProfileCellModel(title: NSLocalizedString("profileTermsAndConditions", comment: ""), image: UIImage(named:"AngleRight")),
@@ -18,21 +19,34 @@ final class ProfileViewController: UIViewController {
     
     private lazy var profileView: UIView = ProfileView(frame: .zero, dataSource: self.dataSource, navigationController: navigationController)
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(profileView)
-        profileView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            
-        }
+        setupViews()
+        setupConstrains()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setupNavigationBar()
+        setupViews()
     }
+    
+    //MARK: - Methods
+    private func setupViews(){
+        view.backgroundColor = .white
+        view.addSubview(profileView)
+    }
+    
     private func setupNavigationBar(){
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = .purplePrimary
+    }
+    
+    private func setupConstrains(){
+        profileView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
     }
 }
 
