@@ -42,7 +42,7 @@ extension CategoriesViewController: CategoriesViewControllerProtocol {
             switch result {
             case .success(let success):
                 print("success")
-                self.navigationController?.pushViewController(CategoriesTableViewController(), animated: true)
+                self.navigationController?.pushViewController(CategoriesTableViewController(news: <#T##[News]?#>, title: <#T##String?#>), animated: true)
             case .failure(let failure):
                 print("failure")
 //                alert error or smth

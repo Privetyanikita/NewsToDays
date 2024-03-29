@@ -27,6 +27,7 @@ final class CategoriesTableViewController: UIViewController {
     
     private let news: [News]?
     
+    
     //MARK: - Lifecycle
     
     
@@ -44,7 +45,6 @@ final class CategoriesTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         configure()
         setConstraints()
