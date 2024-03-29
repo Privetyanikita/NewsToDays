@@ -16,12 +16,6 @@ final class CategoriesTableView: UIView {
     
     //MARK: - UI
 
-    private let titleLabel = CustomLabel(text: SelectCategoriesMockData.titleLabel,
-                                    alignment: .left,
-                                    numberOfLines: 1,
-                                    textColor: .blackPrimary,
-                                    font: Font.getFont(.semibold, size: 24))
-    
     
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -77,9 +71,12 @@ extension CategoriesTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookmarksTableViewCell", for: indexPath) as? BookmarksTableViewCell else { return UITableViewCell() }
         
-        cell.configureCell(image: <#T##String#>, newTopic: <#T##String#>, news: <#T##String#>)
+        
+        let item = BookmarkManager.shared.bookmarkedItems[indexPath.row]
+        cell.configureCell(image: item.image, newTopic: item.newsTopic, news: item.news)
+        
+        return cell
     }
-    
 }
 
 
@@ -89,19 +86,13 @@ private extension CategoriesTableView {
     
     func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titleLabel)
         addSubview(tableView)
     }
     
     
     func setConstraints() {
             NSLayoutConstraint.activate([
-                titleLabel.topAnchor.constraint(equalTo: topAnchor),
-                titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-                titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-                
-                
-                tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
+                tableView.topAnchor.constraint(equalTo: topAnchor, constant: 32),
                 tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
                 tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
                 tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
