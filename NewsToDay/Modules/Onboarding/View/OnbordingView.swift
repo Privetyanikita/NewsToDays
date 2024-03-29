@@ -180,9 +180,10 @@ private extension OnboardingView {
         pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = .greyLighter
         pageControl.currentPageIndicatorTintColor = .purplePrimary
-        
-        if #available(iOS 14.0, *) {
-            pageControl.preferredIndicatorImage = .largeIndicator
+        if #available(iOS 16.0, *) {
+            pageControl.preferredCurrentPageIndicatorImage = .largeIndicator
+        } else {
+            // Fallback on earlier versions
         }
     }
     

@@ -15,6 +15,11 @@ final class CategoriesViewController: UIViewController {
     private let categoriesView = CategoriesView()
 
     
+    //MARK: - Properties
+    
+    private let network = NewsService()
+    
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -22,6 +27,25 @@ final class CategoriesViewController: UIViewController {
         
         configure()
         setConstraints()
+        
+        categoriesView.delegate = self
+    }
+}
+
+
+//MARK: - Delegate
+extension CategoriesViewController: CategoriesViewControllerProtocol {
+    func fetchData(category: String) {
+        network.fetchNews(forCategory: category) { result in
+            switch result {
+            case .success(let success):
+                print("success")
+//                navigationController?.pushViewController(newViewController, animated: true)
+            case .failure(let failure):
+                print("failure")
+//                alert error or smth
+            }
+        }
     }
 }
 

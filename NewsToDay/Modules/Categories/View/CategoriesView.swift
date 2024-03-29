@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol CategoriesViewControllerProtocol: AnyObject {
+    func fetchData(category: String)
+}
+
+
 final class CategoriesView: UIView {
     
     //MARK: - UI
@@ -39,7 +44,7 @@ final class CategoriesView: UIView {
     //MARK: - Properties
     
     private var categoriesArray = [CategoriesModel]()
-    
+    weak var delegate: CategoriesViewControllerProtocol?
     
     //MARK: - Lifecycle
 
@@ -78,6 +83,7 @@ final class CategoriesView: UIView {
 extension CategoriesView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("cell by index \(indexPath.item) was tapped")
+        delegate?.fetchData(category: Categories.business)
     }
 }
 
