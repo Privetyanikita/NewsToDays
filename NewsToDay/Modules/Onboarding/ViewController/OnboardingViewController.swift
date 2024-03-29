@@ -59,7 +59,7 @@ private extension OnboardingViewController {
 
 extension OnboardingViewController: OnboardingViewProtocol {
     func actionButtonPressed() {
-            let rootVC = SelectCategoriesViewController()
+            let rootVC = LoginViewController()
             rootVC.modalPresentationStyle = .fullScreen
             present(rootVC, animated: true)
     }

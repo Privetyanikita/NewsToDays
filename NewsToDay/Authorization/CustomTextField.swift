@@ -63,6 +63,7 @@ class CustomTextField: UITextField {
             usernameImageView.frame = CGRect(x: 20, y: 20, width: 24, height: 24)
             usernameImageView.contentMode = .scaleAspectFill
             leftViewContainer.addSubview(usernameImageView)
+            self.isSecureTextEntry = true
             self.leftViewMode = .always
             
         case .repeatPassword:
@@ -72,6 +73,7 @@ class CustomTextField: UITextField {
             usernameImageView.frame = CGRect(x: 20, y: 20, width: 24, height: 24)
             usernameImageView.contentMode = .scaleAspectFill
             leftViewContainer.addSubview(usernameImageView)
+            self.isSecureTextEntry = true
             self.leftViewMode = .always
             
         }

@@ -7,10 +7,12 @@
 
 import UIKit
 import SnapKit
+import FirebaseAuth
 import SwiftUI
 
 final class LoginViewController: UIViewController {
     
+    //MARK: - Private Properties
     private lazy var mainStackView: UIStackView = {
         let element = UIStackView()
         element.axis = .vertical
@@ -27,10 +29,10 @@ final class LoginViewController: UIViewController {
         element.numberOfLines = 0
         return element
     }()
-
+    
     private let nameTF = CustomTextField(fieldType: .username)
     private let passwordTF = CustomTextField(fieldType: .password)
-
+    
     private lazy var actionButton = BlueButton(text: "Sign In")
     
     private lazy var signInButton: UIButton = {
@@ -40,20 +42,22 @@ final class LoginViewController: UIViewController {
         return element
     }()
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Welcome Back 👋"
+        setupDelegates()
         addAction()
         setViews()
         addAction()
         setupConstraints()
+        hideKeyboardWhenTappedAround()
     }
     
+    //MARK: - Private Methods
     private func addAction() {
-    }
-    
-    @objc private func actionButtonTappet() {
-        print("button tapped")
+        signInButton.addTarget(self, action: #selector(singUpTuppet), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(actionButtonTappet), for: .touchUpInside)
     }
     
     private func setViews() {
@@ -67,8 +71,52 @@ final class LoginViewController: UIViewController {
         mainStackView.addArrangedSubview(passwordTF)
         
     }
+    
+    private func setupDelegates(){
+        nameTF.delegate = self
+        passwordTF.delegate = self
+    }
+    
+    private func singInAccount(){
+        let email = nameTF.text
+        let password = passwordTF.text
+        if !email!.isEmpty && !password!.isEmpty{
+            guard let email = email, let password = password else {return}
+            Auth.auth().signIn(withEmail: email, password: password) { result, error in
+                if error != nil {
+                    self.showErrorAlert(eror: error!.localizedDescription)
+                    return
+                }
+                else {
+                    let tabBarVC = TabBarController()
+                    tabBarVC.modalPresentationStyle = .fullScreen
+                    self.present(tabBarVC, animated: true)
+                }
+            }
+        }
+    }
+    
+    private func showErrorAlert(eror:String){
+        let alert = UIAlertController(title: "Error", message: eror, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    //MARK: - OBJC Private Func
+    @objc private func actionButtonTappet() {
+        print("button tapped")
+        singInAccount()
+    }
+    
+    @objc private func singUpTuppet(){
+        let vc = RegisterViewController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
+    
 }
 
+//MARK: - Setup Constraints
 extension LoginViewController {
     private func setupConstraints() {
         
@@ -101,6 +149,15 @@ extension LoginViewController {
     }
 }
 
+//MARK: - UITextFieldDelegate
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        hideKeyboard()
+        singInAccount()
+        return true
+    }
+}
+
 
 //MARK: - PreviewProvider
 //struct ContentViewController_Previews: PreviewProvider {
@@ -110,12 +167,12 @@ extension LoginViewController {
 //    }
 //}
 //struct ContentViewController: UIViewControllerRepresentable {
-//    
+//
 //    typealias UIViewControllerType = LoginViewController
-//    
+//
 //    func makeUIViewController(context: Context) -> UIViewControllerType {
 //        return LoginViewController()
 //    }
-//    
+//
 //    func updateUIViewController(_ uiViewController: LoginViewController, context: Context) {}
 //}

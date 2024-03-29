@@ -7,10 +7,12 @@
 
 import UIKit
 import SnapKit
+import Firebase
 import SwiftUI
 
 final class RegisterViewController: UIViewController {
     
+    //MARK: - Private Properties
     private lazy var mainStackView: UIStackView = {
         let element = UIStackView()
         element.axis = .vertical
@@ -42,6 +44,7 @@ final class RegisterViewController: UIViewController {
         return element
     }()
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Welcome to NewsToDay"
@@ -49,13 +52,13 @@ final class RegisterViewController: UIViewController {
         setViews()
         addAction()
         setupConstraints()
+        hideKeyboardWhenTappedAround()
+        setupDelegate()
     }
     
+    //MARK: - Private Methods
     private func addAction() {
-    }
-    
-    @objc private func actionButtonTappet() {
-        print("button tapped")
+        signInButton.addTarget(self, action: #selector(signInButtonTappet), for: .touchUpInside)
     }
     
     private func setViews() {
@@ -71,8 +74,67 @@ final class RegisterViewController: UIViewController {
         mainStackView.addArrangedSubview(actionButton)
         
     }
+    
+    private func setupDelegate(){
+        nameTF.delegate = self
+        emailTF.delegate = self
+        passwordTF.delegate = self
+        repeatPasswordTF.delegate = self
+    }
+    
+    private func showErrorAlert(eror:String){
+        let alert = UIAlertController(title: "Error", message: eror, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func registerUser() {
+        Auth.auth().createUser(withEmail: emailTF.text!, password: passwordTF.text!) { authResult, error in
+            if error != nil {
+                self.showErrorAlert(eror: error!.localizedDescription)
+                return
+            }
+            else {
+                let tabBarVC = TabBarController()
+                tabBarVC.modalPresentationStyle = .fullScreen
+                self.present(tabBarVC, animated: true)
+            }
+        }
+    }
+    
+    private func checkTextField(){
+        let name = nameTF.text
+        let email = emailTF.text
+        let password = passwordTF.text
+        let repeatPassword = repeatPasswordTF.text
+        
+        if !name!.isEmpty && !email!.isEmpty && !password!.isEmpty && !repeatPassword!.isEmpty {
+            registerUser()
+            hideKeyboard()
+        }
+        else {
+            nameTF.resignFirstResponder()
+            emailTF.resignFirstResponder()
+            passwordTF.resignFirstResponder()
+            repeatPasswordTF.resignFirstResponder()
+            showErrorAlert(eror: "You have to enter all the lines")
+            hideKeyboard()
+        }
+    }
+    
+    //MARK: - Actions
+    @objc private func actionButtonTappet() {
+        checkTextField()
+    }
+    
+    @objc private func signInButtonTappet() {
+        dismiss(animated: true)
+    }
+    
 }
 
+//MARK: - Constraints
 extension RegisterViewController {
     private func setupConstraints() {
         
@@ -110,6 +172,14 @@ extension RegisterViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
             make.centerX.equalToSuperview()
         }
+    }
+}
+
+//MARK: - Delegate
+extension RegisterViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        checkTextField()
+        return true
     }
 }
 
