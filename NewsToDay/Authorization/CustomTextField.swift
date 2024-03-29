@@ -43,6 +43,7 @@ class CustomTextField: UITextField {
             self.leftView = leftViewContainer
             let usernameImageView = UIImageView(image: UIImage(systemName: "person"))
             usernameImageView.frame = CGRect(x: 20, y: 20, width: 24, height: 24)
+            usernameImageView.contentMode = .scaleAspectFill
             leftViewContainer.addSubview(usernameImageView)
             self.leftViewMode = .always
             
@@ -51,6 +52,7 @@ class CustomTextField: UITextField {
             self.leftView = leftViewContainer
             let usernameImageView = UIImageView(image: UIImage(systemName: "envelope"))
             usernameImageView.frame = CGRect(x: 20, y: 20, width: 24, height: 22)
+            usernameImageView.contentMode = .scaleAspectFill
             leftViewContainer.addSubview(usernameImageView)
             self.leftViewMode = .always
             
@@ -59,6 +61,7 @@ class CustomTextField: UITextField {
             self.leftView = leftViewContainer
             let usernameImageView = UIImageView(image: UIImage(systemName: "lock"))
             usernameImageView.frame = CGRect(x: 20, y: 20, width: 24, height: 24)
+            usernameImageView.contentMode = .scaleAspectFill
             leftViewContainer.addSubview(usernameImageView)
             self.leftViewMode = .always
             
@@ -67,6 +70,7 @@ class CustomTextField: UITextField {
             self.leftView = leftViewContainer
             let usernameImageView = UIImageView(image: UIImage(systemName: "lock"))
             usernameImageView.frame = CGRect(x: 20, y: 20, width: 24, height: 24)
+            usernameImageView.contentMode = .scaleAspectFill
             leftViewContainer.addSubview(usernameImageView)
             self.leftViewMode = .always
             

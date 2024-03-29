@@ -59,6 +59,7 @@ final class RegisterViewController: UIViewController {
     }
     
     private func setViews() {
+        view.backgroundColor = .white
         view.addSubview(greeting)
         view.addSubview(mainStackView)
         view.addSubview(signInButton)
@@ -112,20 +113,20 @@ extension RegisterViewController {
     }
 }
 
-struct ContentViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentViewController()
-            .edgesIgnoringSafeArea(.all)
-    }
-}
-
-struct ContentViewController: UIViewControllerRepresentable {
-    
-    typealias UIViewControllerType = RegisterViewController
-    
-    func makeUIViewController(context: Context) -> UIViewControllerType {
-        return RegisterViewController()
-    }
-    
-    func updateUIViewController(_ uiViewController: RegisterViewController, context: Context) {}
-}
+//struct ContentViewController_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentViewController()
+//            .edgesIgnoringSafeArea(.all)
+//    }
+//}
+//
+//struct ContentViewController: UIViewControllerRepresentable {
+//    
+//    typealias UIViewControllerType = RegisterViewController
+//    
+//    func makeUIViewController(context: Context) -> UIViewControllerType {
+//        return RegisterViewController()
+//    }
+//    
+//    func updateUIViewController(_ uiViewController: RegisterViewController, context: Context) {}
+//}

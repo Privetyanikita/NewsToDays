@@ -57,6 +57,7 @@ final class LoginViewController: UIViewController {
     }
     
     private func setViews() {
+        view.backgroundColor = .white
         view.addSubview(greeting)
         view.addSubview(mainStackView)
         view.addSubview(actionButton)
