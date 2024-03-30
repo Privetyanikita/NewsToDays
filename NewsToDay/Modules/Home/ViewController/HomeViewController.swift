@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
     private let newsService = NewsService()
     ///выбранная категория
     private var selectedIndexPath: IndexPath?
-
+    
     var newsData: [News]?
     var recNewsData: [News]?
     
@@ -61,7 +61,7 @@ class HomeViewController: UIViewController {
         homeView.collectionView.dataSource = self
         
     }
-
+    
     private func fetchDataNews(forCategory category: String) {
         newsService.fetchNews(forCategory: category) { [weak self] result in
             guard let self = self else { return }
@@ -192,7 +192,7 @@ class HomeViewController: UIViewController {
 
 //MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         ///устанавливаем выбранную ячейку в selectedIndexPath
@@ -215,14 +215,14 @@ extension HomeViewController: UICollectionViewDelegate {
         case .news(_):
             print("Новости")
             guard let selectedNews = newsData?[indexPath.row] else { return }
-               
+            
             let detailVC = DetailViewController()
             detailVC.configure(with: selectedNews)
             navigationController?.pushViewController(detailVC, animated: true)
         case .recommended(_):
             print("Рекомендации")
             guard let selectedRecomendedData = recNewsData?[indexPath.row] else { return }
-               
+            
             let detailVC = DetailViewController()
             detailVC.configure(with: selectedRecomendedData)
             navigationController?.pushViewController(detailVC, animated: true)
@@ -262,7 +262,6 @@ extension HomeViewController: UICollectionViewDataSource {
         switch sections[indexPath.section] {
         case .textField(_):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "TextFieldCollectionViewCell", for: indexPath) as? TextFieldCollectionViewCell else { return UICollectionViewCell() }
-//            cell.searchTextField.delegate = self
             
             cell.searchTextField.delegate = self
             return cell
@@ -275,10 +274,10 @@ extension HomeViewController: UICollectionViewDataSource {
                 cell.configureCell(topicName: topics[indexPath.row].categories)
             }
             return cell
-
+            
         case .news(_):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "LatestNewsCollectionViewCell", for: indexPath) as? LatestNewsCollectionViewCell else { return UICollectionViewCell() }
-    
+            
             if let dataNews = newsData, indexPath.item < dataNews.count {
                 let newsDataItem = dataNews[indexPath.item]
                 cell.configureCell(image: newsDataItem.urlToImage ?? "",
@@ -339,8 +338,13 @@ extension HomeViewController: UITextFieldDelegate {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
-                    self.newsData = data
-                    self.homeView.collectionView.reloadSections(IndexSet(integer: 2))
+                    let searchResultsVC = SearchResultsViewController()
+                    searchResultsVC.searchResults = data
+                    self.navigationController?.pushViewController(searchResultsVC, animated: true)
+                    
+//                    ///если хотим показать результаты поиска в ячейке
+//                    self.newsData = data
+//                    self.homeView.collectionView.reloadSections(IndexSet(integer: 2))
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
@@ -367,8 +371,6 @@ extension HomeViewController: UITextFieldDelegate {
         }
     }
 }
-
-
 //MARK: - BookmarkDelegate
 extension HomeViewController: BookmarkDelegate {
     func addToBookmarks(news: ListItem) {

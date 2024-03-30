@@ -20,7 +20,6 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         let element = UIImageView()
         element.layer.cornerRadius = 12
         element.layer.masksToBounds = true
-        element.backgroundColor = .red
         element.contentMode = .scaleAspectFill
         return element
     }()
