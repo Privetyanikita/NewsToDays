@@ -30,7 +30,8 @@ final class TabBarController: UITabBarController {
 
 
 //MARK: - Private Methods
- extension TabBarController {
+
+private extension TabBarController {
     func configure() {
         tabBar.tintColor = .purplePrimary
         tabBar.unselectedItemTintColor = .greyLight
@@ -69,7 +70,7 @@ final class TabBarController: UITabBarController {
         let homeVC = createNavController(vc: HomeViewController(), titleVC: "Browse", itemImage: .homeIcon, tag: 0)
         let categoriesVC = createNavController(vc: CategoriesViewController(), titleVC: "Categories", itemImage: .categoriesIcon, tag: 1)
         let bookmarksVC = createNavController(vc: BookmarksViewController(), titleVC: "Bookmarks", itemImage: .bookmarkIcon, tag: 2)
-        let profileVC = createNavController(vc: ProfileViewController(), titleVC: "Profile", itemImage: .profileIcon, tag: 3)
+        let profileVC = createNavController(vc: ProfilelViewController(), titleVC: "Profile", itemImage: .profileIcon, tag: 3)
         
         setViewControllers([homeVC,
                             categoriesVC,

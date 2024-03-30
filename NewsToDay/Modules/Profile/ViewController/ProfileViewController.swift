@@ -8,32 +8,25 @@
 import UIKit
 import SnapKit
 
-final class ProfileViewController: UIViewController {
+final class ProfilelViewController: UIViewController {
     
     let dataSource: [ProfileCellModel] = [
-        ProfileCellModel(title: NSLocalizedString("profileLanguage", comment: ""), image: UIImage(named:"AngleRight")),
-        ProfileCellModel(title: NSLocalizedString("profileTermsAndConditions", comment: ""), image: UIImage(named:"AngleRight")),
-        ProfileCellModel(title: NSLocalizedString("profileSignOut", comment: ""), image: UIImage(named:"SignOut"))
+        ProfileCellModel(title: "Language", image: UIImage(named:"AngleRight")),
+        ProfileCellModel(title: "Terms & Conditions", image: UIImage(named:"AngleRight")),
+        ProfileCellModel(title: "Sign Out", image: UIImage(named:"SignOut"))
     ]
     
-    private lazy var profileView: UIView = ProfileView(frame: .zero, dataSource: self.dataSource, navigationController: navigationController)
+    private lazy var profileView: UIView = ProfileView(frame: .zero, dataSource: self.dataSource)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(profileView)
+        self.view.addSubview(profileView)
+        
+        
         profileView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-            
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        setupNavigationBar()
-    }
-    private func setupNavigationBar(){
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.tintColor = .purplePrimary
-    }
+
+
 }
-
-
