@@ -33,12 +33,18 @@ class HomeViewController: UIViewController {
         addViews()
         setupViews()
         setDelegates()
-        fetchDataNews(forCategory: Categories.gaming)
-        ///установка начального значения для selectedIndexPath
-        selectedIndexPath = IndexPath(item: 0, section: 1)
         fetchRecommendedNews()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        ///установка начального значения для selectedIndexPath
+        selectedIndexPath = IndexPath(item: 0, section: 1)
+        homeView.collectionView.reloadData()
+        fetchDataNews(forCategory: "")
+    }
+    
     //MARK: - Private methods
     private func setupViews() {
         homeView.collectionView.register(TextFieldCollectionViewCell.self, forCellWithReuseIdentifier: "TextFieldCollectionViewCell")
@@ -53,6 +59,7 @@ class HomeViewController: UIViewController {
     private func setDelegates() {
         homeView.collectionView.delegate = self
         homeView.collectionView.dataSource = self
+        
     }
 
     private func fetchDataNews(forCategory category: String) {
@@ -185,7 +192,7 @@ class HomeViewController: UIViewController {
 
 //MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         ///устанавливаем выбранную ячейку в selectedIndexPath
@@ -202,8 +209,9 @@ extension HomeViewController: UICollectionViewDelegate {
             print("Выбранная категория: \(selectedCategory)")
             fetchDataNews(forCategory: selectedCategory)
             ///после выбора новой категории, выполнить скролл к началу
+            homeView.collectionView.reloadData()
             homeView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 2), at: .left, animated: true)
-        
+            
         case .news(_):
             print("Новости")
             guard let selectedNews = newsData?[indexPath.row] else { return }
@@ -254,6 +262,9 @@ extension HomeViewController: UICollectionViewDataSource {
         switch sections[indexPath.section] {
         case .textField(_):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "TextFieldCollectionViewCell", for: indexPath) as? TextFieldCollectionViewCell else { return UICollectionViewCell() }
+//            cell.searchTextField.delegate = self
+            
+            cell.searchTextField.delegate = self
             return cell
         case .topics(let topics):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "CategoriesCollectionViewCell", for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
@@ -319,6 +330,45 @@ extension HomeViewController {
         }
     }
 }
+//MARK: - UITextFieldDelegate
+extension HomeViewController: UITextFieldDelegate {
+    
+    private func fetchSearchData(text: String) {
+        newsService.searchNews(query: text, limitRequest: 10) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    self.newsData = data
+                    self.homeView.collectionView.reloadSections(IndexSet(integer: 2))
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.text != "" {
+            return true
+        } else {
+            textField.placeholder = "Please enter your text"
+            return false
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let search = textField.text {
+            fetchSearchData(text: search)
+            textField.text = ""
+        }
+    }
+}
+
+
 //MARK: - BookmarkDelegate
 extension HomeViewController: BookmarkDelegate {
     func addToBookmarks(news: ListItem) {

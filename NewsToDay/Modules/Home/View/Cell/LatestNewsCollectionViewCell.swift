@@ -93,7 +93,7 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
     func configureCell(image: String, newTopic: String, news: String) {
 //        self.newsItem = newsItem
         latestNewsImage.kf.indicatorType = .activity
-        latestNewsImage.kf.setImage(with: URL(string: image))    //UIImage(named: image)
+        latestNewsImage.kf.setImage(with: URL(string: image))   
         topicNewsLabel.text = newTopic
         newsLabel.text = news
     }

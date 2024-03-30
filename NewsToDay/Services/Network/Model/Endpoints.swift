@@ -8,7 +8,8 @@
 import Foundation
 
 enum Endpoints {
-    static let apiKey = "2443d28500d54fae81f82c6eef66ad15"
+//    static let apiKey = "2aee84cdae924d85bcb4ddeb6bf529e5"
+    static let apiKey = "140920362f47437e81a6e4ed634dca6c"
     static let baseUrl = "https://newsapi.org/v2/"
     static let country = "country=us"
     static let language = "language=en"
