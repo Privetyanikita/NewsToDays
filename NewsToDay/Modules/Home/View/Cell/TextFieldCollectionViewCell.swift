@@ -33,7 +33,7 @@ final class TextFieldCollectionViewCell: UICollectionViewCell {
         return element
     }()
     
-    private let searchTextField: UITextField = {
+    lazy var searchTextField: UITextField = {
         let element = UITextField()
         element.placeholder = NSLocalizedString("Search", comment: "")
         element.backgroundColor = .clear
@@ -60,7 +60,7 @@ final class TextFieldCollectionViewCell: UICollectionViewCell {
         mainView.addSubview(searchButton)
         mainView.addSubview(searchTextField)
     }
-    
+
     private func setConstraints() {
         mainView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
