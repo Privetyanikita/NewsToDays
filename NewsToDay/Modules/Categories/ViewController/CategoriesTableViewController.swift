@@ -13,13 +13,6 @@ final class CategoriesTableViewController: UIViewController {
     
     //MARK: - UI
     
-//    private let titleLabel = CustomLabel(text: SelectCategoriesMockData.titleLabel,
-//                                         alignment: .left,
-//                                         numberOfLines: 1,
-//                                         textColor: .blackPrimary,
-//                                         font: Font.getFont(.semibold, size: 24))
-    
-    
     private let categoriesTableView = CategoriesTableView()
     
     
@@ -49,6 +42,8 @@ final class CategoriesTableViewController: UIViewController {
         
         configure()
         setConstraints()
+        
+        categoriesTableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +51,15 @@ final class CategoriesTableViewController: UIViewController {
         title = titleForTitle
         categoriesTableView.arrayTransfer(news: news)
         categoriesTableView.reloadTableView()
+    }
+}
+
+
+//MARK: - Delegate
+extension CategoriesTableViewController: CategoriesTableViewProtocol {
+
+    func presentDetailView() {
+        navigationController?.pushViewController(DetailViewController(), animated: true)
     }
 }
 
@@ -70,11 +74,6 @@ private extension CategoriesTableViewController {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-//            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-//            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-//            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//            titleLabel.heightAnchor.constraint(equalToConstant: 32),
-            
             categoriesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             categoriesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoriesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

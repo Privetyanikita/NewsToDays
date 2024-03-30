@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CategoriesTableViewProtocol: AnyObject {
-    func actionButtonPressed()
+    func presentDetailView()
 }
 
 
@@ -16,7 +16,6 @@ final class CategoriesTableView: UIView {
     
     //MARK: - UI
 
-    
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.delegate = self
@@ -62,7 +61,9 @@ final class CategoriesTableView: UIView {
 //MARK: - Delegate
 
 extension CategoriesTableView: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.presentDetailView()
+    }
 }
 
 
