@@ -7,15 +7,18 @@
 
 import UIKit
 
-final class ProfileMainTableViewCell: UITableViewCell {
+final class ProfileMainTableViewCell: UITableViewCell, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     static let reuseIdentifier = "ProfileMainTableViewCell"
     
-    private let profileImage: UIImageView = {
+    let profileImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "ProfileImage")
+        imageView.image = UIImage(systemName: "person")
+        imageView.tintColor = .purplePrimary
         imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = UIColor(named: "GreyLighter")
         imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -38,12 +41,13 @@ final class ProfileMainTableViewCell: UITableViewCell {
         label.numberOfLines = 1
         return label
     }()
-
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setViews()
         layoutViews()
+        addGestureRecognizerToProfileImage()
         self.backgroundColor = .clear
     }
     
@@ -76,6 +80,33 @@ final class ProfileMainTableViewCell: UITableViewCell {
             $0.height.equalTo(24)
             $0.top.equalTo(nameLabel.snp.bottom).inset(5)
             $0.left.equalToSuperview().offset(96)
+        }
+    }
+    private func addGestureRecognizerToProfileImage() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
+        profileImage.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func profileImageTapped() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            if let window = windowScene.windows.first {
+                window.rootViewController?.present(imagePickerController, animated: true, completion: nil)
+            }
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let selectedImage = info[.originalImage] as? UIImage {
+                profileImage.image = selectedImage
+            }
+            picker.dismiss(animated: true, completion: nil)
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true, completion: nil)
         }
     }
 }
