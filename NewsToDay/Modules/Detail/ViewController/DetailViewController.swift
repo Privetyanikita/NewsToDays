@@ -7,8 +7,6 @@
 
 import UIKit
 import SnapKit
-import Kingfisher
-import SafariServices
 
 class DetailViewController: UIViewController {
     
@@ -16,8 +14,7 @@ class DetailViewController: UIViewController {
     
     private lazy var backgroundImageView: UIImageView = {
         let element = UIImageView()
-        element.image = UIImage(named: "mockimage")
-        element.clipsToBounds = true
+        element.image = UIImage(named: "Rectangle6")
         element.contentMode = .scaleAspectFill
         return element
     }()
@@ -52,7 +49,7 @@ class DetailViewController: UIViewController {
         element.backgroundColor = UIColor(named: "PurplePrimary")
         element.setTitle("Politics", for: .normal)                //изменится согласно API
         element.titleLabel?.font = UIFont(name: "Inter-Medium", size: 12)
-        element.layer.cornerRadius = 16
+        element.layer.cornerRadius = 10
         element.setTitleColor(.white, for: .normal)
         return element
     }()
@@ -82,49 +79,16 @@ class DetailViewController: UIViewController {
         return element
     }()
     
-    private var urlForNews: String = ""
-    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .white
-        addAction()
         setViews()
-        addAction()
         setupConstraints()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-
-            DispatchQueue.main.async {
-                self.navigationController?.navigationBar.prefersLargeTitles = false
-                self.navigationItem.largeTitleDisplayMode = .never
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-            }
-        }
-        
-        override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-        }
-    
-    // MARK: - Setup
-    ///прокидываем ячейку
-    func configure(with news: News) {
-        backgroundImageView.kf.setImage(with: URL(string: news.urlToImage ?? ""))
-        titlelabel.text = news.title
-        authorlabel.text = news.author
-        articleLabel.text = news.description
-        article.text = news.content
-        urlForNews = news.url ?? "google.com"
-        
-    }
-    
-    private func addAction() {
+    func addAction() {
         backButton.addTarget(self, action: #selector(backButtonTappet), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(favoriteButtonTappet), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(shareButtonTappet), for: .touchUpInside)
@@ -135,17 +99,14 @@ class DetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    //TODO: - добавить в закладки
     @objc private func favoriteButtonTappet() {
-        print("bookmarks")
         let bookmarksVC = BookmarksViewController()
         self.navigationController?.pushViewController(bookmarksVC, animated: true)
         self.navigationItem.hidesBackButton = true
     }
     
     @objc private func shareButtonTappet() {
-        let webController = SFSafariViewController(url: URL(string: urlForNews)!)
-        present(webController, animated: true)
+print("You can share news")
     }
     
     @objc private func categoryButtonTappet() {
@@ -159,17 +120,17 @@ class DetailViewController: UIViewController {
         view.addSubview(articleView)
         
         backgroundImageView.addSubview(colorView)
+        backgroundImageView.addSubview(headerStackView)
+        backgroundImageView.addSubview(backButton)
+        backgroundImageView.addSubview(favoriteButton)
+        backgroundImageView.addSubview(shareButton)
+        
         headerStackView.addArrangedSubview(categoryButton)
         headerStackView.addArrangedSubview(titlelabel)
         headerStackView.addArrangedSubview(authorlabel)
         
         articleView.addSubview(articleLabel)
         articleView.addSubview(article)
-        
-        view.addSubview(backButton)
-        view.addSubview(favoriteButton)
-        view.addSubview(shareButton)
-        view.addSubview(headerStackView)
     }
     
 }
@@ -189,14 +150,14 @@ extension DetailViewController {
         
         backButton.snp.makeConstraints { make in
             make.height.width.equalTo(24)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(28)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.equalToSuperview().inset(20)
             
         }
         
         favoriteButton.snp.makeConstraints { make in
             make.height.width.equalTo(24)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(28)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.trailing.equalToSuperview().inset(20)
         }
         
@@ -212,8 +173,8 @@ extension DetailViewController {
         }
         
         categoryButton.snp.makeConstraints { make in
-            make.height.equalTo(categoryButton.titleLabel!.intrinsicContentSize.height + 16)
-            make.width.equalTo(categoryButton.titleLabel!.intrinsicContentSize.width + 32)
+            make.height.equalTo(categoryButton.titleLabel!.intrinsicContentSize.height + 8)
+            make.width.equalTo(categoryButton.titleLabel!.intrinsicContentSize.width + 16)
         }
         
         articleView.snp.makeConstraints { make in
@@ -227,7 +188,7 @@ extension DetailViewController {
         }
         
         article.snp.makeConstraints { make in
-            make.top.equalTo(articleLabel.snp.bottom).offset(8)
+            make.top.equalTo(articleLabel.snp.bottom).offset(-8)
             make.leading.trailing.bottom.equalTo(articleView)
         }
         

@@ -37,10 +37,12 @@ struct MockData {
     }()
     
     private let recommended: ListSection = {
+
         .recommended([.init(image: "", categories: "", newsTopic: "", news: ""),
                       .init(image: "", categories: "", newsTopic: "", news: ""),
                       .init(image: "", categories: "", newsTopic: "", news: ""),
                       .init(image: "", categories: "", newsTopic: "", news: ""),
+
         ])
     }()
     

@@ -7,13 +7,10 @@
 
 import UIKit
 import SnapKit
-import Kingfisher
 
 final class LatestNewsCollectionViewCell: UICollectionViewCell {
     
     var bookMarkChangeColor: Bool = false
-//    private var newsItem: ListItem?
-    weak var delegate: BookmarkDelegate?
     
     //MARK: - Private Properties
     private let latestNewsImage: UIImageView = {
@@ -21,11 +18,6 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         element.layer.cornerRadius = 12
         element.layer.masksToBounds = true
         element.contentMode = .scaleAspectFill
-        return element
-    }()
-    private lazy var colorView: UIView = {
-        let element = UIView()
-        element.backgroundColor = UIColor(red: 0 / 255, green: 0 / 255, blue: 0 / 255, alpha: 0.4)
         return element
     }()
     
@@ -56,25 +48,20 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         return element
     }()
     // MARK: - Action
+    
     @objc private func addToBookmarks() {
         if bookMarkChangeColor == false {
-//            guard let newsItem = newsItem else { return }
             bookMarkButton.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal)
             bookMarkButton.tintColor = .systemYellow
             bookMarkChangeColor = true
-//            delegate?.addToBookmarks(news: newsItem)
-            print("добавлена")
+            //TODO: -
+            
         } else {
-//            guard let newsItem = newsItem else { return }
             bookMarkButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
             bookMarkButton.tintColor = .white
             bookMarkChangeColor = false
+            //TODO: -
             
-//            ///поиск индекса элемента в массиве закладок
-//            if let index = BookmarkManager.shared.bookmarkedItems.firstIndex(of: newsItem) {
-//                BookmarkManager.shared.removeBookmark(at: index)
-//            }
-            print("снята")
         }
     }
     
@@ -90,6 +77,7 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
     }
     //MARK: - Methods
     func configureCell(image: String, newTopic: String, news: String) {
+
 //        self.newsItem = newsItem
         latestNewsImage.kf.indicatorType = .activity
         latestNewsImage.kf.setImage(with: URL(string: image))   
@@ -99,7 +87,6 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
     
     private func setupView() {
         addSubview(latestNewsImage)
-        latestNewsImage.addSubview(colorView)
         addSubview(bookMarkButton)
         addSubview(topicNewsLabel)
         addSubview(newsLabel)
@@ -108,10 +95,6 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
     private func setConstraints() {
         latestNewsImage.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
-        }
-        
-        colorView.snp.makeConstraints { make in
-            make.edges.equalTo(latestNewsImage)
         }
         
         bookMarkButton.snp.makeConstraints { make in
@@ -132,10 +115,6 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(newsLabel.snp.top).offset(-8)
         }
     }
+    
 }
-//MARK: - затемнение
-extension UIImageView {
-    func toner() {
-        self.inputView?.backgroundColor = UIColor(red: 0 / 255, green: 0 / 255, blue: 0 / 255, alpha: 0.4)
-    }
-}
+

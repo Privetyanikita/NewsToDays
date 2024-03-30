@@ -7,17 +7,13 @@
 
 import UIKit
 import SnapKit
-import Kingfisher
 import SwiftUI
-
-protocol BookmarkDelegate: AnyObject {
-    func addToBookmarks(news: ListItem)
-}
 
 class HomeViewController: UIViewController {
     //MARK: - Private Properties
     private let homeView = HomeView()
     private let sections = MockData.shared.pageData
+
     private let newsService = NewsService()
     ///выбранная категория
     private var selectedIndexPath: IndexPath?
@@ -33,6 +29,7 @@ class HomeViewController: UIViewController {
         addViews()
         setupViews()
         setDelegates()
+
         fetchRecommendedNews()
         
     }
@@ -62,6 +59,7 @@ class HomeViewController: UIViewController {
         
     }
     
+
     private func fetchDataNews(forCategory category: String) {
         newsService.fetchNews(forCategory: category) { [weak self] result in
             guard let self = self else { return }
@@ -171,7 +169,7 @@ class HomeViewController: UIViewController {
     private func createRecommendedNewsSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalHeight(1)))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.95),
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.9),
                                                                          heightDimension: .absolute(96)),
                                                        subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
@@ -189,7 +187,6 @@ class HomeViewController: UIViewController {
               alignment: .top)
     }
 }
-
 //MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
     
@@ -203,7 +200,9 @@ extension HomeViewController: UICollectionViewDelegate {
         let section = sections[indexPath.section]
         switch section {
         case .textField(_):
+            
             print("Поиск")
+
         case .topics(let topics):
             let selectedCategory = topics[indexPath.row].categories
             print("Выбранная категория: \(selectedCategory)")
@@ -215,21 +214,18 @@ extension HomeViewController: UICollectionViewDelegate {
         case .news(_):
             print("Новости")
             guard let selectedNews = newsData?[indexPath.row] else { return }
-            
             let detailVC = DetailViewController()
-            detailVC.configure(with: selectedNews)
             navigationController?.pushViewController(detailVC, animated: true)
         case .recommended(_):
             print("Рекомендации")
             guard let selectedRecomendedData = recNewsData?[indexPath.row] else { return }
             
             let detailVC = DetailViewController()
-            detailVC.configure(with: selectedRecomendedData)
             navigationController?.pushViewController(detailVC, animated: true)
+            
         }
     }
 }
-
 //MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
     
@@ -267,6 +263,7 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         case .topics(let topics):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "CategoriesCollectionViewCell", for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
+
             ///isSelectedCell в зависимости от того, выбрана ли ячейка в данный момент
             cell.isSelectedCell = indexPath == selectedIndexPath
             
@@ -274,8 +271,7 @@ extension HomeViewController: UICollectionViewDataSource {
                 cell.configureCell(topicName: topics[indexPath.row].categories)
             }
             return cell
-            
-        case .news(_):
+        case .news(let news):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "LatestNewsCollectionViewCell", for: indexPath) as? LatestNewsCollectionViewCell else { return UICollectionViewCell() }
             
             if let dataNews = newsData, indexPath.item < dataNews.count {
@@ -286,16 +282,9 @@ extension HomeViewController: UICollectionViewDataSource {
             }
             cell.delegate = self
             return cell
-            
-        case .recommended(_):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecomendedNewsCollectionViewCell", for: indexPath) as? RecomendedNewsCollectionViewCell else { return UICollectionViewCell() }
-            
-            if let recNews = recNewsData, indexPath.item < recNews.count {
-                let newsItem = recNews[indexPath.item]
-                cell.configureCell(image: newsItem.urlToImage ?? "",
-                                   newTopic: newsItem.title ?? "",
-                                   news: newsItem.description ?? "")
-            }
+        case .recommended(let recommendedNews):
+            guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "RecomendedNewsCollectionViewCell", for: indexPath) as? RecomendedNewsCollectionViewCell else { return UICollectionViewCell() }
+            cell.configureCell(image: recommendedNews[indexPath.row].image, newTopic: recommendedNews[indexPath.row].newsTopic, news: recommendedNews[indexPath.row].news)
             return cell
         }
     }
@@ -329,6 +318,7 @@ extension HomeViewController {
         }
     }
 }
+
 //MARK: - UITextFieldDelegate
 extension HomeViewController: UITextFieldDelegate {
     
@@ -400,3 +390,5 @@ struct ContentViewController: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: HomeViewController, context: Context) {}
 }
+
+
