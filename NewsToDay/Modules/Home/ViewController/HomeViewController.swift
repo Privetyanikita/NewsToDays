@@ -13,6 +13,14 @@ class HomeViewController: UIViewController {
     //MARK: - Private Properties
     private let homeView = HomeView()
     private let sections = MockData.shared.pageData
+
+    private let newsService = NewsService()
+    ///выбранная категория
+    private var selectedIndexPath: IndexPath?
+    
+    var newsData: [News]?
+    var recNewsData: [News]?
+    
     
     //MARK: - View lifecycle
     override func viewDidLoad() {
@@ -21,7 +29,19 @@ class HomeViewController: UIViewController {
         addViews()
         setupViews()
         setDelegates()
+
+        fetchRecommendedNews()
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        ///установка начального значения для selectedIndexPath
+        selectedIndexPath = IndexPath(item: 0, section: 1)
+        homeView.collectionView.reloadData()
+        fetchDataNews(forCategory: "")
+    }
+    
     //MARK: - Private methods
     private func setupViews() {
         homeView.collectionView.register(TextFieldCollectionViewCell.self, forCellWithReuseIdentifier: "TextFieldCollectionViewCell")
@@ -36,7 +56,40 @@ class HomeViewController: UIViewController {
     private func setDelegates() {
         homeView.collectionView.delegate = self
         homeView.collectionView.dataSource = self
+        
     }
+    
+
+    private func fetchDataNews(forCategory category: String) {
+        newsService.fetchNews(forCategory: category) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.newsData = data
+                    self.homeView.collectionView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func fetchRecommendedNews() {
+        newsService.fetchNewNews(limitRequest: 10) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let news):
+                DispatchQueue.main.async {
+                    self.recNewsData = news
+                    self.homeView.collectionView.reloadData()
+                }
+            case .failure(let error):
+                print("Failed to fetch recommended news: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     
     private func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
@@ -139,20 +192,34 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        ///устанавливаем выбранную ячейку в selectedIndexPath
+        selectedIndexPath = indexPath
+        ///обновляем коллекцию
+        homeView.collectionView.reloadData()
+        
         let section = sections[indexPath.section]
         switch section {
         case .textField(_):
             
             print("Поиск")
-        case .topics(_):
 
-            print("Категории")
+        case .topics(let topics):
+            let selectedCategory = topics[indexPath.row].categories
+            print("Выбранная категория: \(selectedCategory)")
+            fetchDataNews(forCategory: selectedCategory)
+            ///после выбора новой категории, выполнить скролл к началу
+            homeView.collectionView.reloadData()
+            homeView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 2), at: .left, animated: true)
+            
         case .news(_):
-            //TODO:
+            print("Новости")
+            guard let selectedNews = newsData?[indexPath.row] else { return }
             let detailVC = DetailViewController()
             navigationController?.pushViewController(detailVC, animated: true)
         case .recommended(_):
-            //TODO: 
+            print("Рекомендации")
+            guard let selectedRecomendedData = recNewsData?[indexPath.row] else { return }
+            
             let detailVC = DetailViewController()
             navigationController?.pushViewController(detailVC, animated: true)
             
@@ -167,21 +234,53 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        sections[section].count
+        switch sections[section] {
+        case .textField(_):
+            return 1
+        case .topics(let topics):
+            return topics.count
+        case .news(_):
+            return 10
+        case .recommended(_):
+            if let recNews = recNewsData {
+                if recNews.count > 5 {
+                    return 5
+                }
+                if recNews.count < 5 {
+                    return recNews.count
+                }
+            }
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch sections[indexPath.section] {
         case .textField(_):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "TextFieldCollectionViewCell", for: indexPath) as? TextFieldCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.searchTextField.delegate = self
             return cell
-        case .topics(let topic):
+        case .topics(let topics):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "CategoriesCollectionViewCell", for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
-            cell.configureCell(topicName: topic[indexPath.row].categories)
+
+            ///isSelectedCell в зависимости от того, выбрана ли ячейка в данный момент
+            cell.isSelectedCell = indexPath == selectedIndexPath
+            
+            if indexPath.row < topics.count {
+                cell.configureCell(topicName: topics[indexPath.row].categories)
+            }
             return cell
         case .news(let news):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "LatestNewsCollectionViewCell", for: indexPath) as? LatestNewsCollectionViewCell else { return UICollectionViewCell() }
-            cell.configureCell(image: news[indexPath.row].image, newTopic: news[indexPath.row].newsTopic, news: news[indexPath.row].news)
+            
+            if let dataNews = newsData, indexPath.item < dataNews.count {
+                let newsDataItem = dataNews[indexPath.item]
+                cell.configureCell(image: newsDataItem.urlToImage ?? "",
+                                   newTopic: newsDataItem.author ?? "",
+                                   news: newsDataItem.description ?? "")
+            }
+            cell.delegate = self
             return cell
         case .recommended(let recommendedNews):
             guard let cell = homeView.collectionView.dequeueReusableCell(withReuseIdentifier: "RecomendedNewsCollectionViewCell", for: indexPath) as? RecomendedNewsCollectionViewCell else { return UICollectionViewCell() }
@@ -219,6 +318,61 @@ extension HomeViewController {
         }
     }
 }
+
+//MARK: - UITextFieldDelegate
+extension HomeViewController: UITextFieldDelegate {
+    
+    private func fetchSearchData(text: String) {
+        newsService.searchNews(query: text, limitRequest: 10) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    let searchResultsVC = SearchResultsViewController()
+                    searchResultsVC.searchResults = data
+                    self.navigationController?.pushViewController(searchResultsVC, animated: true)
+                    
+//                    ///если хотим показать результаты поиска в ячейке
+//                    self.newsData = data
+//                    self.homeView.collectionView.reloadSections(IndexSet(integer: 2))
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.text != "" {
+            return true
+        } else {
+            textField.placeholder = "Please enter your text"
+            return false
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let search = textField.text {
+            fetchSearchData(text: search)
+            textField.text = ""
+        }
+    }
+}
+//MARK: - BookmarkDelegate
+extension HomeViewController: BookmarkDelegate {
+    func addToBookmarks(news: ListItem) {
+        BookmarkManager.shared.addBookmark(news)
+        print(BookmarkManager.shared.bookmarkedItems.count)
+        
+        if let bookmarksVC = navigationController?.viewControllers.first(where: { $0 is BookmarksViewController }) as? BookmarksViewController {
+            bookmarksVC.updateBookmarks()
+        }
+    }
+}
+
 //MARK: - PreviewProvider
 struct ContentViewController_Previews: PreviewProvider {
     static var previews: some View {

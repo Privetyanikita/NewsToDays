@@ -64,6 +64,11 @@
 		BE24E71B2BAABA9C000D2E0D /* ListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E71A2BAABA9C000D2E0D /* ListSection.swift */; };
 		BE24E71D2BAABAB4000D2E0D /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E71C2BAABAB4000D2E0D /* ListItem.swift */; };
 		BE24E7202BAC2E10000D2E0D /* BookmarksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24E71F2BAC2E10000D2E0D /* BookmarksTableViewCell.swift */; };
+
+		BE64D1B22BB34C89006CCB0D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BE64D1B12BB34C89006CCB0D /* Kingfisher */; };
+		BE64D1F92BB82ED0006CCB0D /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE64D1F82BB82ED0006CCB0D /* SearchResultsViewController.swift */; };
+		BE64D1FB2BB82F64006CCB0D /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE64D1FA2BB82F64006CCB0D /* SearchResultTableViewCell.swift */; };
+		BEB19B3E2BB2F9520002F973 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB19B3D2BB2F9520002F973 /* BookmarkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +130,9 @@
 		BE24E71A2BAABA9C000D2E0D /* ListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSection.swift; sourceTree = "<group>"; };
 		BE24E71C2BAABAB4000D2E0D /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		BE24E71F2BAC2E10000D2E0D /* BookmarksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewCell.swift; sourceTree = "<group>"; };
+		BE64D1F82BB82ED0006CCB0D /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		BE64D1FA2BB82F64006CCB0D /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
+		BEB19B3D2BB2F9520002F973 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,7 +344,9 @@
 		847F26FA2BA736540057F627 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+
 				09007D2A2BACC3F300C72B16 /* Language */,
+				BE64D1F72BB82EB2006CCB0D /* SearchResults */,
 				526B07EC2BA9B9EF002C99B1 /* TabBar */,
 				847F27002BA73B310057F627 /* Onboarding */,
 				526B08022BB17F4E002C99B1 /* SelectCategories */,
@@ -619,6 +629,31 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		BE64D1F72BB82EB2006CCB0D /* SearchResults */ = {
+			isa = PBXGroup;
+			children = (
+				BE64D1FC2BB82F69006CCB0D /* Cell */,
+				BE64D1FD2BB82F8A006CCB0D /* Controller */,
+			);
+			path = SearchResults;
+			sourceTree = "<group>";
+		};
+		BE64D1FC2BB82F69006CCB0D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BE64D1FA2BB82F64006CCB0D /* SearchResultTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		BE64D1FD2BB82F8A006CCB0D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BE64D1F82BB82ED0006CCB0D /* SearchResultsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -728,6 +763,7 @@
 				847F272F2BA7429C0057F627 /* ProfileModel.swift in Sources */,
 				526B080B2BB18A35002C99B1 /* SelectCategoriesMD.swift in Sources */,
 				BE24E70F2BAAB939000D2E0D /* TextFieldCollectionViewCell.swift in Sources */,
+				BE64D1F92BB82ED0006CCB0D /* SearchResultsViewController.swift in Sources */,
 				847F27182BA740530057F627 /* OnboardingViewController.swift in Sources */,
 				09007D1C2BAB766200C72B16 /* TermsConditionsViewController.swift in Sources */,
 				09007D302BACC50500C72B16 /* LanguageView.swift in Sources */,
@@ -747,6 +783,7 @@
 				847F27332BA742BE0057F627 /* DetailView.swift in Sources */,
 				09007D202BAB775A00C72B16 /* TermsConditionsView.swift in Sources */,
 				09AAC3782BA9DB8100D5C913 /* ProfileInfoTableViewCell.swift in Sources */,
+				BE64D1FB2BB82F64006CCB0D /* SearchResultTableViewCell.swift in Sources */,
 				847F27222BA741EC0057F627 /* CategoriesModel.swift in Sources */,
 				526B07FA2BAC9D82002C99B1 /* BlueButton.swift in Sources */,
 				BE24E7132BAAB99C000D2E0D /* LatestNewsCollectionViewCell.swift in Sources */,
