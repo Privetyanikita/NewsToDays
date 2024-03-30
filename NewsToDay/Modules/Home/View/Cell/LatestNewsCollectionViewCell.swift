@@ -20,7 +20,6 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
         let element = UIImageView()
         element.layer.cornerRadius = 12
         element.layer.masksToBounds = true
-        element.backgroundColor = .red
         element.contentMode = .scaleAspectFill
         return element
     }()
@@ -93,7 +92,7 @@ final class LatestNewsCollectionViewCell: UICollectionViewCell {
     func configureCell(image: String, newTopic: String, news: String) {
 //        self.newsItem = newsItem
         latestNewsImage.kf.indicatorType = .activity
-        latestNewsImage.kf.setImage(with: URL(string: image))    //UIImage(named: image)
+        latestNewsImage.kf.setImage(with: URL(string: image))   
         topicNewsLabel.text = newTopic
         newsLabel.text = news
     }

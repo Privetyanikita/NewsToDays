@@ -30,7 +30,8 @@ final class TabBarController: UITabBarController {
 
 
 //MARK: - Private Methods
- extension TabBarController {
+
+private extension TabBarController {
     func configure() {
         tabBar.tintColor = .purplePrimary
         tabBar.unselectedItemTintColor = .greyLight

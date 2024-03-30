@@ -65,6 +65,17 @@ class CustomTextField: UITextField {
             leftViewContainer.addSubview(usernameImageView)
             self.leftViewMode = .always
             
+            let rightViewContainer = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+            let eyeButton = UIButton(type: .custom)
+            eyeButton.setImage(UIImage(systemName: "eye"), for: .normal)
+            eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
+            eyeButton.frame = CGRect(x: 0, y: 10, width: 24, height: 24)
+            eyeButton.contentMode = .scaleAspectFit
+            //                eyeButton.addTarget(self, action: #selector(eyeButtonTapped), for: .touchUpInside)
+            rightViewContainer.addSubview(eyeButton)
+            self.rightView = rightViewContainer
+            self.rightViewMode = .always
+            
         case .repeatPassword:
             self.placeholder = "Repeat password"
             self.leftView = leftViewContainer
@@ -74,6 +85,17 @@ class CustomTextField: UITextField {
             leftViewContainer.addSubview(usernameImageView)
             self.leftViewMode = .always
             
+            let rightViewContainer = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+            let eyeButton = UIButton(type: .custom)
+            eyeButton.setImage(UIImage(systemName: "eye"), for: .normal)
+            eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
+            eyeButton.frame = CGRect(x: 0, y: 10, width: 24, height: 24)
+            eyeButton.contentMode = .scaleAspectFit
+            //                eyeButton.addTarget(self, action: #selector(eyeButtonTapped), for: .touchUpInside)
+            rightViewContainer.addSubview(eyeButton)
+            self.rightView = rightViewContainer
+            self.rightViewMode = .always
+            
         }
     }
     
@@ -81,3 +103,7 @@ class CustomTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+//@objc func eyeButtonTapped() {
+//    self.isSecureTextEntry = !self.isSecureTextEntry
+//}
