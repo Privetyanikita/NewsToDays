@@ -21,11 +21,18 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
         element.textColor = UIColor(named: "GreyPrimary")
         return element
     }()
+    //MARK: - Public Properties
+    var isSelectedCell: Bool = false {
+        didSet {
+            updateBackgroundColor()
+        }
+    }
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
         setConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -34,6 +41,11 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
     //MARK: - Methods
     func configureCell(topicName: String) {
         categoryLabel.text = topicName
+    }
+    
+    private func updateBackgroundColor() {
+        categoryLabel.backgroundColor = isSelectedCell ? .purplePrimary : .greyLighter
+        categoryLabel.textColor = isSelectedCell ? .white : .greyPrimary
     }
     
     private func setupView() {
