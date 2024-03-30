@@ -97,20 +97,20 @@ class DetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-
-            DispatchQueue.main.async {
-                self.navigationController?.navigationBar.prefersLargeTitles = false
-                self.navigationItem.largeTitleDisplayMode = .never
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-            }
-        }
+        super.viewWillAppear(animated)
         
-        override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        DispatchQueue.main.async {
+            self.navigationController?.navigationBar.prefersLargeTitles = false
+            self.navigationItem.largeTitleDisplayMode = .never
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     
     // MARK: - Setup
     ///прокидываем ячейку

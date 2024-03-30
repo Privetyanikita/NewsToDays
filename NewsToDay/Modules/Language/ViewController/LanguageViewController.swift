@@ -22,7 +22,8 @@ final class LanguageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.addSubview(languageView)
+        setupConstraint()
 
         languageView.languageTapCallBack = { index in
             switch index {
@@ -35,30 +36,33 @@ final class LanguageViewController: UIViewController {
                 break
             }
         }
-
-        let backButtonImage = UIImage(named: "BackImage")?.withRenderingMode(.alwaysOriginal)
-
-        let backButton = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.addSubview(languageView)
+        DispatchQueue.main.async {
+            self.navigationController?.navigationBar.prefersLargeTitles = false
+            self.navigationItem.largeTitleDisplayMode = .never
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
 
-
+//    @objc func backButtonTapped() {
+//        navigationController?.popViewController(animated: true)
+//    }
+    
+    private func setupConstraint(){
         languageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
-
-    @objc func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-
-
-
-
+    
     private func setLangauge(languageCode: String, language: String) {
         let alert = UIAlertController(title: nil, message: "Changing language", preferredStyle: .alert)
 

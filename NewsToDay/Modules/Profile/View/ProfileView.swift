@@ -9,12 +9,6 @@ final class ProfileView: UIView {
     private let profileImageKey = "profileImageKey" // Key for UserDefaults
     
     // MARK: - Views
-    private let backgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "CustomWhite")
-        return view
-    }()
-    
     private lazy var profileMainTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ProfileMainTableViewCell.self, forCellReuseIdentifier: ProfileMainTableViewCell.reuseIdentifier)
@@ -48,20 +42,15 @@ final class ProfileView: UIView {
     
     // MARK: Set Views
     private func setViews() {
-        [backgroundView, profileMainTableView].forEach { self.addSubview($0) }
+        [profileMainTableView].forEach { self.addSubview($0) }
     }
     
     // MARK: Layout Views
     func layoutViews() {
-        backgroundView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
         
-        profileMainTableView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(105)
-            $0.left.equalToSuperview().offset(20)
-            $0.right.equalToSuperview().inset(20)
-            $0.bottom.equalTo(safeAreaInsets.bottom)
+        profileMainTableView.snp.makeConstraints { make in
+            make.top.bottom.equalTo(self.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview().inset(20)
         }
     }
     
