@@ -2,6 +2,10 @@
 
 Welcome to the NewsToDays App repository! This app allows users to stay updated with the latest news from various categories.
 
+
+
+https://github.com/Privetyanikita/NewsToDays/assets/107617602/648d95c1-65f6-4729-9d03-22c04f59b146
+
 ## Contributors
 
 [Nikita Korniuk](https://github.com/Privetyanikita)\
