@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CategoriesTableViewProtocol: AnyObject {
-    func presentDetailView()
+    func presentDetailView(news:News?)
 }
 
 
@@ -62,7 +62,7 @@ final class CategoriesTableView: UIView {
 
 extension CategoriesTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.presentDetailView()
+        delegate?.presentDetailView(news:NewsTableData?[indexPath.row])
     }
 }
 
