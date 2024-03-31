@@ -59,8 +59,11 @@ final class CategoriesTableViewController: UIViewController {
 //MARK: - Delegate
 extension CategoriesTableViewController: CategoriesTableViewProtocol {
 
-    func presentDetailView() {
-        navigationController?.pushViewController(DetailViewController(), animated: true)
+    func presentDetailView(news:News?) {
+        guard let news = news else { return }
+        let vc = DetailViewController()
+        vc.configure(with: news)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
