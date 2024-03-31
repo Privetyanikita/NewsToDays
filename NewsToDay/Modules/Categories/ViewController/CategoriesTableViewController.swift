@@ -51,6 +51,7 @@ final class CategoriesTableViewController: UIViewController {
         title = titleForTitle
         categoriesTableView.arrayTransfer(news: news)
         categoriesTableView.reloadTableView()
+        navigationController?.navigationBar.tintColor = .purplePrimary
     }
 }
 

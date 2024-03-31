@@ -83,7 +83,23 @@ final class CategoriesView: UIView {
 extension CategoriesView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("cell by index \(indexPath.item) was tapped")
-        delegate?.fetchData(category: Categories.business)
+        switch indexPath.item {
+        case 0:
+            delegate?.fetchData(category: Categories.business)
+        case 1:
+            delegate?.fetchData(category: Categories.entertainment)
+        case 2:
+            delegate?.fetchData(category: Categories.general)
+        case 3:
+            delegate?.fetchData(category: Categories.health)
+        case 4:
+            delegate?.fetchData(category: Categories.science)
+        case 5:
+            delegate?.fetchData(category: Categories.sports)
+        case 6:
+            delegate?.fetchData(category: Categories.technology)
+        default: break
+        }
     }
 }
 
@@ -157,6 +173,6 @@ private extension CategoriesView {
         categoriesArray.append(CategoriesModel(title: CategoriesMockData.animalsCategory))
         categoriesArray.append(CategoriesModel(title: CategoriesMockData.natureCategory))
         categoriesArray.append(CategoriesModel(title: CategoriesMockData.foodCategory))
-        categoriesArray.append(CategoriesModel(title: CategoriesMockData.artCategory))
+//        categoriesArray.append(CategoriesModel(title: CategoriesMockData.artCategory))
     }
 }
