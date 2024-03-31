@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import FirebaseAuth
 
 class BookmarksViewController: UIViewController {
     //MARK: - Private Properties
@@ -70,18 +71,20 @@ class BookmarksViewController: UIViewController {
         return view
     }()
     
+    private var bookmarks: [NewsModelDatabase] = []
+    
     //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setupViews()
         updateBookmarksVisibility()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchBookmarks()
         updateBookmarksVisibility()
-
+        
     }
     
     //MARK: - Methods
@@ -90,7 +93,7 @@ class BookmarksViewController: UIViewController {
     }
     
     private func updateBookmarksVisibility() {
-        if BookmarkManager.shared.bookmarkedItems.isEmpty {
+        if bookmarks.isEmpty {
             tableView.isHidden = true
             view.addSubview(noBookmarksView)
             noBookmarksView.snp.makeConstraints { make in
@@ -111,6 +114,23 @@ class BookmarksViewController: UIViewController {
         }
     }
     
+    private func fetchBookmarks() {
+        guard let currentUser = Auth.auth().currentUser else {
+            print("Текущий пользователь не найден")
+            return
+        }
+        
+        FirebaseManager.shared.fetchBookmarks { bookmarks in
+            if let bookmarks = bookmarks {
+                for bookmark in bookmarks {
+                    self.bookmarks.append(bookmark)
+                }
+            } else {
+                print("Failed to fetch bookmarks or no bookmarks available.")
+            }
+        }
+    }
+    
 }
 //MARK: - UITableViewDataSource
 extension BookmarksViewController: UITableViewDataSource {
@@ -124,7 +144,7 @@ extension BookmarksViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return BookmarkManager.shared.bookmarkedItems.count
+        return bookmarks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,9 +152,8 @@ extension BookmarksViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let item = BookmarkManager.shared.bookmarkedItems[indexPath.row]
-        cell.configureCell(image: item.image, newTopic: item.newsTopic, news: item.news)
-        
+        let item = bookmarks[indexPath.row]
+        cell.configureCell(image: item.urlToImage ?? "", newTopic: item.title ?? "", news: item.description ?? "")
         return cell
     }
 }

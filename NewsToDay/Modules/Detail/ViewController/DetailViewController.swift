@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 import SafariServices
+import FirebaseAuth
 
 class DetailViewController: UIViewController {
     
@@ -99,6 +100,7 @@ class DetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        changeBookmarkImageButton()
         
         DispatchQueue.main.async {
             self.navigationController?.navigationBar.prefersLargeTitles = false
@@ -129,7 +131,7 @@ class DetailViewController: UIViewController {
     
     private func addAction() {
         backButton.addTarget(self, action: #selector(backButtonTappet), for: .touchUpInside)
-        favoriteButton.addTarget(self, action: #selector(favoriteButtonTappet), for: .touchUpInside)
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(shareButtonTappet), for: .touchUpInside)
         categoryButton.addTarget(self, action: #selector(categoryButtonTappet), for: .touchUpInside)
     }
@@ -139,9 +141,24 @@ class DetailViewController: UIViewController {
     }
     
     //TODO: - добавить в закладки
-    @objc private func favoriteButtonTappet() {
-        print("bookmarks")
-        
+    @objc private func favoriteButtonTapped() {
+//        FirebaseManager.shared.findBookmarkID(withURL: urlForNews) { bookmarkID in
+//            guard let bookmarkID = bookmarkID else {
+//                dataBaseForNews = 
+//                FirebaseManager.shared.addBookmark(news: dataForNews) { result in
+//                    <#code#>
+//                }
+//                return
+//            }
+//            
+//            FirebaseManager.shared.removeBookmark(bookmarkID: bookmarkID) { success in
+//                if success {
+//                    print("Bookmark successfully removed!")
+//                } else {
+//                    print("Failed to remove bookmark.")
+//                }
+//            }
+//        }
     }
     
     @objc private func shareButtonTappet() {
@@ -173,6 +190,15 @@ class DetailViewController: UIViewController {
         view.addSubview(headerStackView)
     }
     
+    private func changeBookmarkImageButton(){
+        FirebaseManager.shared.bookmarkExists(withURL: self.urlForNews) { bookmarkExists in
+            if bookmarkExists {
+                self.favoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+            } else {
+                self.favoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+            }
+        }
+    }
 }
 
 // MARK: - Extension

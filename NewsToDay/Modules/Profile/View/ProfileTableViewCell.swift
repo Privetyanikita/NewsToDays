@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 final class ProfileMainTableViewCell: UITableViewCell, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -48,6 +49,7 @@ final class ProfileMainTableViewCell: UITableViewCell, UIImagePickerControllerDe
         setViews()
         layoutViews()
         addGestureRecognizerToProfileImage()
+        nameAndEmailCurrentUser()
         self.backgroundColor = .clear
     }
     
@@ -82,6 +84,16 @@ final class ProfileMainTableViewCell: UITableViewCell, UIImagePickerControllerDe
             $0.left.equalToSuperview().offset(96)
         }
     }
+    
+    private func nameAndEmailCurrentUser(){
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if let user = user {
+                self.nameLabel.text = user.displayName
+                self.emailLabel.text = user.email
+            }
+        }
+    }
+    
     private func addGestureRecognizerToProfileImage() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         profileImage.addGestureRecognizer(tapGesture)
