@@ -142,40 +142,7 @@ class DetailViewController: UIViewController {
     
     //TODO: - добавить в закладки
     @objc private func favoriteButtonTapped() {
-//        guard let dataForNews = self.dataForNews, let url = dataForNews.url else { return }
-//
-//        let bookmarksManager = BookmarksManager()
-//
-//        // Кодируем URL, чтобы он был валидным для Firestore
-//        let encodedURL = url.replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: ":", with: "_")
-//
-//        // Проверяем, существует ли уже закладка
-//        bookmarksManager.checkDuplicate(url: encodedURL) { exists in
-//            if exists {
-//                // Если закладка существует, удаляем ее
-//                bookmarksManager.removeBookmark(url: encodedURL) { error in
-//                    if let error = error {
-//                        print("Ошибка при удалении закладки: \(error.localizedDescription)")
-//                    } else {
-//                        print("Закладка успешно удалена")
-//                        // Обновите UI соответствующим образом, если нужно
-//                    }
-//                }
-//            } else {
-//                // Подготавливаем данные для добавления, кодируя URL в данных новости
-//                var newsModel = NewsModelDatabase(news: dataForNews)
-//                newsModel.url = encodedURL 
-//
-//                bookmarksManager.addBookmark(news: newsModel) { error in
-//                    if let error = error {
-//                        print("Ошибка при добавлении закладки: \(error.localizedDescription)")
-//                    } else {
-//                        print("Закладка успешно добавлена")
-//                        // Обновите UI соответствующим образом, если нужно
-//                    }
-//                }
-//            }
-//        }
+        print("add to favorite")
     }
 
 
