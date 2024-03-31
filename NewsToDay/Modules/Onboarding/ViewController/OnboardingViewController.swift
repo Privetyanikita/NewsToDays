@@ -20,7 +20,7 @@ final class OnboardingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        UserDefaults.standard.set(true, forKey: Constants.UserDefaults.onboarding)
+//        UserDefaults.standard.set(true, forKey: Constants.UserDefaults.onboarding)
     }
     
     
