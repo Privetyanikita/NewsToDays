@@ -18,6 +18,8 @@
 		526B08052BB17F96002C99B1 /* SelectCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526B08042BB17F96002C99B1 /* SelectCategoriesViewController.swift */; };
 		526B08082BB187FE002C99B1 /* SelectCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526B08072BB187FE002C99B1 /* SelectCategoriesView.swift */; };
 		526B080B2BB18A35002C99B1 /* SelectCategoriesMD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526B080A2BB18A35002C99B1 /* SelectCategoriesMD.swift */; };
+		526B080D2BB6F58F002C99B1 /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526B080C2BB6F58F002C99B1 /* CategoriesTableViewController.swift */; };
+		526B080F2BB6F678002C99B1 /* CategoriesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526B080E2BB6F678002C99B1 /* CategoriesTableView.swift */; };
 		8425C99A2BB89D1300029E5A /* LanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8425C9992BB89D1300029E5A /* LanguageTableViewController.swift */; };
 		8425C99C2BB89D6200029E5A /* LanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8425C99B2BB89D6200029E5A /* LanguageView.swift */; };
 		8425C99E2BB89D8A00029E5A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8425C99D2BB89D8A00029E5A /* TableViewCell.swift */; };
@@ -115,6 +117,8 @@
 		526B08042BB17F96002C99B1 /* SelectCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoriesViewController.swift; sourceTree = "<group>"; };
 		526B08072BB187FE002C99B1 /* SelectCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoriesView.swift; sourceTree = "<group>"; };
 		526B080A2BB18A35002C99B1 /* SelectCategoriesMD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoriesMD.swift; sourceTree = "<group>"; };
+		526B080C2BB6F58F002C99B1 /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
+		526B080E2BB6F678002C99B1 /* CategoriesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableView.swift; sourceTree = "<group>"; };
 		8425C9992BB89D1300029E5A /* LanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTableViewController.swift; sourceTree = "<group>"; };
 		8425C99B2BB89D6200029E5A /* LanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageView.swift; sourceTree = "<group>"; };
 		8425C99D2BB89D8A00029E5A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -582,6 +586,7 @@
 			isa = PBXGroup;
 			children = (
 				847F271D2BA741D10057F627 /* CategoriesViewController.swift */,
+				526B080C2BB6F58F002C99B1 /* CategoriesTableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -591,6 +596,7 @@
 			children = (
 				526B07FF2BB0D84C002C99B1 /* Cell */,
 				847F271F2BA741DF0057F627 /* CategoriesView.swift */,
+				526B080E2BB6F678002C99B1 /* CategoriesTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -926,6 +932,7 @@
 				84AFD6112BB3712C00B1AD61 /* FirebaseManager.swift in Sources */,
 				8425C99C2BB89D6200029E5A /* LanguageView.swift in Sources */,
 				847F27462BA74A1A0057F627 /* Font.swift in Sources */,
+				526B080D2BB6F58F002C99B1 /* CategoriesTableViewController.swift in Sources */,
 				09AAC3762BA8B0BB00D5C913 /* ProfileTableViewCell.swift in Sources */,
 				526B07FC2BACDCD2002C99B1 /* CustomLabel.swift in Sources */,
 				847F27142BA740210057F627 /* HomeView.swift in Sources */,
@@ -936,6 +943,7 @@
 				8425C99E2BB89D8A00029E5A /* TableViewCell.swift in Sources */,
 				847F271C2BA741B40057F627 /* OnboardingModel.swift in Sources */,
 				526B08082BB187FE002C99B1 /* SelectCategoriesView.swift in Sources */,
+				526B080F2BB6F678002C99B1 /* CategoriesTableView.swift in Sources */,
 				8425C9A12BB89DC200029E5A /* LanguageViewController.swift in Sources */,
 				847F26E52BA731840057F627 /* AppDelegate.swift in Sources */,
 				84B80E862BB2290100535B72 /* Endpoints.swift in Sources */,

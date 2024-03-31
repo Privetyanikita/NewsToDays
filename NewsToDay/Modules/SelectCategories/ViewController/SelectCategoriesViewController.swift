@@ -37,6 +37,7 @@ final class SelectCategoriesViewController: UIViewController {
 extension SelectCategoriesViewController: SelectCategoriesViewProtocol {
     
     func actionButtonPressed() {
+        UserDefaults.standard.set(true, forKey: Constants.UserDefaults.onboarding)
         let tabBarVC = TabBarController()
         tabBarVC.modalPresentationStyle = .fullScreen
         present(tabBarVC, animated: true)

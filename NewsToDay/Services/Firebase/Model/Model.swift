@@ -11,7 +11,7 @@ struct NewsModelDatabase{
     let author: String?
     let title: String?
     let description: String?
-    let url: String?
+    var url: String?
     let urlToImage: String?
     let content: String?
     
@@ -32,5 +32,16 @@ struct NewsModelDatabase{
         self.url = url
         self.urlToImage = urlToImage
         self.content = content
+    }
+}
+
+extension NewsModelDatabase {
+    init(news: News) {
+        self.author = news.author
+        self.title = news.title
+        self.description = news.description
+        self.url = news.url
+        self.urlToImage = news.urlToImage
+        self.content = news.content
     }
 }

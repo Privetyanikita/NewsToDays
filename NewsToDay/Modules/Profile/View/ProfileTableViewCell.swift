@@ -14,7 +14,7 @@ final class ProfileMainTableViewCell: UITableViewCell, UIImagePickerControllerDe
     
     let profileImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(named: "ProfileImage")
         imageView.tintColor = .purplePrimary
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = UIColor(named: "GreyLighter")

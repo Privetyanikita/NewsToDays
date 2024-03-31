@@ -11,18 +11,18 @@ import Foundation
 
 enum CategoriesMockData {
     
-    static let sportsCategory = "🏈  Sports"
-    static let politicsCategory = "⚖️  Politics"
-    static let lifeCategory = "🌞  Life"
-    static let gamingCategory = "🎮  Gaming"
-    static let animalsCategory = "🐻  Animals"
-    static let natureCategory = "🌴  Nature"
-    static let foodCategory = "🍔  Food"
-    static let artCategory = "🎨  Art"
-    static let historyCategory = "📜  History"
-    static let fashionCategory = "👗  Fashion"
-    static let covid19Category = "😷  Covid-19"
-    static let middleEastCategory = "⚔️  Middle East"
+    static let sportsCategory = "💰 Business"
+    static let politicsCategory = "⛷️ Entertainment"
+    static let lifeCategory = "🌐 General"
+    static let gamingCategory = "🇨🇭 Health"
+    static let animalsCategory = "🔮 Science"
+    static let natureCategory = "⚽ Sports"
+    static let foodCategory = "💻 Technology"
+//    static let artCategory = "🎨 Art"
+//    static let historyCategory = "📜 History"
+//    static let fashionCategory = "👗 Fashion"
+//    static let covid19Category = "😷 Covid-19"
+//    static let middleEastCategory = "⚔️ Middle East"
 }
 
 

@@ -59,6 +59,7 @@ final class RegisterViewController: UIViewController {
     //MARK: - Private Methods
     private func addAction() {
         signInButton.addTarget(self, action: #selector(signInButtonTappet), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(actionButtonTappet), for: .touchUpInside)
     }
     
     private func setViews() {

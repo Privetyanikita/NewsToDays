@@ -142,24 +142,43 @@ class DetailViewController: UIViewController {
     
     //TODO: - добавить в закладки
     @objc private func favoriteButtonTapped() {
-//        FirebaseManager.shared.findBookmarkID(withURL: urlForNews) { bookmarkID in
-//            guard let bookmarkID = bookmarkID else {
-//                dataBaseForNews = 
-//                FirebaseManager.shared.addBookmark(news: dataForNews) { result in
-//                    <#code#>
+//        guard let dataForNews = self.dataForNews, let url = dataForNews.url else { return }
+//
+//        let bookmarksManager = BookmarksManager()
+//
+//        // Кодируем URL, чтобы он был валидным для Firestore
+//        let encodedURL = url.replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: ":", with: "_")
+//
+//        // Проверяем, существует ли уже закладка
+//        bookmarksManager.checkDuplicate(url: encodedURL) { exists in
+//            if exists {
+//                // Если закладка существует, удаляем ее
+//                bookmarksManager.removeBookmark(url: encodedURL) { error in
+//                    if let error = error {
+//                        print("Ошибка при удалении закладки: \(error.localizedDescription)")
+//                    } else {
+//                        print("Закладка успешно удалена")
+//                        // Обновите UI соответствующим образом, если нужно
+//                    }
 //                }
-//                return
-//            }
-//            
-//            FirebaseManager.shared.removeBookmark(bookmarkID: bookmarkID) { success in
-//                if success {
-//                    print("Bookmark successfully removed!")
-//                } else {
-//                    print("Failed to remove bookmark.")
+//            } else {
+//                // Подготавливаем данные для добавления, кодируя URL в данных новости
+//                var newsModel = NewsModelDatabase(news: dataForNews)
+//                newsModel.url = encodedURL 
+//
+//                bookmarksManager.addBookmark(news: newsModel) { error in
+//                    if let error = error {
+//                        print("Ошибка при добавлении закладки: \(error.localizedDescription)")
+//                    } else {
+//                        print("Закладка успешно добавлена")
+//                        // Обновите UI соответствующим образом, если нужно
+//                    }
 //                }
 //            }
 //        }
     }
+
+
     
     @objc private func shareButtonTappet() {
         let webController = SFSafariViewController(url: URL(string: urlForNews)!)
@@ -191,13 +210,7 @@ class DetailViewController: UIViewController {
     }
     
     private func changeBookmarkImageButton(){
-        FirebaseManager.shared.bookmarkExists(withURL: self.urlForNews) { bookmarkExists in
-            if bookmarkExists {
-                self.favoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-            } else {
-                self.favoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
-            }
-        }
+        
     }
 }
 

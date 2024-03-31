@@ -115,20 +115,20 @@ class BookmarksViewController: UIViewController {
     }
     
     private func fetchBookmarks() {
-        guard let currentUser = Auth.auth().currentUser else {
-            print("Текущий пользователь не найден")
-            return
-        }
-        
-        FirebaseManager.shared.fetchBookmarks { bookmarks in
-            if let bookmarks = bookmarks {
-                for bookmark in bookmarks {
-                    self.bookmarks.append(bookmark)
-                }
-            } else {
-                print("Failed to fetch bookmarks or no bookmarks available.")
-            }
-        }
+//        guard let currentUser = Auth.auth().currentUser else {
+//            print("Текущий пользователь не найден")
+//            return
+//        }
+//        
+//        FirebaseManager.shared.fetchBookmarks { bookmarks in
+//            if let bookmarks = bookmarks {
+//                for bookmark in bookmarks {
+//                    self.bookmarks.append(bookmark)
+//                }
+//            } else {
+//                print("Failed to fetch bookmarks or no bookmarks available.")
+//            }
+//        }
     }
     
 }
