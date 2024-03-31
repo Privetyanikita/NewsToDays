@@ -12,9 +12,9 @@ final class ProfileViewController: UIViewController {
     
     //MARK: - Properties
     let dataSource: [ProfileCellModel] = [
-        ProfileCellModel(title: NSLocalizedString("profileLanguage", comment: ""), image: UIImage(named:"AngleRight")),
-        ProfileCellModel(title: NSLocalizedString("profileTermsAndConditions", comment: ""), image: UIImage(named:"AngleRight")),
-        ProfileCellModel(title: NSLocalizedString("profileSignOut", comment: ""), image: UIImage(named:"SignOut"))
+        ProfileCellModel(title: "Language", image: UIImage(named:"AngleRight")),
+        ProfileCellModel(title:"Terms & Conditions", image: UIImage(named:"AngleRight")),
+        ProfileCellModel(title: "Sign Out", image: UIImage(named:"SignOut"))
     ]
     
     private lazy var profileView: UIView = ProfileView(frame: .zero, dataSource: self.dataSource, navigationController: navigationController)

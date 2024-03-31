@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 import SafariServices
+import FirebaseAuth
 
 class DetailViewController: UIViewController {
     
@@ -41,11 +42,11 @@ class DetailViewController: UIViewController {
         let element = UIView()
         return element
     }()
-   
+    
     private let backButton = UIButton(systemImageName: "arrow.left")
     private let favoriteButton = UIButton(systemImageName: "bookmark")
     private let shareButton = UIButton(systemImageName: "arrowshape.turn.up.right")
-
+    
     
     private lazy var categoryButton: UIButton = {
         let element = UIButton()
@@ -60,14 +61,14 @@ class DetailViewController: UIViewController {
     private let titlelabel = UILabel(text: "Name of title will be here",
                                      font: UIFont(name: "Inter-SemiBold", size: 20),
                                      color: .white)
-
+    
     private let authorlabel = UILabel(text: "Name of author here",
-                                     font: UIFont(name: "Inter-Medium", size: 16),
-                                     color: .white)
+                                      font: UIFont(name: "Inter-Medium", size: 16),
+                                      color: .white)
     
     private let articleLabel = UILabel(text: "Result here",
-                                     font: UIFont(name: "Inter-Medium", size: 16),
-                                     color: .black)
+                                       font: UIFont(name: "Inter-Medium", size: 16),
+                                       color: .black)
     
     //изменится согласно API
     private lazy var article: UITextView = {
@@ -83,6 +84,7 @@ class DetailViewController: UIViewController {
     }()
     
     private var urlForNews: String = ""
+    private var dataForNews:News!
     
     // MARK: - Life Cycle
     
@@ -98,12 +100,15 @@ class DetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        changeBookmarkImageButton()
         
         DispatchQueue.main.async {
             self.navigationController?.navigationBar.prefersLargeTitles = false
             self.navigationItem.largeTitleDisplayMode = .never
             self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -121,12 +126,12 @@ class DetailViewController: UIViewController {
         articleLabel.text = news.description
         article.text = news.content
         urlForNews = news.url ?? "google.com"
-        
+        dataForNews = news
     }
     
     private func addAction() {
         backButton.addTarget(self, action: #selector(backButtonTappet), for: .touchUpInside)
-        favoriteButton.addTarget(self, action: #selector(favoriteButtonTappet), for: .touchUpInside)
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(shareButtonTappet), for: .touchUpInside)
         categoryButton.addTarget(self, action: #selector(categoryButtonTappet), for: .touchUpInside)
     }
@@ -136,12 +141,44 @@ class DetailViewController: UIViewController {
     }
     
     //TODO: - добавить в закладки
-    @objc private func favoriteButtonTappet() {
-        print("bookmarks")
-        let bookmarksVC = BookmarksViewController()
-        self.navigationController?.pushViewController(bookmarksVC, animated: true)
-        self.navigationItem.hidesBackButton = true
+    @objc private func favoriteButtonTapped() {
+//        guard let dataForNews = self.dataForNews, let url = dataForNews.url else { return }
+//
+//        let bookmarksManager = BookmarksManager()
+//
+//        // Кодируем URL, чтобы он был валидным для Firestore
+//        let encodedURL = url.replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: ":", with: "_")
+//
+//        // Проверяем, существует ли уже закладка
+//        bookmarksManager.checkDuplicate(url: encodedURL) { exists in
+//            if exists {
+//                // Если закладка существует, удаляем ее
+//                bookmarksManager.removeBookmark(url: encodedURL) { error in
+//                    if let error = error {
+//                        print("Ошибка при удалении закладки: \(error.localizedDescription)")
+//                    } else {
+//                        print("Закладка успешно удалена")
+//                        // Обновите UI соответствующим образом, если нужно
+//                    }
+//                }
+//            } else {
+//                // Подготавливаем данные для добавления, кодируя URL в данных новости
+//                var newsModel = NewsModelDatabase(news: dataForNews)
+//                newsModel.url = encodedURL 
+//
+//                bookmarksManager.addBookmark(news: newsModel) { error in
+//                    if let error = error {
+//                        print("Ошибка при добавлении закладки: \(error.localizedDescription)")
+//                    } else {
+//                        print("Закладка успешно добавлена")
+//                        // Обновите UI соответствующим образом, если нужно
+//                    }
+//                }
+//            }
+//        }
     }
+
+
     
     @objc private func shareButtonTappet() {
         let webController = SFSafariViewController(url: URL(string: urlForNews)!)
@@ -172,6 +209,9 @@ class DetailViewController: UIViewController {
         view.addSubview(headerStackView)
     }
     
+    private func changeBookmarkImageButton(){
+        
+    }
 }
 
 // MARK: - Extension

@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import FirebaseAuth
 
 final class ProfileView: UIView {
     
@@ -118,6 +119,17 @@ extension ProfileView: UITableViewDelegate, UITableViewDataSource {
             let termsConditionsViewController = TermsConditionsViewController()
             navigationController?.pushViewController(termsConditionsViewController, animated: true)
             
+        case 3:
+            do {
+                try Auth.auth().signOut()
+                UserDefaults.standard.set(false, forKey: Constants.UserDefaults.onboarding)
+                let vc = OnboardingViewController()
+                vc.modalPresentationStyle = .fullScreen
+                navigationController?.present(vc, animated: true)
+            }
+            catch {
+                print("Error signing out: \(error.localizedDescription)")
+            }
         default:
             break
         }
