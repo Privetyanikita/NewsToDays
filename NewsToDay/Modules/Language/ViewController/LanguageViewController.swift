@@ -24,6 +24,7 @@ final class LanguageViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(languageView)
         setupConstraint()
+        self.navigationItem.largeTitleDisplayMode = .never
 
         languageView.languageTapCallBack = { index in
             switch index {
@@ -37,21 +38,6 @@ final class LanguageViewController: UIViewController {
             }
         }
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.navigationController?.navigationBar.prefersLargeTitles = false
-            self.navigationItem.largeTitleDisplayMode = .never
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
 
 //    @objc func backButtonTapped() {
 //        navigationController?.popViewController(animated: true)

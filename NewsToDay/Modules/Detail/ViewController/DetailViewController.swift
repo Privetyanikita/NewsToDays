@@ -90,7 +90,6 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .white
         addAction()
         setViews()

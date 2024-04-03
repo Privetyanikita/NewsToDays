@@ -15,28 +15,11 @@ final class TermsConditionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(termsConditionsView)
+        self.navigationItem.largeTitleDisplayMode = .never
+        title = "Terms & Conditions"
         
         termsConditionsView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.title = NSLocalizedString("termsAndConditionsLabel", comment: "")
-            self.navigationController?.navigationBar.prefersLargeTitles = false
-            self.navigationController?.navigationBar.tintColor = .purplePrimary
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-
-    
-    
-    
 }
