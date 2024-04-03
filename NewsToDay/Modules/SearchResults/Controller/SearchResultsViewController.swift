@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SearchResultsViewController: UIViewController {
+final class SearchResultsViewController: UIViewController {
     
     var searchResults: [News] = []
     

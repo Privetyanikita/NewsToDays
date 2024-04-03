@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import FirebaseAuth
 
-class BookmarksViewController: UIViewController {
+final class BookmarksViewController: UIViewController {
     //MARK: - Private Properties
     
     ///Пока моковые данные
