@@ -11,7 +11,7 @@ import Kingfisher
 import SafariServices
 import FirebaseAuth
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
     // MARK: - UI
     

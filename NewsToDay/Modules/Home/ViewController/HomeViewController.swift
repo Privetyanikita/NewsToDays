@@ -14,7 +14,7 @@ protocol BookmarkDelegate: AnyObject {
     func addToBookmarks(news: ListItem)
 }
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     //MARK: - Private Properties
     private let homeView = HomeView()
     private let sections = MockData.shared.pageData
