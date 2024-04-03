@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
-import SwiftUI
+
 
 protocol BookmarkDelegate: AnyObject {
     func addToBookmarks(news: ListItem)
@@ -381,22 +381,4 @@ extension HomeViewController: BookmarkDelegate {
             bookmarksVC.updateBookmarks()
         }
     }
-}
-
-//MARK: - PreviewProvider
-struct ContentViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentViewController()
-            .edgesIgnoringSafeArea(.all)
-    }
-}
-struct ContentViewController: UIViewControllerRepresentable {
-    
-    typealias UIViewControllerType = HomeViewController
-    
-    func makeUIViewController(context: Context) -> UIViewControllerType {
-        return HomeViewController()
-    }
-    
-    func updateUIViewController(_ uiViewController: HomeViewController, context: Context) {}
 }
